@@ -1,0 +1,502 @@
+{
+    "activityBar": [
+        "background",
+        "dropBackground",
+        "foreground",
+        "inactiveForeground",
+        "border"
+    ],
+    "activityBarBadge": [
+        "background",
+        "foreground"
+    ],
+    "badge": [
+        "foreground",
+        "background"
+    ],
+    "breadcrumb": [
+        "foreground",
+        "background",
+        "focusForeground",
+        "activeSelectionForeground"
+    ],
+    "breadcrumbPicker": [
+        "background"
+    ],
+    "button": [
+        "background",
+        "foreground",
+        "hoverBackground"
+    ],
+    "contrastActiveBorder": [],
+    "contrastBorder": [],
+    "debugExceptionWidget": [
+        "background",
+        "border"
+    ],
+    "debugToolBar": [
+        "background",
+        "border"
+    ],
+    "descriptionForeground": [],
+    "diffEditor": [
+        "insertedTextBackground",
+        "insertedTextBorder",
+        "removedTextBackground",
+        "removedTextBorder",
+        "border"
+    ],
+    "dropdown": [
+        "background",
+        "listBackground",
+        "border",
+        "foreground"
+    ],
+    "editor": [
+        "tokenColorCustomizations",
+        "background",
+        "foreground",
+        "selectionBackground",
+        "selectionForeground",
+        "inactiveSelectionBackground",
+        "selectionHighlightBackground",
+        "selectionHighlightBorder",
+        "wordHighlightBackground",
+        "wordHighlightBorder",
+        "wordHighlightStrongBackground",
+        "wordHighlightStrongBorder",
+        "findMatchBackground",
+        "findMatchHighlightBackground",
+        "findRangeHighlightBackground",
+        "findMatchBorder",
+        "findMatchHighlightBorder",
+        "findRangeHighlightBorder",
+        "hoverHighlightBackground",
+        "lineHighlightBackground",
+        "lineHighlightBorder",
+        "rangeHighlightBackground",
+        "rangeHighlightBorder",
+        "stackFrameHighlightBackground",
+        "focusedStackFrameHighlightBackground",
+        "snippetTabstopHighlightBackground",
+        "snippetTabstopHighlightBorder",
+        "snippetFinalTabstopHighlightBackground",
+        "snippetFinalTabstopHighlightBorder"
+    ],
+    "editorBracketMatch": [
+        "background",
+        "border"
+    ],
+    "editorCodeLens": [
+        "foreground"
+    ],
+    "editorCursor": [
+        "background",
+        "foreground"
+    ],
+    "editorError": [
+        "foreground",
+        "border"
+    ],
+    "editorGroup": [
+        "border",
+        "dropBackground",
+        "emptyBackground",
+        "focusedEmptyBorder"
+    ],
+    "editorGroupHeader": [
+        "noTabsBackground",
+        "tabsBackground",
+        "tabsBorder"
+    ],
+    "editorGutter": [
+        "background",
+        "modifiedBackground",
+        "addedBackground",
+        "deletedBackground"
+    ],
+    "editorHint": [
+        "foreground",
+        "border"
+    ],
+    "editorHoverWidget": [
+        "background",
+        "border"
+    ],
+    "editorIndentGuide": [
+        "background",
+        "activeBackground"
+    ],
+    "editorInfo": [
+        "foreground",
+        "border"
+    ],
+    "editorLineNumber": [
+        "foreground",
+        "activeForeground"
+    ],
+    "editorLink": [
+        "activeForeground"
+    ],
+    "editorMarkerNavigation": [
+        "background"
+    ],
+    "editorMarkerNavigationError": [
+        "background"
+    ],
+    "editorMarkerNavigationInfo": [
+        "background"
+    ],
+    "editorMarkerNavigationWarning": [
+        "background"
+    ],
+    "editorOverviewRuler": [
+        "border",
+        "findMatchForeground",
+        "rangeHighlightForeground",
+        "selectionHighlightForeground",
+        "wordHighlightForeground",
+        "wordHighlightStrongForeground",
+        "modifiedForeground",
+        "addedForeground",
+        "deletedForeground",
+        "errorForeground",
+        "warningForeground",
+        "infoForeground",
+        "bracketMatchForeground",
+        "currentContentForeground",
+        "incomingContentForeground",
+        "commonContentForeground"
+    ],
+    "editorPane": [
+        "background"
+    ],
+    "editorRuler": [
+        "foreground"
+    ],
+    "editorSuggestWidget": [
+        "background",
+        "border",
+        "foreground",
+        "highlightForeground",
+        "selectedBackground"
+    ],
+    "editorUnnecessaryCode": [
+        "border",
+        "opacity"
+    ],
+    "editorWarning": [
+        "foreground",
+        "border"
+    ],
+    "editorWhitespace": [
+        "foreground"
+    ],
+    "editorWidget": [
+        "background",
+        "border",
+        "resizeBorder"
+    ],
+    "errorForeground": [],
+    "extensionButton": [
+        "prominentForeground",
+        "prominentBackground",
+        "prominentHoverBackground"
+    ],
+    "focusBorder": [],
+    "foreground": [],
+    "gitDecoration": [
+        "addedResourceForeground",
+        "modifiedResourceForeground",
+        "deletedResourceForeground",
+        "untrackedResourceForeground",
+        "ignoredResourceForeground",
+        "conflictingResourceForeground",
+        "submoduleResourceForeground"
+    ],
+    "input": [
+        "background",
+        "border",
+        "foreground",
+        "placeholderForeground"
+    ],
+    "inputOption": [
+        "activeBorder"
+    ],
+    "inputValidation": [
+        "errorBackground",
+        "errorForeground",
+        "errorBorder",
+        "infoBackground",
+        "infoForeground",
+        "infoBorder",
+        "warningBackground",
+        "warningForeground",
+        "warningBorder"
+    ],
+    "list": [
+        "activeSelectionBackground",
+        "activeSelectionForeground",
+        "dropBackground",
+        "focusBackground",
+        "focusForeground",
+        "highlightForeground",
+        "hoverBackground",
+        "hoverForeground",
+        "inactiveSelectionBackground",
+        "inactiveSelectionForeground",
+        "inactiveFocusBackground",
+        "invalidItemForeground",
+        "errorForeground",
+        "warningForeground"
+    ],
+    "listFilterWidget": [
+        "background",
+        "outline",
+        "noMatchesOutline"
+    ],
+    "menu": [
+        "foreground",
+        "background",
+        "selectionForeground",
+        "selectionBackground",
+        "selectionBorder",
+        "separatorBackground"
+    ],
+    "menubar": [
+        "selectionForeground",
+        "selectionBackground",
+        "selectionBorder"
+    ],
+    "merge": [
+        "currentHeaderBackground",
+        "currentContentBackground",
+        "incomingHeaderBackground",
+        "incomingContentBackground",
+        "border",
+        "commonContentBackground",
+        "commonHeaderBackground"
+    ],
+    "notification": [
+        "background",
+        "foreground",
+        "buttonBackground",
+        "buttonForeground",
+        "buttonHoverBackground",
+        "errorBackground",
+        "errorForeground",
+        "infoBackground",
+        "infoForeground",
+        "warningBackground",
+        "warningForeground"
+    ],
+    "notificationCenter": [
+        "border"
+    ],
+    "notificationCenterHeader": [
+        "foreground",
+        "background"
+    ],
+    "notificationLink": [
+        "foreground"
+    ],
+    "notificationToast": [
+        "border"
+    ],
+    "notifications": [
+        "foreground",
+        "background",
+        "border"
+    ],
+    "panel": [
+        "background",
+        "border",
+        "dropBackground"
+    ],
+    "panelTitle": [
+        "activeBorder",
+        "activeForeground",
+        "inactiveForeground"
+    ],
+    "peekView": [
+        "border"
+    ],
+    "peekViewEditor": [
+        "background",
+        "matchHighlightBackground",
+        "matchHighlightBorder"
+    ],
+    "peekViewEditorGutter": [
+        "background"
+    ],
+    "peekViewResult": [
+        "background",
+        "fileForeground",
+        "lineForeground",
+        "matchHighlightBackground",
+        "selectionBackground",
+        "selectionForeground"
+    ],
+    "peekViewTitle": [
+        "background"
+    ],
+    "peekViewTitleDescription": [
+        "foreground"
+    ],
+    "peekViewTitleLabel": [
+        "foreground"
+    ],
+    "pickerGroup": [
+        "border",
+        "foreground"
+    ],
+    "progressBar": [
+        "background"
+    ],
+    "scrollbar": [
+        "shadow"
+    ],
+    "scrollbarSlider": [
+        "activeBackground",
+        "background",
+        "hoverBackground"
+    ],
+    "selection": [
+        "background"
+    ],
+    "settings": [
+        "headerForeground",
+        "modifiedItemIndicator",
+        "dropdownBackground",
+        "dropdownForeground",
+        "dropdownBorder",
+        "dropdownListBorder",
+        "checkboxBackground",
+        "checkboxForeground",
+        "checkboxBorder",
+        "textInputBackground",
+        "textInputForeground",
+        "textInputBorder",
+        "numberInputBackground",
+        "numberInputForeground",
+        "numberInputBorder"
+    ],
+    "sideBar": [
+        "background",
+        "foreground",
+        "border",
+        "dropBackground"
+    ],
+    "sideBarSectionHeader": [
+        "background",
+        "foreground",
+        "border"
+    ],
+    "sideBarTitle": [
+        "foreground"
+    ],
+    "statusBar": [
+        "background",
+        "foreground",
+        "border",
+        "debuggingBackground",
+        "debuggingForeground",
+        "debuggingBorder",
+        "noFolderForeground",
+        "noFolderBackground",
+        "noFolderBorder"
+    ],
+    "statusBarItem": [
+        "activeBackground",
+        "hoverBackground",
+        "prominentForeground",
+        "prominentBackground",
+        "prominentHoverBackground"
+    ],
+    "tab": [
+        "activeBackground",
+        "activeForeground",
+        "border",
+        "activeBorder",
+        "unfocusedActiveBorder",
+        "activeBorderTop",
+        "unfocusedActiveBorderTop",
+        "inactiveBackground",
+        "inactiveForeground",
+        "unfocusedActiveForeground",
+        "unfocusedInactiveForeground",
+        "hoverBackground",
+        "unfocusedHoverBackground",
+        "hoverBorder",
+        "unfocusedHoverBorder",
+        "activeModifiedBorder",
+        "inactiveModifiedBorder",
+        "unfocusedActiveModifiedBorder",
+        "unfocusedInactiveModifiedBorder"
+    ],
+    "terminal": [
+        "background",
+        "border",
+        "foreground",
+        "ansiBlack",
+        "ansiBlue",
+        "ansiBrightBlack",
+        "ansiBrightBlue",
+        "ansiBrightCyan",
+        "ansiBrightGreen",
+        "ansiBrightMagenta",
+        "ansiBrightRed",
+        "ansiBrightWhite",
+        "ansiBrightYellow",
+        "ansiCyan",
+        "ansiGreen",
+        "ansiMagenta",
+        "ansiRed",
+        "ansiWhite",
+        "ansiYellow",
+        "selectionBackground"
+    ],
+    "terminalCursor": [
+        "background",
+        "foreground"
+    ],
+    "textBlockQuote": [
+        "background",
+        "border"
+    ],
+    "textCodeBlock": [
+        "background"
+    ],
+    "textLink": [
+        "activeForeground",
+        "foreground"
+    ],
+    "textPreformat": [
+        "foreground"
+    ],
+    "textSeparator": [
+        "foreground"
+    ],
+    "titleBar": [
+        "activeBackground",
+        "activeForeground",
+        "inactiveBackground",
+        "inactiveForeground",
+        "border"
+    ],
+    "walkThrough": [
+        "embeddedEditorBackground"
+    ],
+    "welcomePage": [
+        "background",
+        "buttonBackground",
+        "buttonHoverBackground"
+    ],
+    "widget": [
+        "shadow"
+    ],
+    "workbench": [
+        "colorCustomizations",
+        "colorCustomizations"
+    ]
+}

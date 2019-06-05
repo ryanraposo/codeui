@@ -1,0 +1,9 @@
+{
+    "name": "test",
+    "children": {
+        "item1": "item1value",
+        "item2": "item2value",
+        "item3": "item3value"
+    }
+
+}

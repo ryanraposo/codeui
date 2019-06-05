@@ -1,0 +1,21 @@
+{
+    "name": "root",
+    "children": {
+        "child1": [
+            {"id": "id1", "name": "child1name1"},
+            {"id": "id2", "name": "child2name2"}
+        ],
+        "child2": [
+            {"id": "id1", "name": "child2name1"},
+            {"id": "id2", "name": "child2name2"}
+        ],
+        "child3": [
+            {"id": "id1", "name": "child3name1"},
+            {"id": "id2", "name": "child3name2"}
+        ],
+        "child4": [
+            {"id": "id1", "name": "child4name1"},
+            {"id": "id2", "name": "child5name2"}
+        ]
+    }
+}
