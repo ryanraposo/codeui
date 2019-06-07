@@ -23,6 +23,16 @@
 			{
 				"command": "getCustomizedElements",
 				"title": "Get customized elements TEST"
+			},
+			{
+				"command": "pickColorFromList",
+				"title": "Pick color fom list",
+				"arguments:": "[]"
+			},
+			{
+				"command": "updateElement",
+				"title": "Refresh Elements",
+				"arguments": "[]"
 			}
 		],
 		"viewsContainers": {
@@ -38,7 +48,19 @@
 			"elementTreeView": [
 				{
 					"id": "elementTreeView",
-					"name": "Interface Elements"
+					"name": "UI Elements (customized)"
+				},
+				{
+					"id": "allElementsTreeView",
+					"name": "UI Elements (all)"
+				}
+			]
+		},
+		"menus": {
+			"view/item/context": [
+				{
+					"command": "pickColorFromList",
+					"when": "view == elementTreeView"
 				}
 			]
 		}
@@ -58,6 +80,7 @@
 		"@types/mocha": "^2.2.42"
 	},
 	"dependencies": {
+		"color": "^3.1.2",
 		"jsonc-parser": "^2.1.0"
 	}
 }
