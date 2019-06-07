@@ -165,7 +165,7 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
         
         for(var element in customizedElementsData){
            let elementToBeUpdated;
-           elementToBeUpdated = allElements.find(i => i.x === element);
+           elementToBeUpdated = allElements.find(i => i.tooltip === element);
 
            if(elementToBeUpdated){
                console.log(elementToBeUpdated);
@@ -178,29 +178,31 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
 
     customizeElement(element : Element): void {
         let colorMenuStrings : string[] = [];
-        let elementName : string; 
+        let elementName : string;
         
-        elementName = element.x;
+        if(element.tooltip){
+            elementName = element.tooltip;        
 
-        vscode.window.showInformationMessage("SELECTED ELEMENT: " + elementName);
+            vscode.window.showInformationMessage("SELECTED ELEMENT: " + elementName);
 
-        for(var color in colors){
-            colorMenuStrings.push(color + " - " + colors[color]);
-        }
-        
-        vscode.window.showQuickPick(colorMenuStrings).then((return_result) => {
-            if(return_result){
-                vscode.window.showInformationMessage("SELECTED COLOR: " + return_result);
-                let colorCode :string = "";
-                let return_split = return_result.split("-");
-                colorCode = return_split[1].trim();
-                let customizations : any = [];
-                customizations[elementName] = colorCode;
-
-                this.writeCustomizationsToSettings(customizations);
-                this.updateCustomizedElements();
+            for(var color in colors){
+                colorMenuStrings.push(color + " - " + colors[color]);
             }
-        });
+            
+            vscode.window.showQuickPick(colorMenuStrings).then((return_result) => {
+                if(return_result){
+                    vscode.window.showInformationMessage("SELECTED COLOR: " + return_result);
+                    let colorCode :string = "";
+                    let return_split = return_result.split("-");
+                    colorCode = return_split[1].trim();
+                    let customizations : any = [];
+                    customizations[elementName] = colorCode;
+
+                    this.writeCustomizationsToSettings(customizations);
+                    this.updateCustomizedElements();
+                }
+            });
+        }
     }
 }
 
@@ -218,7 +220,7 @@ class Element extends vscode.TreeItem {
         super(label, collapsibleState);
         this.description = color;
         this.tooltip = fullname;
-        this.x = fullname;
+        // this.x = fullname;
     }
 
 }

@@ -1,6 +1,6 @@
 # codeui README
 
-This is the README for your extension "codeui". After writing up a brief description, we recommend including the following sections.
+CodeUI - A theme builder for Visual Studio Code.
 
 ## Features
 

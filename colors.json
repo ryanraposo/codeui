@@ -2329,5 +2329,6 @@
     "#39a78e": "Zomp",
     "#a59b91": "Zorba",
     "#044022": "Zuccini",
-    "#edf6ff": "Zumthor"
+    "#edf6ff": "Zumthor",
+    "" : "None"
   }
