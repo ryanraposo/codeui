@@ -28,9 +28,8 @@
     "workbench.settings.editor": "json",
     "workbench.colorTheme": "Horizon",
     "workbench.colorCustomizations": {
-        "editor.background": "DSADSA",
-        "activityBar.background": "hjvjbkb",
-        "activityBar.foreground": "hjbkjk,"
+        "editor.background": "#0f0f0f",
+        "activityBar.foreground": "#ff0000"
     },
     "editor.renderWhitespace": "none",
     "editor.renderControlCharacters": false,

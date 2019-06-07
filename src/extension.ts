@@ -10,6 +10,7 @@ export function activate() {
 
 	const customizationProvider = new CustomizationProvider();
 	vscode.window.registerTreeDataProvider("allElementsTreeView", customizationProvider);
+	vscode.commands.registerCommand("customizeElement", (element) => customizationProvider.customizeElement(element));
 	vscode.commands.registerCommand("updateCustomizedElements", () => customizationProvider.updateCustomizedElements());
 	// vscode.commands.registerCommand('elementProvider.editValue', (elementName : string) => elementProvider.editValue(elementName));
 

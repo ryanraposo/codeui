@@ -1,12 +1,15 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import { strict } from 'assert';
+import { settings } from 'cluster';
 
 const myPath : string = "C:/Users/Ryan/AppData/Roaming/Code/User/settings.json";
 const testPath : string = "c:/source/codeui/settingsTest.json";
 
 var customizableElementsObject : any;
 var allElements: Element[] = [];
+var colors : any = [];
+
 // var customizedElementsData: any;
 
 export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
@@ -16,6 +19,27 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
     
     constructor() {
         customizableElementsObject = this.loadCustomizableElements();
+        colors = this.loadColors();
+    }
+
+    loadColors(): any {
+
+        let colors : any = [];
+        let text : string;
+        let jsonObject;
+
+        text = fs.readFileSync('c:/source/codeui/colors.json', 'utf8');
+
+        jsonObject = JSON.parse(text);
+
+        for(var item in jsonObject){
+            // console.log(jsonObject[item] + " (" + item + ")");
+            let colorCode : string = item;
+            let colorName : string = jsonObject[item];
+
+            colors[colorName] = colorCode;
+        }                
+        return colors;
     }
     
     
@@ -38,7 +62,7 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
         let customizedElementsObject : any;
         var customizedElementsData : any = {};
 
-        text = fs.readFileSync(testPath, 'utf8');
+        text = fs.readFileSync(myPath, 'utf8');
 
         jsonSettings = JSON.parse(text);
 
@@ -56,6 +80,28 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
 
         return customizedElementsData;
 
+    }
+
+
+    writeCustomizationsToSettings(customizations : any) {
+
+        let initial_text : string = fs.readFileSync(myPath, 'utf8');
+        let final_text : string;
+        let jsonObject;
+
+        jsonObject = JSON.parse(initial_text);
+
+        if(jsonObject){
+            for(var customization in customizations){
+                var val : string = customizations[customization];
+                var key : string = customization;
+                jsonObject['workbench.colorCustomizations'][key] = val;
+            }
+        }
+        
+        final_text = JSON.stringify(jsonObject,undefined,4);
+
+        fs.writeFileSync(myPath, final_text, 'utf8');
     }
 
 
@@ -127,6 +173,34 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
                this.refresh(elementToBeUpdated);
            }
         }
+    }
+
+
+    customizeElement(element : Element): void {
+        let colorMenuStrings : string[] = [];
+        let elementName : string; 
+        
+        elementName = element.x;
+
+        vscode.window.showInformationMessage("SELECTED ELEMENT: " + elementName);
+
+        for(var color in colors){
+            colorMenuStrings.push(color + " - " + colors[color]);
+        }
+        
+        vscode.window.showQuickPick(colorMenuStrings).then((return_result) => {
+            if(return_result){
+                vscode.window.showInformationMessage("SELECTED COLOR: " + return_result);
+                let colorCode :string = "";
+                let return_split = return_result.split("-");
+                colorCode = return_split[1].trim();
+                let customizations : any = [];
+                customizations[elementName] = colorCode;
+
+                this.writeCustomizationsToSettings(customizations);
+                this.updateCustomizedElements();
+            }
+        });
     }
 }
 

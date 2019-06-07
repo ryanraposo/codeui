@@ -29,7 +29,7 @@
     "workbench.colorTheme": "Horizon",
     "workbench.colorCustomizations": {
         "editor.background": "#0f0f0f",
-        "activityBar.foreground": "#ffa579",
+        "activityBar.foreground": "#ffa579"
     },
     "editor.renderWhitespace": "none",
     "editor.renderControlCharacters": false,

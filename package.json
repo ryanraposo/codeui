@@ -18,6 +18,10 @@
 			{
 				"command": "updateCustomizedElements",
 				"title": "Update Customized Elements"
+			},
+			{
+				"command": "customizeElement",
+				"title": "Customize Element"
 			}
 		],
 		"viewsContainers": {
@@ -34,6 +38,14 @@
 				{
 					"id": "allElementsTreeView",
 					"name": "UI Elements (all)"
+				}
+			]
+		},
+		"menus": {
+			"view/item/context": [
+				{
+					"command": "customizeElement",
+					"arguments": []
 				}
 			]
 		}
