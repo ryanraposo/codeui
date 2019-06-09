@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
+import * as copypaste from 'copy-paste';
 import { strict } from 'assert';
 import { settings } from 'cluster';
 import * as testRunner from 'vscode/lib/testrunner';
@@ -190,32 +191,36 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
     }
     
 
-    writeCustomizationsToSettings(customizations : any) { // Needs to use vscode.getConfiguration()
+    writeCustomizationsToSettings(customizations : any) {
 
-        let initial_text : string = fs.readFileSync(myPath, 'utf8');
-        let final_text : string = '';
-        let jsonObject : any;
-
-        jsonObject = JSON.parse(initial_text);
-
-        if(jsonObject){
-            for(var customization in customizations){
-                var val : string = customizations[customization];
-                var key : string = customization;
-                jsonObject['workbench.colorCustomizations'][key] = val;
-            }
+        let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
+        for(var cust in customizations){
+            currentCustomizations[cust] = customizations[cust];
         }
-        
-        final_text = JSON.stringify(jsonObject,undefined,4);
+        vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
 
-        fs.writeFileSync(myPath, final_text, 'utf8');
-        // let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
-        // for(let cust of customizations){
-        //     currentCustomizations[cust] = customizations[cust];
-        // }
-        // vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
     }
 
+    copyValue(element : Element) {
+
+        vscode.window.showInformationMessage('CODEUI: COPY ' + element.name + ' ' + copypaste.paste());
+
+        if(element.description){
+            copypaste.copy(element.description);
+        }
+    }
+
+    pasteValue(element : Element) {
+
+        vscode.window.showInformationMessage('CODEUI: PASTE ' + element.name + ' ' + copypaste.paste());
+
+        let customization : any = [];
+        
+        customization[element.name] = copypaste.paste();
+        this.writeCustomizationsToSettings(customization);
+        
+
+    }
 
 }
 
