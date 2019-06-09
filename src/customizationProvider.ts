@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import { strict } from 'assert';
 import { settings } from 'cluster';
+import * as testRunner from 'vscode/lib/testrunner';
 
 const myPath : string = "C:/Users/Ryan/AppData/Roaming/Code/User/settings.json";
 const testPath : string = "c:/source/codeui/settingsTest.json";
@@ -10,7 +11,6 @@ var customizableElementsObject : any;
 var allElements: Element[] = [];
 var colors : any = [];
 
-// var customizedElementsData: any;
 
 export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
 
@@ -21,6 +21,12 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
         customizableElementsObject = this.loadCustomizableElements();
         colors = this.loadColors();
     }
+
+    refreshCustomizations(): void {
+        this.updateCustomizations();
+        vscode.window.showInformationMessage("CodeUI: Customizations refreshed");
+    }
+
 
     loadColors(): any {
 
@@ -55,56 +61,6 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
     }
     
 
-    getCustomizedElementData(): any {
-
-        let text : string = "";
-        let jsonSettings;
-        let customizedElementsObject : any;
-        var customizedElementsData : any = {};
-
-        text = fs.readFileSync(myPath, 'utf8');
-
-        jsonSettings = JSON.parse(text);
-
-        customizedElementsObject = jsonSettings['workbench.colorCustomizations'];
-
-        if(!customizedElementsObject){
-            vscode.window.showInformationMessage("codeUI: No customized elements found.");
-            return undefined;
-        }
-
-        for(var i in customizedElementsObject){
-            customizedElementsData[i] = customizedElementsObject[i];
-            console.log(i,customizedElementsObject[i]);
-        }
-
-        return customizedElementsData;
-
-    }
-
-
-    writeCustomizationsToSettings(customizations : any) {
-
-        let initial_text : string = fs.readFileSync(myPath, 'utf8');
-        let final_text : string;
-        let jsonObject;
-
-        jsonObject = JSON.parse(initial_text);
-
-        if(jsonObject){
-            for(var customization in customizations){
-                var val : string = customizations[customization];
-                var key : string = customization;
-                jsonObject['workbench.colorCustomizations'][key] = val;
-            }
-        }
-        
-        final_text = JSON.stringify(jsonObject,undefined,4);
-
-        fs.writeFileSync(myPath, final_text, 'utf8');
-    }
-
-
     refresh(element?: Element): void {
         this._onDidChangeTreeData.fire(element);
     }
@@ -118,7 +74,7 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
     getChildren(category? : Category): Element[] {
         if(category){ //If element supplied...
             let returnElements =  this.getElements(category);
-            this.updateCustomizedElements();
+            this.updateCustomizations();
             return returnElements;
         }else{ //If not (root)...
             // this.updateCustomizedElements();
@@ -149,7 +105,7 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
 
         for(var categoryElement of categoryElements){
             let fullName : string = categoryName + "." + categoryElement;
-            let newElement : Element = new Element(categoryElement,undefined,vscode.TreeItemCollapsibleState.None,undefined,fullName);
+            let newElement : Element = new Element(categoryElement,undefined,vscode.TreeItemCollapsibleState.None,fullName,undefined);
             returnElements.push(newElement);
             allElements.push(newElement);
         }
@@ -157,70 +113,121 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
         return returnElements;
     }
 
+    
+    updateCustomizations() : void { //Update elements in tree view with data from settings
+        let customizationData = [];
+        let configurationObject = undefined;
+        configurationObject = Object(vscode.workspace.getConfiguration().get("workbench.colorCustomizations"));
 
-    updateCustomizedElements() : void {
-       
-        let customizedElementsData = this.getCustomizedElementData();
+        for(let item in configurationObject){ // Create array of key:value pairs based on workbench customizations
+            customizationData.push({
+                key : item,
+                value : configurationObject[item]
+            });
+        }        
+
+        allElements.filter((elmnt : Element) => { // Gets loaded tree items with values, and clears them
+            if(elmnt.description){
+                elmnt.description = undefined;
+                this.refresh(elmnt);
+            }
+        });
+        
+        for(var pair of customizationData){ // Uses retrieved configs to update corresponding tree items
+            var elementName = pair.key;
+            var value = pair.value;
+            let elementToBeUpdated;
+
+            elementToBeUpdated = allElements.find(i => i.tooltip === elementName);           
+            if(elementToBeUpdated){
+                elementToBeUpdated.description = value;
+                this.refresh(elementToBeUpdated);
+            }
+        }
 
         
-        for(var element in customizedElementsData){
-           let elementToBeUpdated;
-           elementToBeUpdated = allElements.find(i => i.tooltip === element);
-
-           if(elementToBeUpdated){
-               console.log(elementToBeUpdated);
-               elementToBeUpdated.description = customizedElementsData[element];
-               this.refresh(elementToBeUpdated);
-           }
-        }
     }
 
 
-    customizeElement(element : Element): void {
+    customizeElement(element : Element): void { //
         let colorMenuStrings : string[] = [];
         let elementName : string;
         
-        if(element.tooltip){
-            elementName = element.tooltip;        
 
-            vscode.window.showInformationMessage("SELECTED ELEMENT: " + elementName);
+        elementName = element.name;        
 
-            for(var color in colors){
-                colorMenuStrings.push(color + " - " + colors[color]);
-            }
-            
-            vscode.window.showQuickPick(colorMenuStrings).then((return_result) => {
-                if(return_result){
-                    vscode.window.showInformationMessage("SELECTED COLOR: " + return_result);
-                    let colorCode :string = "";
-                    let return_split = return_result.split("-");
-                    colorCode = return_split[1].trim();
-                    let customizations : any = [];
-                    customizations[elementName] = colorCode;
+        vscode.window.showInformationMessage("SELECTED ELEMENT: " + elementName);
 
-                    this.writeCustomizationsToSettings(customizations);
-                    this.updateCustomizedElements();
-                }
-            });
+        for(var color in colors){
+            colorMenuStrings.push(color + " - " + colors[color]);
         }
+
+        
+        
+        vscode.window.showQuickPick(colorMenuStrings).then((return_result) => {
+            if(return_result){
+                vscode.window.showInformationMessage("SELECTED COLOR: " + return_result);
+                let colorCode :string = "";
+                let return_split = return_result.split("-");
+                colorCode = return_split[1].trim();
+                let customizations : any = [];
+                customizations[elementName] = colorCode;
+
+                this.writeCustomizationsToSettings(customizations);
+                this.updateCustomizations();
+            }
+        });
     }
+
+
+    clearCustomization(customization : []) {
+        let currentCustomizations = Object(vscode.workspace.getConfiguration().get("workbench.colorCustomizations"));
+
+        
+    }
+    
+
+    writeCustomizationsToSettings(customizations : any) { // Needs to use vscode.getConfiguration()
+
+        let initial_text : string = fs.readFileSync(myPath, 'utf8');
+        let final_text : string = '';
+        let jsonObject : any;
+
+        jsonObject = JSON.parse(initial_text);
+
+        if(jsonObject){
+            for(var customization in customizations){
+                var val : string = customizations[customization];
+                var key : string = customization;
+                jsonObject['workbench.colorCustomizations'][key] = val;
+            }
+        }
+        
+        final_text = JSON.stringify(jsonObject,undefined,4);
+
+        fs.writeFileSync(myPath, final_text, 'utf8');
+    }
+
+
 }
+
 
 class Element extends vscode.TreeItem {
 
     [x : string] : any;
+    name : any;
     
     constructor(
         label: string,
         color: string | undefined,
         collapsibleState: vscode.TreeItemCollapsibleState,
+        fullname: string,
         command?: vscode.Command,
-        fullname?: any,
     ) {
         super(label, collapsibleState);
         this.description = color;
         this.tooltip = fullname;
-        // this.x = fullname;
+        this.name = fullname;
     }
 
 }
