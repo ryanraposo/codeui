@@ -26,7 +26,11 @@
 			},
 			{
 				"command": "customizeElement",
-				"title": "Customize Element"
+				"title": "Customize"
+			},
+			{
+				"command": "clearCustomization",
+				"title": "Clear"
 			},
 			{
 				"command": "refreshCustomizations",
@@ -60,6 +64,10 @@
 			"view/item/context": [
 				{
 					"command": "customizeElement",
+					"arguments": []
+				},
+				{
+					"command": "clearCustomization",
 					"arguments": []
 				}
 			]

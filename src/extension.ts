@@ -9,6 +9,8 @@ export async function activate(context: vscode.ExtensionContext) {
 	vscode.window.registerTreeDataProvider("allElementsTreeView", customizationProvider);
 	vscode.commands.registerCommand("customizeElement", (element) => customizationProvider.customizeElement(element));
 	vscode.commands.registerCommand("updateCustomizations", () => customizationProvider.updateCustomizations());
+	vscode.commands.registerCommand("clearCustomization", (element ) => customizationProvider.clearCustomization(element));
+
 
 	context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
 		if (e.affectsConfiguration('workbench.colorCustomizations')) {

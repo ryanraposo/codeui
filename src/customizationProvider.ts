@@ -180,10 +180,13 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
     }
 
 
-    clearCustomization(customization : []) {
-        let currentCustomizations = Object(vscode.workspace.getConfiguration().get("workbench.colorCustomizations"));
+    clearCustomization(element: Element) {
+        let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
 
-        
+        currentCustomizations[element.name] = undefined;
+        vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
+                
+        console.log("CODEUI: Customization cleared");
     }
     
 
@@ -206,6 +209,11 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
         final_text = JSON.stringify(jsonObject,undefined,4);
 
         fs.writeFileSync(myPath, final_text, 'utf8');
+        // let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
+        // for(let cust of customizations){
+        //     currentCustomizations[cust] = customizations[cust];
+        // }
+        // vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
     }
 
 
