@@ -1,26 +1,20 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as copypaste from 'copy-paste';
-import { strict } from 'assert';
-import { settings } from 'cluster';
-import * as testRunner from 'vscode/lib/testrunner';
+import * as path from "path";
 
-const myPath : string = "C:/Users/Ryan/AppData/Roaming/Code/User/settings.json";
-const testPath : string = "c:/source/codeui/settingsTest.json";
-
-var customizableElementsObject : any;
 var allElements: Element[] = [];
-var colors : any = [];
 
 
-export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
-
+export class CustomizationProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
+    
     private _onDidChangeTreeData: vscode.EventEmitter<Element | undefined> = new vscode.EventEmitter<Element | undefined>();
     readonly onDidChangeTreeData: vscode.Event<Element | undefined> = this._onDidChangeTreeData.event;
     
+    readonly colors : any = [];
+
     constructor() {
-        customizableElementsObject = this.loadCustomizableElements();
-        colors = this.loadColors();
+        this.colors = this.loadColors();
     }
 
     refreshCustomizations(): void {
@@ -35,12 +29,11 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
         let text : string;
         let jsonObject;
 
-        text = fs.readFileSync('c:/source/codeui/colors.json', 'utf8');
+        text = fs.readFileSync(path.join(__filename, '..', '..', 'data', 'colors.json'), 'utf8');
 
         jsonObject = JSON.parse(text);
 
         for(var item in jsonObject){
-            // console.log(jsonObject[item] + " (" + item + ")");
             let colorCode : string = item;
             let colorName : string = jsonObject[item];
 
@@ -50,11 +43,11 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
     }
     
     
-    loadCustomizableElements(): any {
+    getCustomizableElements(): any { // Returns object containing data from vscodeUIElements.json
         let text : string = "";
         let allElementsJson;
         
-        text = fs.readFileSync('c:/source/codeui/allElements.json', "utf8");
+        text = fs.readFileSync(path.join(__filename, '..', '..', 'data', 'vscodeUIElements.json'),"utf8");
         
         allElementsJson = JSON.parse(text);
         
@@ -72,13 +65,12 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
     }
 
 
-    getChildren(category? : Category): Element[] {
-        if(category){ //If element supplied...
+    getChildren(category? : Category): vscode.TreeItem[] {
+        if(category){ //If category supplied, get its elements
             let returnElements =  this.getElements(category);
             this.updateCustomizations();
             return returnElements;
-        }else{ //If not (root)...
-            // this.updateCustomizedElements();
+        }else{ //If no category supplied, get the categories
             return this.getCategories();
         }
     }
@@ -88,7 +80,9 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
 
         let categories : Category[] = [];
 
-        for(var propt in customizableElementsObject){
+        let customizableElements = this.getCustomizableElements();
+
+        for(var propt in customizableElements){
             categories.push(new Category(propt,vscode.TreeItemCollapsibleState.Collapsed));
         }
 
@@ -102,14 +96,18 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
         let categoryElements : any;
         let returnElements : Element[] = [];
 
-        categoryElements = customizableElementsObject[categoryName];
+        let customizableElements : any = this.getCustomizableElements();
+        
+        categoryElements = customizableElements[categoryName];
 
-        for(var categoryElement of categoryElements){
-            let fullName : string = categoryName + "." + categoryElement;
-            let newElement : Element = new Element(categoryElement,undefined,vscode.TreeItemCollapsibleState.None,fullName,undefined);
+        console.log(categoryElements);
+
+        for(const key of Object.keys(categoryElements)){
+            let fullName : string = key;
+            let newElement : Element = new Element(categoryElements[key]["label"],undefined,categoryElements[key]['description'],vscode.TreeItemCollapsibleState.None,fullName,undefined);
             returnElements.push(newElement);
             allElements.push(newElement);
-        }
+        }        
 
         return returnElements;
     }
@@ -139,7 +137,7 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
             var value = pair.value;
             let elementToBeUpdated;
 
-            elementToBeUpdated = allElements.find(i => i.tooltip === elementName);           
+            elementToBeUpdated = allElements.find(i => i.name === elementName);           
             if(elementToBeUpdated){
                 elementToBeUpdated.description = value;
                 this.refresh(elementToBeUpdated);
@@ -150,7 +148,7 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
     }
 
 
-    customizeElement(element : Element): void { //
+    customizeElementFromList(element : Element): void { //
         let colorMenuStrings : string[] = [];
         let elementName : string;
         
@@ -159,11 +157,9 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
 
         vscode.window.showInformationMessage("SELECTED ELEMENT: " + elementName);
 
-        for(var color in colors){
-            colorMenuStrings.push(color + " - " + colors[color]);
-        }
-
-        
+        for(var color in this.colors){
+            colorMenuStrings.push(color + " - " + this.colors[color]);
+        }        
         
         vscode.window.showQuickPick(colorMenuStrings).then((return_result) => {
             if(return_result){
@@ -181,7 +177,26 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
     }
 
 
+    editCustomization(element : Element): void {
+
+        let currentValue : any = element.description;
+
+        vscode.window.showInputBox({placeHolder : currentValue}).then((returnResult) => {
+            if(returnResult){
+                if(returnResult.startsWith("#") && returnResult.length <= 7){
+                    let customizations : any = [];
+                    customizations[element.name] = returnResult;
+                    this.writeCustomizationsToSettings(customizations);
+                    // this.updateCustomizations();
+                }
+            }
+        });
+        
+    }
+    
+    
     clearCustomization(element: Element) {
+
         let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
 
         currentCustomizations[element.name] = undefined;
@@ -202,12 +217,13 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
     }
 
     copyValue(element : Element) {
-
-        vscode.window.showInformationMessage('CODEUI: COPY ' + element.name + ' ' + copypaste.paste());
-
+        
         if(element.description){
             copypaste.copy(element.description);
         }
+        
+        vscode.window.showInformationMessage('CODEUI: COPY ' + element.name + ' ' + copypaste.paste());
+
     }
 
     pasteValue(element : Element) {
@@ -228,21 +244,25 @@ export class CustomizationProvider implements vscode.TreeDataProvider<Element> {
 class Element extends vscode.TreeItem {
 
     [x : string] : any;
-    name : any;
+    name : string;
     
     constructor(
         label: string,
         color: string | undefined,
+        elementInfo : string,
         collapsibleState: vscode.TreeItemCollapsibleState,
         fullname: string,
         command?: vscode.Command,
     ) {
         super(label, collapsibleState);
         this.description = color;
-        this.tooltip = fullname;
+        this.tooltip = elementInfo;
         this.name = fullname;
     }
 
+    contextValue = "element";
+    
+    
 }
 
 
@@ -257,5 +277,10 @@ class Category extends vscode.TreeItem {
         super(label, collapsibleState);
         this.name = label;
     }
+
+    iconPath = {
+        light : path.join(__filename, '..', '..', 'resources', 'bullet-list.png'),
+        dark : path.join(__filename, '..', '..', 'resources', 'bullet-list.png')
+        };
 
 }

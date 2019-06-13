@@ -25,8 +25,12 @@
 				"title": "codeui: getWorkbenchColorCustomizations"
 			},
 			{
-				"command": "customizeElement",
-				"title": "Customize"
+				"command": "customizeFromList",
+				"title": "Choose color from list..."
+			},
+			{
+				"command": "editCustomization",
+				"title": "Edit"
 			},
 			{
 				"command": "clearCustomization",
@@ -71,19 +75,30 @@
 			],
 			"view/item/context": [
 				{
-					"command": "customizeElement",
-					"arguments": []
+					"command": "customizeFromList",
+					"arguments": [],
+					"when": "viewItem == element"				
 				},
 				{
 					"command": "clearCustomization",
-					"arguments": []
+					"arguments": [],
+					"when": "viewItem == element",
+					"group": "inline"
+				},
+				{
+					"command": "editCustomization",
+					"arguments": [],
+					"when": "viewItem == element",
+					"group": "inline"
 				},
 				{
 					"command": "copyValue",
+					"when": "viewItem == element",
 					"arguments": []
 				},
 				{
 					"command": "pasteValue",
+					"when": "viewItem == element",
 					"arguments": []
 				}
 			]
