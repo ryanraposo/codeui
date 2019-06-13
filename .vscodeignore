@@ -4,7 +4,7 @@ out/test/**
 src/**
 .gitignore
 vsc-extension-quickstart.md
-allElements-fix/allElements-fix.py
+allElements-fix/**
 **/tsconfig.json
 **/tslint.json
 **/*.map
