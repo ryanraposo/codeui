@@ -33,7 +33,7 @@ context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
 
 	const themeViewDataProvider = new ThemeViewDataProvider(themeObject);
 	vscode.window.registerTreeDataProvider("themeCustomizationView", themeViewDataProvider);
-	vscode.commands.registerCommand("customizeAllWithValue", (element) => themeViewDataProvider.customizeAllElementsWithColor(element));
+	vscode.commands.registerCommand("customizeTargetPaletteGroup", (element) => themeViewDataProvider.customizeTargetPaletteGroup(element));
 	vscode.commands.registerCommand("darkenAllWithValue", (element) => themeViewDataProvider.darkenAllElementsWithColor(element));
 
 }

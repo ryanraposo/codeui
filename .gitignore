@@ -3,4 +3,5 @@ node_modules
 .vscode-test/
 *.vsix
 allElements-fix/**
+resources/swatches/generated
 

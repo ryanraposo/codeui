@@ -49,8 +49,8 @@
 				"title": "Refresh"
 			},
 			{
-				"command": "customizeAllWithValue",
-				"title": "Customize all elements with this color..."
+				"command": "customizeTargetPaletteGroup",
+				"title": "Customize all elements in this palette group..."
 			},
 			{
 				"command": "darkenAllWithValue",
@@ -118,7 +118,7 @@
 					"arguments": []
 				},
 				{
-					"command": "customizeAllWithValue",
+					"command": "customizeTargetPaletteGroup",
 					"when": "view == themeCustomizationView && viewItem == element",
 					"arguements": []
 				},

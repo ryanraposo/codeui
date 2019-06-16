@@ -9,3 +9,4 @@ allElements-fix/**
 **/tslint.json
 **/*.map
 **/*.ts
+resources/swatches/generated

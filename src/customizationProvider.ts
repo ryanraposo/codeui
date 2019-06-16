@@ -6,6 +6,7 @@ import * as clr from "color";
 import { CurrentTheme } from './theme';
 import { Z_PARTIAL_FLUSH } from 'zlib';
 import * as color from 'color';
+import { timingSafeEqual } from 'crypto';
 
 
 var allElements: Element[] = [];
@@ -145,6 +146,8 @@ export class CustomizationProvider implements vscode.TreeDataProvider<vscode.Tre
             elementToBeUpdated = allElements.find(i => i.name === elementName);
             if(elementToBeUpdated){
                 elementToBeUpdated.description = value;
+                elementToBeUpdated.setColor(value);
+                elementToBeUpdated.generateSvg();
                 this.refresh(elementToBeUpdated);
             }
         }
@@ -341,7 +344,7 @@ export class ThemeViewDataProvider implements vscode.TreeDataProvider<vscode.Tre
     }
 
 
-    async customizeAllElementsWithColor(element : any){
+    async customizeTargetPaletteGroup(element : any){
 
         var elementGroup : any = [];
         var customizations : any = [];
@@ -423,30 +426,7 @@ export class ThemeViewDataProvider implements vscode.TreeDataProvider<vscode.Tre
         });
         return Object.keys(unique);
       }
-    // getElements(category : Category): Element[] {
 
-    //     let categoryName : string = category.name;
-    //     let categoryElements : any;
-    //     let returnElements : Element[] = [];
-
-    //     let customizableElements : any = this.getCustomizableElements();
-
-    //     categoryElements = customizableElements[categoryName];
-
-    //     console.log(categoryElements);
-
-    //     for(const key of Object.keys(categoryElements)){
-    //         let fullName : string = key;
-    //         let newElement : Element = new Element(categoryElements[key]["label"],undefined,categoryElements[key]['description'],vscode.TreeItemCollapsibleState.None,fullName,undefined);
-    //         returnElements.push(newElement);
-    //         allElements.push(newElement);
-    //     }
-
-    //     return returnElements;
-    // }
-
-    // updateCustomizations() : void { //Update elements in tree view with data from jsonObject
-    // }
 
 
 }
@@ -456,6 +436,7 @@ class Element extends vscode.TreeItem {
 
     [x : string] : any;
     name : string;
+    color : any;
 
     constructor(
         label: string,
@@ -469,10 +450,32 @@ class Element extends vscode.TreeItem {
         this.description = color;
         this.tooltip = elementInfo;
         this.name = fullname;
-    }
+        this.color = color;
+        this.generateSvg();
+        }
 
     contextValue = "element";
 
+    setColor(colorValue: string){
+        this.color = colorValue;
+    }
+
+    generateSvg() {
+        if(this.color){
+            let template_text = fs.readFileSync(path.join(__filename, '..', '..', 'resources', 'swatches', 'swatch_template.svg'), 'utf8');
+            console.log(template_text);
+
+            let new_svg_text = template_text.replace('%CUSTOMCOLOR%', this.color);
+
+            let new_svg_path = path.join(__filename, '..', '..', 'resources', 'swatches', 'generated', 'generated_' + this.color + '.svg');
+
+            fs.writeFileSync(new_svg_path,new_svg_text);
+
+            this.iconPath = new_svg_path;
+        }else{
+            this.iconPath = path.join(__filename, '..', '..', 'resources', 'swatches', 'swatch_transparent.svg');
+        }
+    }
 
 }
 
@@ -508,7 +511,7 @@ class PaletteGroup extends vscode.TreeItem {
         super(label, collapsibleState);
         this.description = description;
         this.color = description;
-        this.iconPath = this.getDynamicSvg();
+        this.getDynamicSvg();
     }
 
     // iconPath = {
@@ -517,7 +520,7 @@ class PaletteGroup extends vscode.TreeItem {
     //     };
 
 
-    getDynamicSvg(): string {
+    getDynamicSvg() {
         let template_text = fs.readFileSync(path.join(__filename, '..', '..', 'resources', 'swatches', 'swatch_template.svg'), 'utf8');
         console.log(template_text);
 
@@ -527,7 +530,7 @@ class PaletteGroup extends vscode.TreeItem {
 
         fs.writeFileSync(new_svg_path,new_svg_text);
 
-        return new_svg_path;
+        this.iconPath = new_svg_path;
     }
 
 }
