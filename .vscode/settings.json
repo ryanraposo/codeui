@@ -10,5 +10,10 @@
     "typescript.tsc.autoDetect": "off",
     "python.pythonPath": "C:\\Miniconda3\\python.exe",
     "python.linting.pylintEnabled": true,
-    "python.linting.enabled": true
+    "python.linting.enabled": true,
+
+    "turboConsoleLog.logMessagePrefix": "CodeUI debug :",
+    "turboConsoleLog.wrapLogMessage": false
+
+
 }
