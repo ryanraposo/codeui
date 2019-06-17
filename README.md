@@ -1,6 +1,6 @@
-# codeui README
+# CodeUI
 
-CodeUI - A theme builder for Visual Studio Code.
+A theme editor for Visual Studio Code.
 
 ## Features
 
