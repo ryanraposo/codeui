@@ -4,7 +4,9 @@ node_modules
 *.vsix
 allElements-fix/**
 resources/swatches/generated
-old/
+old/**
+media/**
 .vscode/**
+todo.md
 
 
