@@ -8,7 +8,6 @@ Easily customize elements of VS Code's interface
 
 ![customize](resources\animation_customizeColor.gif "Customize color")
 
-
 ## Requirements
 
 If you have any requirements or dependencies, add a section describing those and how to install and configure them.
