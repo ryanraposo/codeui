@@ -4,13 +4,10 @@ A theme editor for Visual Studio Code.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+Easily customize elements of VS Code's interface
 
-For example if there is an image subfolder under your extension project workspace:
+![alt](resources\animation_customizeColor.gif)
 
-\!\[feature X\]\(paintbrush.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
 
 ## Requirements
 
