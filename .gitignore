@@ -4,7 +4,7 @@ node_modules
 *.vsix
 allElements-fix/**
 resources/swatches/generated
-old
+/old
 .vscode/**
 
 
