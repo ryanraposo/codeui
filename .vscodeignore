@@ -9,6 +9,6 @@ allElements-fix/**
 **/tslint.json
 **/*.map
 **/*.ts
-resources/swatches/generated
 old/**
 todo.md
+media/**
