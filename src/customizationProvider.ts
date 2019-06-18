@@ -3,11 +3,6 @@ import * as fs from 'fs';
 import * as copypaste from 'copy-paste';
 import * as path from "path";
 import * as clr from "color";
-import { CurrentTheme } from './theme';
-import { Z_PARTIAL_FLUSH } from 'zlib';
-import * as color from 'color';
-import { timingSafeEqual } from 'crypto';
-
 
 var allElements: Element[] = [];
 

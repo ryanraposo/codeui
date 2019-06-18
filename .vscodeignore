@@ -10,3 +10,5 @@ allElements-fix/**
 **/*.map
 **/*.ts
 resources/swatches/generated
+old/**
+todo.md
