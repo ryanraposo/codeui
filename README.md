@@ -1,8 +1,9 @@
+<span style="text-align: right">
+    <image src="resources\logo-blueprint-128x128.png">
+</span>
 
 
-## A theme editor for Visual Studio Code.
 
-<image src="resources\logo-blueprint-128x128.png">
 
 ## Features
 

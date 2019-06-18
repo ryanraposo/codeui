@@ -269,10 +269,19 @@ export class ThemeViewDataProvider implements vscode.TreeDataProvider<vscode.Tre
     }
 
 
-    getChildren(element?:vscode.TreeItem): any {
+    getChildren(paletteGroup?:any): any {
 
-        if(element){ // If palette group is supplied, get its member UI elements...
 
+        if(paletteGroup){ // If palette group is supplied, get its member UI elements...
+            let themeColors = this.themeViewJsonObject['colors'];
+            let paletteGroupTreeItems : any = [];
+            for(let key in themeColors){
+                let value = themeColors[key];
+                if(paletteGroup.color === value){
+                    paletteGroupTreeItems.push(new vscode.TreeItem(key,vscode.TreeItemCollapsibleState.None));
+                }
+            }
+            return paletteGroupTreeItems;
         }else{ // If root, get palette groups...
             return this.getPaletteGroups();
         }
