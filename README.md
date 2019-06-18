@@ -1,12 +1,14 @@
-# CodeUI
 
-A theme editor for Visual Studio Code.
+
+## A theme editor for Visual Studio Code.
+
+<image src="resources\logo-blueprint-128x128.png">
 
 ## Features
 
 Easily customize elements of VS Code's interface
 
-![customize](resources\animation_customizeColor.gif "Customize color")
+![](resources\animation_customizeColor.gif)
 
 ## Requirements
 
