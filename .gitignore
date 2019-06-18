@@ -1,12 +1,16 @@
+#Folders
 out
 node_modules
-.vscode-test/
-*.vsix
-allElements-fix/**
-resources/swatches/generated
-old/**
-media/**
-.vscode/**
+allElements-fix
+old
+media
+
+#Files
 todo.md
+resources/swatches/generated/**
+
+#Filetypes
+*.vsix
+.vscode/**
 
 

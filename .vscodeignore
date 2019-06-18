@@ -1,14 +1,19 @@
+# Folders
+allElements-fix
+old
+todo.md
+media
+
+#Files
 .vscode/**
 .vscode-test/**
 out/test/**
 src/**
-.gitignore
-vsc-extension-quickstart.md
-allElements-fix/**
 **/tsconfig.json
 **/tslint.json
+.gitignore
+vsc-extension-quickstart.md
+
+# Filetypes
 **/*.map
 **/*.ts
-old/**
-todo.md
-media/**
