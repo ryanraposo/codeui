@@ -6,7 +6,7 @@ A theme editor for Visual Studio Code.
 
 Easily customize elements of VS Code's interface
 
-![](resources\animation_customizeColor.gif)
+![](resources/animation_customizeColor.gif)
 
 ## Requirements
 
