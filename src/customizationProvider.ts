@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as copypaste from 'copy-paste';
 import * as path from "path";
+
 import * as clr from "color";
 
 var allElements: Element[] = [];
@@ -354,27 +355,22 @@ export class ThemeViewDataProvider implements vscode.TreeDataProvider<vscode.Tre
         let elementData : any = {};
         let paletteItems : PaletteItem[] = [];
 
-        text = fs.readFileSync(path.join(__filename, '..', '..', 'data', 'vscodeUIElements.json'),"utf8");
+        text = fs.readFileSync(path.join(__filename, '..', '..', 'data', 'vscodeElementsArray.json'),"utf8");
 
         allElementsJson = JSON.parse(text);
 
-        for(let elementName in elementFullNames){
-            for(let key in allElementsJson){
-                // Group : {elementname : {data1:..., data2:...,}}
-                if(elementFullNames[elementName] in allElementsJson[key]){
-                    elementData[elementFullNames[elementName]] = {'titleName': null, 'longName': null, 'description': null, 'group' : null};
-                    elementData[elementFullNames[elementName]]['fullName'] = elementFullNames[elementName];
-                    elementData[elementFullNames[elementName]]['titleName'] = allElementsJson[key][elementFullNames[elementName]]['label'];
-                    elementData[elementFullNames[elementName]]['description'] = allElementsJson[key][elementFullNames[elementName]]['description'];
-                    elementData[elementFullNames[elementName]]['group'] = allElementsJson[key][elementFullNames[elementName]]['group'];
-                 }
+        for(let name in elementFullNames){
+            for(let element in allElementsJson){
+                let value = allElementsJson[element];
+                if(value['fullName'] === elementFullNames[name]){
+                    let fullName : string = value['fullName'];
+                    let titleName : string = value['titleName'];
+                    let groupedName : string = value['groupedName'];
+                    let info : string = value['info'];
+                    let group : string = value['group'];
+                    paletteItems.push(new PaletteItem(titleName,fullName,info,vscode.TreeItemCollapsibleState.None));
+                }
             }
-        }
-
-        for(let key in elementData){
-            let value = elementData[key];
-                                           // label, description, tooltip
-            paletteItems.push(new PaletteItem(value['group'] + ": " + value['titleName'], '(' + value['fullName'] + ')', value['description'], vscode.TreeItemCollapsibleState.None));
         }
 
         return paletteItems;
@@ -400,6 +396,8 @@ export class ThemeViewDataProvider implements vscode.TreeDataProvider<vscode.Tre
 
             }
         }
+
+
 
         // Prompt user for new color
         var updatedColor : any;

@@ -1,0 +1,2221 @@
+[
+    {
+        "fullName": "contrastActiveBorder",
+        "titleName": "General Contrast Active Border",
+        "groupedName": "Contrast Active Border",
+        "info": "An extra border around active elements to separate them from others for greater contrast",
+        "group": "General"
+    },
+    {
+        "fullName": "contrastBorder",
+        "titleName": "General Contrast Border",
+        "groupedName": "Contrast Border",
+        "info": "An extra border around elements to separate them from others for greater contrast",
+        "group": "General"
+    },
+    {
+        "fullName": "focusBorder",
+        "titleName": "General Focus Border",
+        "groupedName": "Focus Border",
+        "info": "Overall border color for focused elements. This color is only used if not overridden by a component",
+        "group": "General"
+    },
+    {
+        "fullName": "foreground",
+        "titleName": "General Foreground",
+        "groupedName": "Foreground",
+        "info": "Overall foreground color. This color is only used if not overridden by a component",
+        "group": "General"
+    },
+    {
+        "fullName": "descriptionForeground",
+        "titleName": "General Description Foreground",
+        "groupedName": "Description Foreground",
+        "info": "Foreground color for description text providing additional information, for example for a label",
+        "group": "General"
+    },
+    {
+        "fullName": "errorForeground",
+        "titleName": "General Foreground",
+        "groupedName": "Foreground",
+        "info": "Overall foreground color for error messages (this color is only used if not overridden by a component)",
+        "group": "General"
+    },
+    {
+        "fullName": "widget.shadow",
+        "titleName": "Widget Shadow",
+        "groupedName": "Shadow",
+        "info": "Shadow color of widgets such as Find/Replace inside the editor",
+        "group": "Widget"
+    },
+    {
+        "fullName": "selection.background",
+        "titleName": "Selection Background",
+        "groupedName": "Background",
+        "info": "Background color of text ",
+        "group": "Selection"
+    },
+    {
+        "fullName": "textBlockQuote.background",
+        "titleName": "Text Block Quote Background",
+        "groupedName": "Block Quote Background",
+        "info": "Background color for block quotes in text",
+        "group": "Text"
+    },
+    {
+        "fullName": "textBlockQuote.border",
+        "titleName": "Text Block Quote Border",
+        "groupedName": "Block Quote Border",
+        "info": "Border color for block quotes in text",
+        "group": "Text"
+    },
+    {
+        "fullName": "textCodeBlock.background",
+        "titleName": "Text Code Block Background",
+        "groupedName": "Code Block Background",
+        "info": "Background color for code blocks in text",
+        "group": "Text"
+    },
+    {
+        "fullName": "textLink.activeForeground",
+        "titleName": "Text Link Active Foreground",
+        "groupedName": "Link Active Foreground",
+        "info": "Foreground color for links in text when clicked on and on mouse hover",
+        "group": "Text"
+    },
+    {
+        "fullName": "textLink.foreground",
+        "titleName": "Text Link Foreground",
+        "groupedName": "Link Foreground",
+        "info": "Foreground color for links in text",
+        "group": "Text"
+    },
+    {
+        "fullName": "textPreformat.foreground",
+        "titleName": "Text Preformat Foreground",
+        "groupedName": "Preformat Foreground",
+        "info": "Foreground color for preformatted text segments",
+        "group": "Text"
+    },
+    {
+        "fullName": "textSeparator.foreground",
+        "titleName": "Text Separator Foreground",
+        "groupedName": "Separator Foreground",
+        "info": "Color for text separators",
+        "group": "Text"
+    },
+    {
+        "fullName": "button.background",
+        "titleName": "Button Background",
+        "groupedName": "Background",
+        "info": "Button background color",
+        "group": "Button"
+    },
+    {
+        "fullName": "button.foreground",
+        "titleName": "Button Foreground",
+        "groupedName": "Foreground",
+        "info": "Button foreground color",
+        "group": "Button"
+    },
+    {
+        "fullName": "button.hoverBackground",
+        "titleName": "Button Hover Background",
+        "groupedName": "Hover Background",
+        "info": "Button background color when hovering",
+        "group": "Button"
+    },
+    {
+        "fullName": "dropdown.background",
+        "titleName": "Dropdown Background",
+        "groupedName": "Background",
+        "info": "Dropdown background",
+        "group": "Dropdown"
+    },
+    {
+        "fullName": "dropdown.listBackground",
+        "titleName": "Dropdown List Background",
+        "groupedName": "List Background",
+        "info": "Dropdown list background",
+        "group": "Dropdown"
+    },
+    {
+        "fullName": "dropdown.border",
+        "titleName": "Dropdown Border",
+        "groupedName": "Border",
+        "info": "Dropdown border",
+        "group": "Dropdown"
+    },
+    {
+        "fullName": "dropdown.foreground",
+        "titleName": "Dropdown Foreground",
+        "groupedName": "Foreground",
+        "info": "Dropdown foreground",
+        "group": "Dropdown"
+    },
+    {
+        "fullName": "input.background",
+        "titleName": "Input Background",
+        "groupedName": "Background",
+        "info": "Input box background",
+        "group": "Input"
+    },
+    {
+        "fullName": "input.border",
+        "titleName": "Input Border",
+        "groupedName": "Border",
+        "info": "Input box border",
+        "group": "Input"
+    },
+    {
+        "fullName": "input.foreground",
+        "titleName": "Input Foreground",
+        "groupedName": "Foreground",
+        "info": "Input box foreground",
+        "group": "Input"
+    },
+    {
+        "fullName": "input.placeholderForeground",
+        "titleName": "Input Placeholder Foreground",
+        "groupedName": "Placeholder Foreground",
+        "info": "Input box foreground color for placeholder text",
+        "group": "Input"
+    },
+    {
+        "fullName": "inputOption.activeBorder",
+        "titleName": "Input Option Active Border",
+        "groupedName": "Option Active Border",
+        "info": "Border color of activated options in input fields",
+        "group": "Input"
+    },
+    {
+        "fullName": "inputValidation.errorBackground",
+        "titleName": "Input Validation Error Background",
+        "groupedName": "Validation Error Background",
+        "info": "Input validation background color for error severity",
+        "group": "Input"
+    },
+    {
+        "fullName": "inputValidation.errorForeground",
+        "titleName": "Input Validation Error Foreground",
+        "groupedName": "Validation Error Foreground",
+        "info": "Input validation foreground color for error severity",
+        "group": "Input"
+    },
+    {
+        "fullName": "inputValidation.errorBorder",
+        "titleName": "Input Validation Error Border",
+        "groupedName": "Validation Error Border",
+        "info": "Input validation border color for error severity",
+        "group": "Input"
+    },
+    {
+        "fullName": "inputValidation.infoBackground",
+        "titleName": "Input Validation Info Background",
+        "groupedName": "Validation Info Background",
+        "info": "Input validation background color for information severity",
+        "group": "Input"
+    },
+    {
+        "fullName": "inputValidation.infoForeground",
+        "titleName": "Input Validation Info Foreground",
+        "groupedName": "Validation Info Foreground",
+        "info": "Input validation foreground color for information severity",
+        "group": "Input"
+    },
+    {
+        "fullName": "inputValidation.infoBorder",
+        "titleName": "Input Validation Info Border",
+        "groupedName": "Validation Info Border",
+        "info": "Input validation border color for information severity",
+        "group": "Input"
+    },
+    {
+        "fullName": "inputValidation.warningBackground",
+        "titleName": "Input Validation Warning Background",
+        "groupedName": "Validation Warning Background",
+        "info": "Input validation background color for information warning",
+        "group": "Input"
+    },
+    {
+        "fullName": "inputValidation.warningForeground",
+        "titleName": "Input Validation Warning Foreground",
+        "groupedName": "Validation Warning Foreground",
+        "info": "Input validation foreground color for warning severity",
+        "group": "Input"
+    },
+    {
+        "fullName": "inputValidation.warningBorder",
+        "titleName": "Input Validation Warning Border",
+        "groupedName": "Validation Warning Border",
+        "info": "Input validation border color for warning severity",
+        "group": "Input"
+    },
+    {
+        "fullName": "scrollbar.shadow",
+        "titleName": "Scroll Bar Shadow",
+        "groupedName": "Shadow",
+        "info": "Scrollbar slider shadow to indicate that the view is scrolled",
+        "group": "Scroll Bar"
+    },
+    {
+        "fullName": "scrollbarSlider.activeBackground",
+        "titleName": "Scroll Bar Slider Active Background",
+        "groupedName": "Slider Active Background",
+        "info": "Scrollbar slider background color when clicked on",
+        "group": "Scroll Bar"
+    },
+    {
+        "fullName": "scrollbarSlider.background",
+        "titleName": "Scroll Bar Slider Background",
+        "groupedName": "Slider Background",
+        "info": "Scrollbar slider background color",
+        "group": "Scroll Bar"
+    },
+    {
+        "fullName": "scrollbarSlider.hoverBackground",
+        "titleName": "Scroll Bar Slider Hover Background",
+        "groupedName": "Slider Hover Background",
+        "info": "Scrollbar slider background color when hovering",
+        "group": "Scroll Bar"
+    },
+    {
+        "fullName": "badge.foreground",
+        "titleName": "Badge Foreground",
+        "groupedName": "Foreground",
+        "info": "Badge foreground color",
+        "group": "Badge"
+    },
+    {
+        "fullName": "badge.background",
+        "titleName": "Badge Background",
+        "groupedName": "Background",
+        "info": "Badge background color",
+        "group": "Badge"
+    },
+    {
+        "fullName": "progressBar.background",
+        "titleName": "Progress Bar Bar Background",
+        "groupedName": "Bar Background",
+        "info": "Background color of the progress bar shown for long running operations",
+        "group": "Progress Bar"
+    },
+    {
+        "fullName": "list.activeSelectionBackground",
+        "titleName": "List Active Selection Background",
+        "groupedName": "Active Selection Background",
+        "info": "List/Tree background color for the selected item when the list/tree is active",
+        "group": "List"
+    },
+    {
+        "fullName": "list.activeSelectionForeground",
+        "titleName": "List Active Selection Foreground",
+        "groupedName": "Active Selection Foreground",
+        "info": "List/Tree foreground color for the selected item when the list/tree is active",
+        "group": "List"
+    },
+    {
+        "fullName": "list.dropBackground",
+        "titleName": "List Drop Background",
+        "groupedName": "Drop Background",
+        "info": "List/Tree drag and drop background when moving items around using the mouse",
+        "group": "List"
+    },
+    {
+        "fullName": "list.focusBackground",
+        "titleName": "List Focus Background",
+        "groupedName": "Focus Background",
+        "info": "List/Tree background color for the focused item when the list/tree is active",
+        "group": "List"
+    },
+    {
+        "fullName": "list.focusForeground",
+        "titleName": "List Focus Foreground",
+        "groupedName": "Focus Foreground",
+        "info": "List/Tree foreground color for ",
+        "group": "List"
+    },
+    {
+        "fullName": "list.highlightForeground",
+        "titleName": "List Highlight Foreground",
+        "groupedName": "Highlight Foreground",
+        "info": "List/Tree foreground color of the match highlights when searching inside the list/tree",
+        "group": "List"
+    },
+    {
+        "fullName": "list.hoverBackground",
+        "titleName": "List Hover Background",
+        "groupedName": "Hover Background",
+        "info": "List/Tree background when hovering over items using the mouse",
+        "group": "List"
+    },
+    {
+        "fullName": "list.hoverForeground",
+        "titleName": "List Hover Foreground",
+        "groupedName": "Hover Foreground",
+        "info": "List/Tree foreground when hovering over items using the mouse",
+        "group": "List"
+    },
+    {
+        "fullName": "list.inactiveSelectionBackground",
+        "titleName": "List Inactive Selection Background",
+        "groupedName": "Inactive Selection Background",
+        "info": "List/Tree background color for the selected item when the list/tree is inactive",
+        "group": "List"
+    },
+    {
+        "fullName": "list.inactiveSelectionForeground",
+        "titleName": "List Inactive Selection Foreground",
+        "groupedName": "Inactive Selection Foreground",
+        "info": "List/Tree foreground ",
+        "group": "List"
+    },
+    {
+        "fullName": "list.inactiveFocusBackground",
+        "titleName": "List Inactive Focus Background",
+        "groupedName": "Inactive Focus Background",
+        "info": "List background color for",
+        "group": "List"
+    },
+    {
+        "fullName": "list.invalidItemForeground",
+        "titleName": "List Invalid Item Foreground",
+        "groupedName": "Invalid Item Foreground",
+        "info": "List/Tree foreground color for invalid items, for example an unresolved root in explorer",
+        "group": "List"
+    },
+    {
+        "fullName": "list.errorForeground",
+        "titleName": "List Error Foreground",
+        "groupedName": "Error Foreground",
+        "info": "Foreground color of list items containing errors",
+        "group": "List"
+    },
+    {
+        "fullName": "list.warningForeground",
+        "titleName": "List Warning Foreground",
+        "groupedName": "Warning Foreground",
+        "info": "Foreground color of list items containing warnings",
+        "group": "List"
+    },
+    {
+        "fullName": "listFilterWidget.background",
+        "titleName": "List Filter Widget Background",
+        "groupedName": "Filter Widget Background",
+        "info": "List/Tree Filter background color of typed text when searching inside the list/tree",
+        "group": "List"
+    },
+    {
+        "fullName": "listFilterWidget.outline",
+        "titleName": "List Filter Widget Outline",
+        "groupedName": "Filter Widget Outline",
+        "info": "List/Tree Filter Widget's outline color of typed text when searching inside the list/tree",
+        "group": "List"
+    },
+    {
+        "fullName": "listFilterWidget.noMatchesOutline",
+        "titleName": "List Filter Widget No Matches Outline",
+        "groupedName": "Filter Widget No Matches Outline",
+        "info": "List/Tree Filter Widget's outline color when no match is found of typed text when searching inside the list/tree",
+        "group": "List"
+    },
+    {
+        "fullName": "activityBar.background",
+        "titleName": "Activity Bar Bar Background",
+        "groupedName": "Bar Background",
+        "info": "Activity Bar background color",
+        "group": "Activity Bar"
+    },
+    {
+        "fullName": "activityBar.dropBackground",
+        "titleName": "Activity Bar Bar Drop Background",
+        "groupedName": "Bar Drop Background",
+        "info": "Drag and drop feedback color for the Activity Bar items",
+        "group": "Activity Bar"
+    },
+    {
+        "fullName": "activityBar.foreground",
+        "titleName": "Activity Bar Bar Foreground",
+        "groupedName": "Bar Foreground",
+        "info": "Activity bar foreground color (for example used for the icons)",
+        "group": "Activity Bar"
+    },
+    {
+        "fullName": "activityBar.inactiveForeground",
+        "titleName": "Activity Bar Bar Inactive Foreground",
+        "groupedName": "Bar Inactive Foreground",
+        "info": "Activity bar item foreground color when it is inactive",
+        "group": "Activity Bar"
+    },
+    {
+        "fullName": "activityBar.border",
+        "titleName": "Activity Bar Bar Border",
+        "groupedName": "Bar Border",
+        "info": "Activity Bar border color with the Side Bar",
+        "group": "Activity Bar"
+    },
+    {
+        "fullName": "activityBarBadge.background",
+        "titleName": "Activity Bar Barbadge Background",
+        "groupedName": "Barbadge Background",
+        "info": "Activity notification badge background color",
+        "group": "Activity Bar"
+    },
+    {
+        "fullName": "activityBarBadge.foreground",
+        "titleName": "Activity Bar Barbadge Foreground",
+        "groupedName": "Barbadge Foreground",
+        "info": "Activity notification badge foreground color",
+        "group": "Activity Bar"
+    },
+    {
+        "fullName": "sideBar.background",
+        "titleName": "Side Bar Bar Background",
+        "groupedName": "Bar Background",
+        "info": "Side Bar background color",
+        "group": "Side Bar"
+    },
+    {
+        "fullName": "sideBar.foreground",
+        "titleName": "Side Bar Bar Foreground",
+        "groupedName": "Bar Foreground",
+        "info": "Side Bar foreground color. The Side Bar is the container for views like Explorer and Search",
+        "group": "Side Bar"
+    },
+    {
+        "fullName": "sideBar.border",
+        "titleName": "Side Bar Bar Border",
+        "groupedName": "Bar Border",
+        "info": "Side Bar border color on the side separating the editor",
+        "group": "Side Bar"
+    },
+    {
+        "fullName": "sideBar.dropBackground",
+        "titleName": "Side Bar Bar Drop Background",
+        "groupedName": "Bar Drop Background",
+        "info": "Drag and drop feedback color for",
+        "group": "Side Bar"
+    },
+    {
+        "fullName": "sideBarTitle.foreground",
+        "titleName": "Side Bar Bar Title Foreground",
+        "groupedName": "Bar Title Foreground",
+        "info": "Side Bar title foreground color",
+        "group": "Side Bar"
+    },
+    {
+        "fullName": "sideBarSectionHeader.background",
+        "titleName": "Side Bar Bar Section Header Background",
+        "groupedName": "Bar Section Header Background",
+        "info": "Side Bar section header background color",
+        "group": "Side Bar"
+    },
+    {
+        "fullName": "sideBarSectionHeader.foreground",
+        "titleName": "Side Bar Bar Section Header Foreground",
+        "groupedName": "Bar Section Header Foreground",
+        "info": "Side Bar section header foreground color",
+        "group": "Side Bar"
+    },
+    {
+        "fullName": "sideBarSectionHeader.border",
+        "titleName": "Side Bar Bar Section Header Border",
+        "groupedName": "Bar Section Header Border",
+        "info": "Side bar section header border color",
+        "group": "Side Bar"
+    },
+    {
+        "fullName": "editorGroup.border",
+        "titleName": "Editor Group Border",
+        "groupedName": "Group Border",
+        "info": "Color to separate multiple editor groups from each other",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorGroup.dropBackground",
+        "titleName": "Editor Group Drop Background",
+        "groupedName": "Group Drop Background",
+        "info": "Background color when dragging editors around",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorGroupHeader.noTabsBackground",
+        "titleName": "Editor Group Header No Tabs Background",
+        "groupedName": "Group Header No Tabs Background",
+        "info": "Background color of the editor group title header when Tabs are disabled (set <code>\"workbench.editor.showTabs\": false</code>)",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorGroupHeader.tabsBackground",
+        "titleName": "Editor Group Header Tabs Background",
+        "groupedName": "Group Header Tabs Background",
+        "info": "Background color of the Tabs container",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorGroupHeader.tabsBorder",
+        "titleName": "Editor Group Header Tabs Border",
+        "groupedName": "Group Header Tabs Border",
+        "info": "Border color of the editor group title header when tabs are enabled",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorGroup.emptyBackground",
+        "titleName": "Editor Group Empty Background",
+        "groupedName": "Group Empty Background",
+        "info": "Background color of an empty editor group",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorGroup.focusedEmptyBorder",
+        "titleName": "Editor Group Focused Empty Border",
+        "groupedName": "Group Focused Empty Border",
+        "info": "Border color of an empty editor group that is focused",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorPane.background",
+        "titleName": "Editor Pane Background",
+        "groupedName": "Pane Background",
+        "info": "Background color of the editor pane visible on the left and right side of the centered editor layout",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.background",
+        "titleName": "Editor Background",
+        "groupedName": "Background",
+        "info": "Editor background color",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.foreground",
+        "titleName": "Editor Foreground",
+        "groupedName": "Foreground",
+        "info": "Editor default foreground color",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorLineNumber.foreground",
+        "titleName": "Editor Line Number Foreground",
+        "groupedName": "Line Number Foreground",
+        "info": "Color of editor line numbers",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorLineNumber.activeForeground",
+        "titleName": "Editor Line Number Active Foreground",
+        "groupedName": "Line Number Active Foreground",
+        "info": "Color of the active editor line number",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorCursor.background",
+        "titleName": "Editor Cursor Background",
+        "groupedName": "Cursor Background",
+        "info": "The background color of the editor cursor. Allows customizing the color of a character overlapped by a block cursor",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorCursor.foreground",
+        "titleName": "Editor Cursor Foreground",
+        "groupedName": "Cursor Foreground",
+        "info": "Color of the editor cursor",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.selectionBackground",
+        "titleName": "Editor Selection Background",
+        "groupedName": "Selection Background",
+        "info": "Color of the editor selection",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.selectionForeground",
+        "titleName": "Editor Selection Foreground",
+        "groupedName": "Selection Foreground",
+        "info": "Color of the selected text for high contrast",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.inactiveSelectionBackground",
+        "titleName": "Editor Inactive Selection Background",
+        "groupedName": "Inactive Selection Background",
+        "info": "Color of the selection in an inactive editor. The color must not be opaque so as not to hide underlying decorations",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.selectionHighlightBackground",
+        "titleName": "Editor Selection Highlight Background",
+        "groupedName": "Selection Highlight Background",
+        "info": "Color for regions ",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.selectionHighlightBorder",
+        "titleName": "Editor Selection Highlight Border",
+        "groupedName": "Selection Highlight Border",
+        "info": "Border color for regions with the same content as the selection",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.wordHighlightBackground",
+        "titleName": "Editor Word Highlight Background",
+        "groupedName": "Word Highlight Background",
+        "info": "Background color of a ",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.wordHighlightBorder",
+        "titleName": "Editor Word Highlight Border",
+        "groupedName": "Word Highlight Border",
+        "info": "Border color of a symbol during read-access, for example when reading a variable",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.wordHighlightStrongBackground",
+        "titleName": "Editor Word Highlight Strong Background",
+        "groupedName": "Word Highlight Strong Background",
+        "info": "Background color ",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.wordHighlightStrongBorder",
+        "titleName": "Editor Word Highlight Strong Border",
+        "groupedName": "Word Highlight Strong Border",
+        "info": "Border color of a symbol during write-access, for example when writing to a variable",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.findMatchBackground",
+        "titleName": "Editor Find Match Background",
+        "groupedName": "Find Match Background",
+        "info": "Color of the current search match",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.findMatchHighlightBackground",
+        "titleName": "Editor Find Match Highlight Background",
+        "groupedName": "Find Match Highlight Background",
+        "info": "Color of the other search matches. The color must not be opaque so as not to hide underlying decorations",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.findRangeHighlightBackground",
+        "titleName": "Editor Find Range Highlight Background",
+        "groupedName": "Find Range Highlight Background",
+        "info": "Color the range ",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.findMatchBorder",
+        "titleName": "Editor Find Match Border",
+        "groupedName": "Find Match Border",
+        "info": "Border color of the current search match",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.findMatchHighlightBorder",
+        "titleName": "Editor Find Match Highlight Border",
+        "groupedName": "Find Match Highlight Border",
+        "info": "Border color of the other search matches",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.findRangeHighlightBorder",
+        "titleName": "Editor Find Range Highlight Border",
+        "groupedName": "Find Range Highlight Border",
+        "info": "Border color the range limiting the search (Enable 'Find in Selection' in the find widget)",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.hoverHighlightBackground",
+        "titleName": "Editor Hover Highlight Background",
+        "groupedName": "Hover Highlight Background",
+        "info": "Highlight below the word for which a hover is shown. The color must not be opaque so as not to hide underlying decorations",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.lineHighlightBackground",
+        "titleName": "Editor Line Highlight Background",
+        "groupedName": "Line Highlight Background",
+        "info": "Background color for the highlight of line at the cursor position",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.lineHighlightBorder",
+        "titleName": "Editor Line Highlight Border",
+        "groupedName": "Line Highlight Border",
+        "info": "Background color for the border around the line at the cursor position",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorLink.activeForeground",
+        "titleName": "Editor Link Active Foreground",
+        "groupedName": "Link Active Foreground",
+        "info": "Color of active links",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.rangeHighlightBackground",
+        "titleName": "Editor Range Highlight Background",
+        "groupedName": "Range Highlight Background",
+        "info": "Background color of ",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.rangeHighlightBorder",
+        "titleName": "Editor Range Highlight Border",
+        "groupedName": "Range Highlight Border",
+        "info": "Background color of the border around highlighted ranges",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorWhitespace.foreground",
+        "titleName": "Editor Whitespace Foreground",
+        "groupedName": "Whitespace Foreground",
+        "info": "Color of whitespace characters in the editor",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorIndentGuide.background",
+        "titleName": "Editor Indent Guide Background",
+        "groupedName": "Indent Guide Background",
+        "info": "Color of the editor indentation guides",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorIndentGuide.activeBackground",
+        "titleName": "Editor Indent Guide Active Background",
+        "groupedName": "Indent Guide Active Background",
+        "info": "Color of the active editor indentation guide",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorRuler.foreground",
+        "titleName": "Editor Ruler Foreground",
+        "groupedName": "Ruler Foreground",
+        "info": "Color of the editor rulers",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorCodeLens.foreground",
+        "titleName": "Editor Code Lens Foreground",
+        "groupedName": "Code Lens Foreground",
+        "info": "Foreground color of an editor CodeLens",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorBracketMatch.background",
+        "titleName": "Editor Bracket Match Background",
+        "groupedName": "Bracket Match Background",
+        "info": "Background color behind matching brackets",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorBracketMatch.border",
+        "titleName": "Editor Bracket Match Border",
+        "groupedName": "Bracket Match Border",
+        "info": "Color for matching brackets boxes",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorOverviewRuler.border",
+        "titleName": "Editor Overview Ruler Border",
+        "groupedName": "Overview Ruler Border",
+        "info": "Color of the overview ruler border",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorOverviewRuler.findMatchForeground",
+        "titleName": "Editor Overview Ruler Find Match Foreground",
+        "groupedName": "Overview Ruler Find Match Foreground",
+        "info": "Overview ruler marker color for find matches. The color must not be opaque so as not to hide underlying decorations",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorOverviewRuler.rangeHighlightForeground",
+        "titleName": "Editor Overview Ruler Range Highlight Foreground",
+        "groupedName": "Overview Ruler Range Highlight Foreground",
+        "info": "Overview ",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorOverviewRuler.selectionHighlightForeground",
+        "titleName": "Editor Overview Ruler Selection Highlight Foreground",
+        "groupedName": "Overview Ruler Selection Highlight Foreground",
+        "info": "Overview ruler marker color for selection highlights. The color must not be opaque so as not to hide underlying decorations",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorOverviewRuler.wordHighlightForeground",
+        "titleName": "Editor Overview Ruler Word Highlight Foreground",
+        "groupedName": "Overview Ruler Word Highlight Foreground",
+        "info": "Overview ruler marker color for symbol highlights. The color must not be opaque so as not to hide underlying decorations",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorOverviewRuler.wordHighlightStrongForeground",
+        "titleName": "Editor Overview Ruler Word Highlight Strong Foreground",
+        "groupedName": "Overview Ruler Word Highlight Strong Foreground",
+        "info": "Overview ruler marker color for write-access symbol highlights. The color must not be opaque so as not to hide underlying decorations.",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorOverviewRuler.modifiedForeground",
+        "titleName": "Editor Overview Ruler Modified Foreground",
+        "groupedName": "Overview Ruler Modified Foreground",
+        "info": "Overview ruler marker color for modified content",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorOverviewRuler.addedForeground",
+        "titleName": "Editor Overview Ruler Added Foreground",
+        "groupedName": "Overview Ruler Added Foreground",
+        "info": "Overview ruler marker color for added content",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorOverviewRuler.deletedForeground",
+        "titleName": "Editor Overview Ruler Deleted Foreground",
+        "groupedName": "Overview Ruler Deleted Foreground",
+        "info": "Overview ruler marker color for deleted content",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorOverviewRuler.errorForeground",
+        "titleName": "Editor Overview Ruler Error Foreground",
+        "groupedName": "Overview Ruler Error Foreground",
+        "info": "Overview ruler marker color for errors",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorOverviewRuler.warningForeground",
+        "titleName": "Editor Overview Ruler Warning Foreground",
+        "groupedName": "Overview Ruler Warning Foreground",
+        "info": "Overview ruler marker color for warnings",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorOverviewRuler.infoForeground",
+        "titleName": "Editor Overview Ruler Info Foreground",
+        "groupedName": "Overview Ruler Info Foreground",
+        "info": "Overview ruler marker color for infos",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorOverviewRuler.bracketMatchForeground",
+        "titleName": "Editor Overview Ruler Bracket Match Foreground",
+        "groupedName": "Overview Ruler Bracket Match Foreground",
+        "info": "Overview ruler marker color for matching brackets",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorError.foreground",
+        "titleName": "Editor Error Foreground",
+        "groupedName": "Error Foreground",
+        "info": "Foreground color of error squiggles in the editor",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorError.border",
+        "titleName": "Editor Error Border",
+        "groupedName": "Error Border",
+        "info": "Border color of error boxes in the editor",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorWarning.foreground",
+        "titleName": "Editor Warning Foreground",
+        "groupedName": "Warning Foreground",
+        "info": "Foreground color of warning squiggles in the editor",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorWarning.border",
+        "titleName": "Editor Warning Border",
+        "groupedName": "Warning Border",
+        "info": "Border color of warning boxes in the editor",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorInfo.foreground",
+        "titleName": "Editor Info Foreground",
+        "groupedName": "Info Foreground",
+        "info": "Foreground color of info squiggles in the editor",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorInfo.border",
+        "titleName": "Editor Info Border",
+        "groupedName": "Info Border",
+        "info": "Border color of info boxes in the editor",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorHint.foreground",
+        "titleName": "Editor Hint Foreground",
+        "groupedName": "Hint Foreground",
+        "info": "Foreground color of hints in the editor",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorHint.border",
+        "titleName": "Editor Hint Border",
+        "groupedName": "Hint Border",
+        "info": "Border color of hint boxes in the editor",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorUnnecessaryCode.border",
+        "titleName": "Editor Unnecessary Code Border",
+        "groupedName": "Unnecessary Code Border",
+        "info": "Border color of unnecessary (unused) source code in the editor",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorUnnecessaryCode.opacity",
+        "titleName": "Editor Unnecessary Code Opacity",
+        "groupedName": "Unnecessary Code Opacity",
+        "info": "Opacity of unnecessary (unused) source code in the editor.",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorGutter.background",
+        "titleName": "Editor Gutter Background",
+        "groupedName": "Gutter Background",
+        "info": "Background color of the editor gutter. The gutter contains the glyph margins and the line numbers",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorGutter.modifiedBackground",
+        "titleName": "Editor Gutter Modified Background",
+        "groupedName": "Gutter Modified Background",
+        "info": "Editor gutter background color for lines that are modified",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorGutter.addedBackground",
+        "titleName": "Editor Gutter Added Background",
+        "groupedName": "Gutter Added Background",
+        "info": "Editor gutter background color for lines that are added",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorGutter.deletedBackground",
+        "titleName": "Editor Gutter Deleted Background",
+        "groupedName": "Gutter Deleted Background",
+        "info": "Editor gutter background color for lines that are deleted",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorWidget.background",
+        "titleName": "Editor Widget Background",
+        "groupedName": "Widget Background",
+        "info": "Background color of editor widgets, such as Find/Replace",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorWidget.border",
+        "titleName": "Editor Widget Border",
+        "groupedName": "Widget Border",
+        "info": "Border color of the editor widget unless the widget does not contain a border or defines its own border color",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorWidget.resizeBorder",
+        "titleName": "Editor Widget Resize Border",
+        "groupedName": "Widget Resize Border",
+        "info": "Border color of the resize ",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorSuggestWidget.background",
+        "titleName": "Editor Suggest Widget Background",
+        "groupedName": "Suggest Widget Background",
+        "info": "Background color of the suggestion widget",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorSuggestWidget.border",
+        "titleName": "Editor Suggest Widget Border",
+        "groupedName": "Suggest Widget Border",
+        "info": "Border color of the suggestion widget",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorSuggestWidget.foreground",
+        "titleName": "Editor Suggest Widget Foreground",
+        "groupedName": "Suggest Widget Foreground",
+        "info": "Foreground color of the suggestion widget",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorSuggestWidget.highlightForeground",
+        "titleName": "Editor Suggest Widget Highlight Foreground",
+        "groupedName": "Suggest Widget Highlight Foreground",
+        "info": "Color of the match highlights in the suggestion widget",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorSuggestWidget.selectedBackground",
+        "titleName": "Editor Suggest Widget Selected Background",
+        "groupedName": "Suggest Widget Selected Background",
+        "info": "Background color of the selected entry in the suggestion widget",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorHoverWidget.background",
+        "titleName": "Editor Hover Widget Background",
+        "groupedName": "Hover Widget Background",
+        "info": "Background color of the editor hover",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorHoverWidget.border",
+        "titleName": "Editor Hover Widget Border",
+        "groupedName": "Hover Widget Border",
+        "info": "Border color of the editor hover",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorMarkerNavigation.background",
+        "titleName": "Editor Marker Navigation Background",
+        "groupedName": "Marker Navigation Background",
+        "info": "Editor marker navigation widget background",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorMarkerNavigationError.background",
+        "titleName": "Editor Marker Navigation Error Background",
+        "groupedName": "Marker Navigation Error Background",
+        "info": "Editor marker navigation widget error color",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorMarkerNavigationWarning.background",
+        "titleName": "Editor Marker Navigation Warning Background",
+        "groupedName": "Marker Navigation Warning Background",
+        "info": "Editor marker navigation widget warning color",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorMarkerNavigationInfo.background",
+        "titleName": "Editor Marker Navigation Info Background",
+        "groupedName": "Marker Navigation Info Background",
+        "info": "Editor marker navigation widget info color",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorOverviewRuler.currentContentForeground",
+        "titleName": "Editor Overview Ruler Current Content Foreground",
+        "groupedName": "Overview Ruler Current Content Foreground",
+        "info": "Current overview ruler foreground for inline merge conflicts",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorOverviewRuler.incomingContentForeground",
+        "titleName": "Editor Overview Ruler Incoming Content Foreground",
+        "groupedName": "Overview Ruler Incoming Content Foreground",
+        "info": "Incoming overview ruler foreground for inline merge conflicts",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editorOverviewRuler.commonContentForeground",
+        "titleName": "Editor Overview Ruler Common Content Foreground",
+        "groupedName": "Overview Ruler Common Content Foreground",
+        "info": "Common ancestor overview ruler foreground for inline merge conflicts",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.stackFrameHighlightBackground",
+        "titleName": "Editor Stack Frame Highlight Background",
+        "groupedName": "Stack Frame Highlight Background",
+        "info": "Background color of the top stack frame highlight in the editor",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.focusedStackFrameHighlightBackground",
+        "titleName": "Editor Focused Stack Frame Highlight Background",
+        "groupedName": "Focused Stack Frame Highlight Background",
+        "info": "Background color of the focused stack frame highlight in the editor",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.snippetTabstopHighlightBackground",
+        "titleName": "Editor Snippet Tabstop Highlight Background",
+        "groupedName": "Snippet Tabstop Highlight Background",
+        "info": "Highlight background color of a snippet tabstop",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.snippetTabstopHighlightBorder",
+        "titleName": "Editor Snippet Tabstop Highlight Border",
+        "groupedName": "Snippet Tabstop Highlight Border",
+        "info": "Highlight border color of a snippet tabstop",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.snippetFinalTabstopHighlightBackground",
+        "titleName": "Editor Snippet Final Tabstop Highlight Background",
+        "groupedName": "Snippet Final Tabstop Highlight Background",
+        "info": "Highlight background color of the final tabstop of a snippet",
+        "group": "Editor"
+    },
+    {
+        "fullName": "editor.snippetFinalTabstopHighlightBorder",
+        "titleName": "Editor Snippet Final Tabstop Highlight Border",
+        "groupedName": "Snippet Final Tabstop Highlight Border",
+        "info": "Highlight border color of the final tabstop of a snippet",
+        "group": "Editor"
+    },
+    {
+        "fullName": "tab.activeBackground",
+        "titleName": "Tab Active Background",
+        "groupedName": "Active Background",
+        "info": "Active Tab background color in an active group",
+        "group": "Tab"
+    },
+    {
+        "fullName": "tab.unfocusedActiveBackground",
+        "titleName": "Tab Unfocused Active Background",
+        "groupedName": "Unfocused Active Background",
+        "info": "Active Tab background color in an inactive editor group",
+        "group": "Tab"
+    },
+    {
+        "fullName": "tab.activeForeground",
+        "titleName": "Tab Active Foreground",
+        "groupedName": "Active Foreground",
+        "info": "Active Tab foreground color in an active group",
+        "group": "Tab"
+    },
+    {
+        "fullName": "tab.border",
+        "titleName": "Tab Border",
+        "groupedName": "Border",
+        "info": "Border to separate Tabs from each other",
+        "group": "Tab"
+    },
+    {
+        "fullName": "tab.activeBorder",
+        "titleName": "Tab Active Border",
+        "groupedName": "Active Border",
+        "info": "Bottom border for the active tab",
+        "group": "Tab"
+    },
+    {
+        "fullName": "tab.unfocusedActiveBorder",
+        "titleName": "Tab Unfocused Active Border",
+        "groupedName": "Unfocused Active Border",
+        "info": "Bottom border for the active tab in an inactive editor group",
+        "group": "Tab"
+    },
+    {
+        "fullName": "tab.activeBorderTop",
+        "titleName": "Tab Active Border Top",
+        "groupedName": "Active Border Top",
+        "info": "Top border for the active tab",
+        "group": "Tab"
+    },
+    {
+        "fullName": "tab.unfocusedActiveBorderTop",
+        "titleName": "Tab Unfocused Active Border Top",
+        "groupedName": "Unfocused Active Border Top",
+        "info": "Top border for the active tab in an inactive editor group",
+        "group": "Tab"
+    },
+    {
+        "fullName": "tab.inactiveBackground",
+        "titleName": "Tab Inactive Background",
+        "groupedName": "Inactive Background",
+        "info": "Inactive Tab background color",
+        "group": "Tab"
+    },
+    {
+        "fullName": "tab.inactiveForeground",
+        "titleName": "Tab Inactive Foreground",
+        "groupedName": "Inactive Foreground",
+        "info": "Inactive Tab foreground color in an active group",
+        "group": "Tab"
+    },
+    {
+        "fullName": "tab.unfocusedActiveForeground",
+        "titleName": "Tab Unfocused Active Foreground",
+        "groupedName": "Unfocused Active Foreground",
+        "info": "Active tab foreground color in an inactive editor group",
+        "group": "Tab"
+    },
+    {
+        "fullName": "tab.unfocusedInactiveForeground",
+        "titleName": "Tab Unfocused Inactive Foreground",
+        "groupedName": "Unfocused Inactive Foreground",
+        "info": "Inactive tab foreground color in an inactive editor group",
+        "group": "Tab"
+    },
+    {
+        "fullName": "tab.hoverBackground",
+        "titleName": "Tab Hover Background",
+        "groupedName": "Hover Background",
+        "info": "Tab background color when hovering",
+        "group": "Tab"
+    },
+    {
+        "fullName": "tab.unfocusedHoverBackground",
+        "titleName": "Tab Unfocused Hover Background",
+        "groupedName": "Unfocused Hover Background",
+        "info": "Tab background color in an unfocused group when hovering",
+        "group": "Tab"
+    },
+    {
+        "fullName": "tab.hoverBorder",
+        "titleName": "Tab Hover Border",
+        "groupedName": "Hover Border",
+        "info": "Border to highlight tabs when hovering",
+        "group": "Tab"
+    },
+    {
+        "fullName": "tab.unfocusedHoverBorder",
+        "titleName": "Tab Unfocused Hover Border",
+        "groupedName": "Unfocused Hover Border",
+        "info": "Border to highlight tabs in an unfocused group when hovering",
+        "group": "Tab"
+    },
+    {
+        "fullName": "tab.activeModifiedBorder",
+        "titleName": "Tab Active Modified Border",
+        "groupedName": "Active Modified Border",
+        "info": "Border on the top of modified (dirty) active tabs in an active group",
+        "group": "Tab"
+    },
+    {
+        "fullName": "tab.inactiveModifiedBorder",
+        "titleName": "Tab Inactive Modified Border",
+        "groupedName": "Inactive Modified Border",
+        "info": "Border on the top of modified (dirty) inactive tabs in an active group",
+        "group": "Tab"
+    },
+    {
+        "fullName": "tab.unfocusedActiveModifiedBorder",
+        "titleName": "Tab Unfocused Active Modified Border",
+        "groupedName": "Unfocused Active Modified Border",
+        "info": "Border on the top of modified (dirty) active tabs in an unfocused group",
+        "group": "Tab"
+    },
+    {
+        "fullName": "tab.unfocusedInactiveModifiedBorder",
+        "titleName": "Tab Unfocused Inactive Modified Border",
+        "groupedName": "Unfocused Inactive Modified Border",
+        "info": "Border on the top of modified (dirty) inactive tabs in an unfocused group",
+        "group": "Tab"
+    },
+    {
+        "fullName": "diffEditor.insertedTextBackground",
+        "titleName": "Difference Editor Inserted Text Background",
+        "groupedName": "Editor Inserted Text Background",
+        "info": "Background color for text that got inserted. The color must not be opaque so as not to hide underlying decorations",
+        "group": "Difference"
+    },
+    {
+        "fullName": "diffEditor.insertedTextBorder",
+        "titleName": "Difference Editor Inserted Text Border",
+        "groupedName": "Editor Inserted Text Border",
+        "info": "Outline color for the text that got inserted",
+        "group": "Difference"
+    },
+    {
+        "fullName": "diffEditor.removedTextBackground",
+        "titleName": "Difference Editor Removed Text Background",
+        "groupedName": "Editor Removed Text Background",
+        "info": "Background color for text that got removed. The color must not be opaque so as not to hide underlying decorations",
+        "group": "Difference"
+    },
+    {
+        "fullName": "diffEditor.removedTextBorder",
+        "titleName": "Difference Editor Removed Text Border",
+        "groupedName": "Editor Removed Text Border",
+        "info": "Outline color for text that got removed",
+        "group": "Difference"
+    },
+    {
+        "fullName": "diffEditor.border",
+        "titleName": "Difference Editor Border",
+        "groupedName": "Editor Border",
+        "info": "Border color between the two text editors",
+        "group": "Difference"
+    },
+    {
+        "fullName": "debugExceptionWidget.background",
+        "titleName": "Debug Exception Widget Background",
+        "groupedName": "Exception Widget Background",
+        "info": "Exception widget background color",
+        "group": "Debug"
+    },
+    {
+        "fullName": "debugExceptionWidget.border",
+        "titleName": "Debug Exception Widget Border",
+        "groupedName": "Exception Widget Border",
+        "info": "Exception widget border color",
+        "group": "Debug"
+    },
+    {
+        "fullName": "debugToolBar.background",
+        "titleName": "Debug Tool Bar Background",
+        "groupedName": "Tool Bar Background",
+        "info": "Debug toolbar background color",
+        "group": "Debug"
+    },
+    {
+        "fullName": "debugToolBar.border",
+        "titleName": "Debug Tool Bar Border",
+        "groupedName": "Tool Bar Border",
+        "info": "Debug toolbar border color",
+        "group": "Debug"
+    },
+    {
+        "fullName": "peekView.border",
+        "titleName": "Peek View View Border",
+        "groupedName": "View Border",
+        "info": "Color of the peek view borders and arrow",
+        "group": "Peek View"
+    },
+    {
+        "fullName": "peekViewEditor.background",
+        "titleName": "Peek View View Editor Background",
+        "groupedName": "View Editor Background",
+        "info": "Background color of the peek view editor",
+        "group": "Peek View"
+    },
+    {
+        "fullName": "peekViewEditorGutter.background",
+        "titleName": "Peek View View Editor Gutter Background",
+        "groupedName": "View Editor Gutter Background",
+        "info": "Background color of the gutter in the peek view editor",
+        "group": "Peek View"
+    },
+    {
+        "fullName": "peekViewEditor.matchHighlightBackground",
+        "titleName": "Peek View View Editor Match Highlight Background",
+        "groupedName": "View Editor Match Highlight Background",
+        "info": "Match highlight color in the peek view editor",
+        "group": "Peek View"
+    },
+    {
+        "fullName": "peekViewEditor.matchHighlightBorder",
+        "titleName": "Peek View View Editor Match Highlight Border",
+        "groupedName": "View Editor Match Highlight Border",
+        "info": "Match highlight border color in the peek view editor",
+        "group": "Peek View"
+    },
+    {
+        "fullName": "peekViewResult.background",
+        "titleName": "Peek View View Result Background",
+        "groupedName": "View Result Background",
+        "info": "Background color of the peek view result list",
+        "group": "Peek View"
+    },
+    {
+        "fullName": "peekViewResult.fileForeground",
+        "titleName": "Peek View View Result File Foreground",
+        "groupedName": "View Result File Foreground",
+        "info": "Foreground color for file nodes in the peek view result list",
+        "group": "Peek View"
+    },
+    {
+        "fullName": "peekViewResult.lineForeground",
+        "titleName": "Peek View View Result Line Foreground",
+        "groupedName": "View Result Line Foreground",
+        "info": "Foreground color for line nodes in the peek view result list",
+        "group": "Peek View"
+    },
+    {
+        "fullName": "peekViewResult.matchHighlightBackground",
+        "titleName": "Peek View View Result Match Highlight Background",
+        "groupedName": "View Result Match Highlight Background",
+        "info": "Match highlight color in the peek view result list",
+        "group": "Peek View"
+    },
+    {
+        "fullName": "peekViewResult.selectionBackground",
+        "titleName": "Peek View View Result Selection Background",
+        "groupedName": "View Result Selection Background",
+        "info": "Background color of the selected entry in the peek view result list",
+        "group": "Peek View"
+    },
+    {
+        "fullName": "peekViewResult.selectionForeground",
+        "titleName": "Peek View View Result Selection Foreground",
+        "groupedName": "View Result Selection Foreground",
+        "info": "Foreground color of the selected entry in the peek view result list",
+        "group": "Peek View"
+    },
+    {
+        "fullName": "peekViewTitle.background",
+        "titleName": "Peek View View Title Background",
+        "groupedName": "View Title Background",
+        "info": "Background color of the peek view title area",
+        "group": "Peek View"
+    },
+    {
+        "fullName": "peekViewTitleDescription.foreground",
+        "titleName": "Peek View View Title Description Foreground",
+        "groupedName": "View Title Description Foreground",
+        "info": "Color of the peek view title info",
+        "group": "Peek View"
+    },
+    {
+        "fullName": "peekViewTitleLabel.foreground",
+        "titleName": "Peek View View Title Label Foreground",
+        "groupedName": "View Title Label Foreground",
+        "info": "Color of the peek view title",
+        "group": "Peek View"
+    },
+    {
+        "fullName": "merge.currentHeaderBackground",
+        "titleName": "Merge Current Header Background",
+        "groupedName": "Current Header Background",
+        "info": "Current header background in inline merge conflicts. The color must not be opaque so as not to hide underlying decorations",
+        "group": "Merge"
+    },
+    {
+        "fullName": "merge.currentContentBackground",
+        "titleName": "Merge Current Content Background",
+        "groupedName": "Current Content Background",
+        "info": "Current content background in inline merge conflicts. The color must not be opaque so as not to hide underlying decorations",
+        "group": "Merge"
+    },
+    {
+        "fullName": "merge.incomingHeaderBackground",
+        "titleName": "Merge Incoming Header Background",
+        "groupedName": "Incoming Header Background",
+        "info": "Incoming header background in inline merge conflicts. The color must not be opaque so as not to hide underlying decorations",
+        "group": "Merge"
+    },
+    {
+        "fullName": "merge.incomingContentBackground",
+        "titleName": "Merge Incoming Content Background",
+        "groupedName": "Incoming Content Background",
+        "info": "Incoming content background in inline merge conflicts. The color must not be opaque so as not to hide underlying decorations",
+        "group": "Merge"
+    },
+    {
+        "fullName": "merge.border",
+        "titleName": "Merge Border",
+        "groupedName": "Border",
+        "info": "Border color on headers and the splitter in inline merge conflicts",
+        "group": "Merge"
+    },
+    {
+        "fullName": "merge.commonContentBackground",
+        "titleName": "Merge Common Content Background",
+        "groupedName": "Common Content Background",
+        "info": "Common ancestor content ",
+        "group": "Merge"
+    },
+    {
+        "fullName": "merge.commonHeaderBackground",
+        "titleName": "Merge Common Header Background",
+        "groupedName": "Common Header Background",
+        "info": "Common ancestor header ",
+        "group": "Merge"
+    },
+    {
+        "fullName": "panel.background",
+        "titleName": "Panel Background",
+        "groupedName": "Background",
+        "info": "Panel background color",
+        "group": "Panel"
+    },
+    {
+        "fullName": "panel.border",
+        "titleName": "Panel Border",
+        "groupedName": "Border",
+        "info": "Panel border color to separate the panel from the editor",
+        "group": "Panel"
+    },
+    {
+        "fullName": "panel.dropBackground",
+        "titleName": "Panel Drop Background",
+        "groupedName": "Drop Background",
+        "info": "Drag and drop feedback color for ",
+        "group": "Panel"
+    },
+    {
+        "fullName": "panelTitle.activeBorder",
+        "titleName": "Panel Title Active Border",
+        "groupedName": "Title Active Border",
+        "info": "Border color for the active panel title",
+        "group": "Panel"
+    },
+    {
+        "fullName": "panelTitle.activeForeground",
+        "titleName": "Panel Title Active Foreground",
+        "groupedName": "Title Active Foreground",
+        "info": "Title color for the active panel",
+        "group": "Panel"
+    },
+    {
+        "fullName": "panelTitle.inactiveForeground",
+        "titleName": "Panel Title Inactive Foreground",
+        "groupedName": "Title Inactive Foreground",
+        "info": "Title color for the inactive panel",
+        "group": "Panel"
+    },
+    {
+        "fullName": "statusBar.background",
+        "titleName": "Status Bar Bar Background",
+        "groupedName": "Bar Background",
+        "info": "Standard Status Bar background color",
+        "group": "Status Bar"
+    },
+    {
+        "fullName": "statusBar.foreground",
+        "titleName": "Status Bar Bar Foreground",
+        "groupedName": "Bar Foreground",
+        "info": "Status Bar foreground color",
+        "group": "Status Bar"
+    },
+    {
+        "fullName": "statusBar.border",
+        "titleName": "Status Bar Bar Border",
+        "groupedName": "Bar Border",
+        "info": "Status Bar border color separating the Status Bar and editor",
+        "group": "Status Bar"
+    },
+    {
+        "fullName": "statusBar.debuggingBackground",
+        "titleName": "Status Bar Bar Debugging Background",
+        "groupedName": "Bar Debugging Background",
+        "info": "Status Bar background color when a program is being debugged",
+        "group": "Status Bar"
+    },
+    {
+        "fullName": "statusBar.debuggingForeground",
+        "titleName": "Status Bar Bar Debugging Foreground",
+        "groupedName": "Bar Debugging Foreground",
+        "info": "Status Bar foreground color when a program is being debugged",
+        "group": "Status Bar"
+    },
+    {
+        "fullName": "statusBar.debuggingBorder",
+        "titleName": "Status Bar Bar Debugging Border",
+        "groupedName": "Bar Debugging Border",
+        "info": "Status Bar border color separating the Status Bar and editor when a program is being debugged",
+        "group": "Status Bar"
+    },
+    {
+        "fullName": "statusBar.noFolderForeground",
+        "titleName": "Status Bar Bar No  Folderforeground",
+        "groupedName": "Bar No  Folderforeground",
+        "info": "Status Bar foreground color when no folder is opened",
+        "group": "Status Bar"
+    },
+    {
+        "fullName": "statusBar.noFolderBackground",
+        "titleName": "Status Bar Bar No Folder Background",
+        "groupedName": "Bar No Folder Background",
+        "info": "Status Bar background color when no folder is opened",
+        "group": "Status Bar"
+    },
+    {
+        "fullName": "statusBar.noFolderBorder",
+        "titleName": "Status Bar Bar No Folder Border",
+        "groupedName": "Bar No Folder Border",
+        "info": "Status Bar border color separating the Status Bar and editor when no folder is opened",
+        "group": "Status Bar"
+    },
+    {
+        "fullName": "statusBarItem.activeBackground",
+        "titleName": "Status Bar Bar Item Active Background",
+        "groupedName": "Bar Item Active Background",
+        "info": "Status Bar item background color when clicking",
+        "group": "Status Bar"
+    },
+    {
+        "fullName": "statusBarItem.hoverBackground",
+        "titleName": "Status Bar Bar Item Hover Background",
+        "groupedName": "Bar Item Hover Background",
+        "info": "Status Bar item background color when hovering",
+        "group": "Status Bar"
+    },
+    {
+        "fullName": "statusBarItem.prominentForeground",
+        "titleName": "Status Bar Bar Item Prominent Foreground",
+        "groupedName": "Bar Item Prominent Foreground",
+        "info": "Status Bar prominent items foreground color",
+        "group": "Status Bar"
+    },
+    {
+        "fullName": "statusBarItem.prominentBackground",
+        "titleName": "Status Bar Bar Item Prominent Background",
+        "groupedName": "Bar Item Prominent Background",
+        "info": "Status Bar prominent items background color",
+        "group": "Status Bar"
+    },
+    {
+        "fullName": "statusBarItem.prominentHoverBackground",
+        "titleName": "Status Bar Bar Item Prominent Hover Background",
+        "groupedName": "Bar Item Prominent Hover Background",
+        "info": "Status Bar prominent items background color when hovering",
+        "group": "Status Bar"
+    },
+    {
+        "fullName": "titleBar.activeBackground",
+        "titleName": "Title Bar Bar Active Background",
+        "groupedName": "Bar Active Background",
+        "info": "Title Bar background when the window is active",
+        "group": "Title Bar"
+    },
+    {
+        "fullName": "titleBar.activeForeground",
+        "titleName": "Title Bar Bar Active Foreground",
+        "groupedName": "Bar Active Foreground",
+        "info": "Title Bar foreground when the window is active",
+        "group": "Title Bar"
+    },
+    {
+        "fullName": "titleBar.inactiveBackground",
+        "titleName": "Title Bar Bar Inactive Background",
+        "groupedName": "Bar Inactive Background",
+        "info": "Title Bar background when the window is inactive",
+        "group": "Title Bar"
+    },
+    {
+        "fullName": "titleBar.inactiveForeground",
+        "titleName": "Title Bar Bar Inactive Foreground",
+        "groupedName": "Bar Inactive Foreground",
+        "info": "Title Bar foreground when the window is inactive",
+        "group": "Title Bar"
+    },
+    {
+        "fullName": "titleBar.border",
+        "titleName": "Title Bar Bar Border",
+        "groupedName": "Bar Border",
+        "info": "Title bar border color",
+        "group": "Title Bar"
+    },
+    {
+        "fullName": "menubar.selectionForeground",
+        "titleName": "Menu Bar Selection Foreground",
+        "groupedName": "Selection Foreground",
+        "info": "Foreground color of the selected menu item in the menubar",
+        "group": "Menu Bar"
+    },
+    {
+        "fullName": "menubar.selectionBackground",
+        "titleName": "Menu Bar Selection Background",
+        "groupedName": "Selection Background",
+        "info": "Background color of the selected menu item in the menubar",
+        "group": "Menu Bar"
+    },
+    {
+        "fullName": "menubar.selectionBorder",
+        "titleName": "Menu Bar Selection Border",
+        "groupedName": "Selection Border",
+        "info": "Border color of the selected menu item in the menubar",
+        "group": "Menu Bar"
+    },
+    {
+        "fullName": "menu.foreground",
+        "titleName": "Menu Foreground",
+        "groupedName": "Foreground",
+        "info": "Foreground color of menu items",
+        "group": "Menu"
+    },
+    {
+        "fullName": "menu.background",
+        "titleName": "Menu Background",
+        "groupedName": "Background",
+        "info": "Background color of menu items",
+        "group": "Menu"
+    },
+    {
+        "fullName": "menu.selectionForeground",
+        "titleName": "Menu Selection Foreground",
+        "groupedName": "Selection Foreground",
+        "info": "Foreground color of the selected menu item in menus",
+        "group": "Menu"
+    },
+    {
+        "fullName": "menu.selectionBackground",
+        "titleName": "Menu Selection Background",
+        "groupedName": "Selection Background",
+        "info": "Background color of the selected menu item in menus",
+        "group": "Menu"
+    },
+    {
+        "fullName": "menu.selectionBorder",
+        "titleName": "Menu Selection Border",
+        "groupedName": "Selection Border",
+        "info": "Border color of the selected menu item in menus",
+        "group": "Menu"
+    },
+    {
+        "fullName": "menu.separatorBackground",
+        "titleName": "Menu Separator Background",
+        "groupedName": "Separator Background",
+        "info": "Color of a separator menu item in menus",
+        "group": "Menu"
+    },
+    {
+        "fullName": "notificationCenter.border",
+        "titleName": "Notifications Center Border",
+        "groupedName": "Center Border",
+        "info": "Notification Center border color",
+        "group": "Notifications"
+    },
+    {
+        "fullName": "notificationCenterHeader.foreground",
+        "titleName": "Notifications Center Header Foreground",
+        "groupedName": "Center Header Foreground",
+        "info": "Notification Center header foreground color",
+        "group": "Notifications"
+    },
+    {
+        "fullName": "notificationCenterHeader.background",
+        "titleName": "Notifications Center Header Background",
+        "groupedName": "Center Header Background",
+        "info": "Notification Center header background color",
+        "group": "Notifications"
+    },
+    {
+        "fullName": "notificationToast.border",
+        "titleName": "Notifications Toast Border",
+        "groupedName": "Toast Border",
+        "info": "Notification toast border color",
+        "group": "Notifications"
+    },
+    {
+        "fullName": "notifications.foreground",
+        "titleName": "Notifications Foreground",
+        "groupedName": "Foreground",
+        "info": "Notification foreground color",
+        "group": "Notifications"
+    },
+    {
+        "fullName": "notifications.background",
+        "titleName": "Notifications Background",
+        "groupedName": "Background",
+        "info": "Notification background color",
+        "group": "Notifications"
+    },
+    {
+        "fullName": "notifications.border",
+        "titleName": "Notifications Border",
+        "groupedName": "Border",
+        "info": "Notification border color separating from other notifications in the Notification Center",
+        "group": "Notifications"
+    },
+    {
+        "fullName": "notificationLink.foreground",
+        "titleName": "Notifications Link Foreground",
+        "groupedName": "Link Foreground",
+        "info": "Notification links foreground color",
+        "group": "Notifications"
+    },
+    {
+        "fullName": "extensionButton.prominentForeground",
+        "titleName": "Extension Button Prominent Foreground",
+        "groupedName": "Button Prominent Foreground",
+        "info": "Extension view button foreground color (for example <strong>Install</strong> button)",
+        "group": "Extension"
+    },
+    {
+        "fullName": "extensionButton.prominentBackground",
+        "titleName": "Extension Button Prominent Background",
+        "groupedName": "Button Prominent Background",
+        "info": "Extension view button background color",
+        "group": "Extension"
+    },
+    {
+        "fullName": "extensionButton.prominentHoverBackground",
+        "titleName": "Extension Button Prominent Hover Background",
+        "groupedName": "Button Prominent Hover Background",
+        "info": "Extension view button background hover color",
+        "group": "Extension"
+    },
+    {
+        "fullName": "pickerGroup.border",
+        "titleName": "Picker Group Border",
+        "groupedName": "Group Border",
+        "info": "Quick picker (Quick Open) color for grouping borders",
+        "group": "Picker"
+    },
+    {
+        "fullName": "pickerGroup.foreground",
+        "titleName": "Picker Group Foreground",
+        "groupedName": "Group Foreground",
+        "info": "Quick picker (Quick Open) color for grouping labels",
+        "group": "Picker"
+    },
+    {
+        "fullName": "terminal.background",
+        "titleName": "Terminal Background",
+        "groupedName": "Background",
+        "info": "The background of the Integrated Terminal's viewport",
+        "group": "Terminal"
+    },
+    {
+        "fullName": "terminal.border",
+        "titleName": "Terminal Border",
+        "groupedName": "Border",
+        "info": "The color of the border that separates split panes within the terminal. This defaults to panel.border",
+        "group": "Terminal"
+    },
+    {
+        "fullName": "terminal.foreground",
+        "titleName": "Terminal Foreground",
+        "groupedName": "Foreground",
+        "info": "The default foreground color of the Integrated Terminal",
+        "group": "Terminal"
+    },
+    {
+        "fullName": "terminal.ansiBlack",
+        "titleName": "Terminal Ansi Black",
+        "groupedName": "Ansi Black",
+        "info": "'Black' ANSI color in the terminal",
+        "group": "Terminal"
+    },
+    {
+        "fullName": "terminal.ansiBlue",
+        "titleName": "Terminal Ansi Blue",
+        "groupedName": "Ansi Blue",
+        "info": "'Blue' ANSI color in the terminal",
+        "group": "Terminal"
+    },
+    {
+        "fullName": "terminal.ansiBrightBlack",
+        "titleName": "Terminal Ansi  Brightblack",
+        "groupedName": "Ansi  Brightblack",
+        "info": "'BrightBlack' ANSI color in the terminal",
+        "group": "Terminal"
+    },
+    {
+        "fullName": "terminal.ansiBrightBlue",
+        "titleName": "Terminal Ansi  Brightblue",
+        "groupedName": "Ansi  Brightblue",
+        "info": "'BrightBlue' ANSI color in the terminal",
+        "group": "Terminal"
+    },
+    {
+        "fullName": "terminal.ansiBrightCyan",
+        "titleName": "Terminal Ansi Bright Cyan",
+        "groupedName": "Ansi Bright Cyan",
+        "info": "'BrightCyan' ANSI color in the terminal",
+        "group": "Terminal"
+    },
+    {
+        "fullName": "terminal.ansiBrightGreen",
+        "titleName": "Terminal Ansi Bright Green",
+        "groupedName": "Ansi Bright Green",
+        "info": "'BrightGreen' ANSI color in the terminal",
+        "group": "Terminal"
+    },
+    {
+        "fullName": "terminal.ansiBrightMagenta",
+        "titleName": "Terminal Ansi Bright Magenta",
+        "groupedName": "Ansi Bright Magenta",
+        "info": "'BrightMagenta' ANSI color in the terminal",
+        "group": "Terminal"
+    },
+    {
+        "fullName": "terminal.ansiBrightRed",
+        "titleName": "Terminal Ansi Bright Red",
+        "groupedName": "Ansi Bright Red",
+        "info": "'BrightRed' ANSI color in the terminal",
+        "group": "Terminal"
+    },
+    {
+        "fullName": "terminal.ansiBrightWhite",
+        "titleName": "Terminal Ansi Bright White",
+        "groupedName": "Ansi Bright White",
+        "info": "'BrightWhite' ANSI color in the terminal",
+        "group": "Terminal"
+    },
+    {
+        "fullName": "terminal.ansiBrightYellow",
+        "titleName": "Terminal Ansi Bright Yellow",
+        "groupedName": "Ansi Bright Yellow",
+        "info": "'BrightYellow' ANSI color in the terminal",
+        "group": "Terminal"
+    },
+    {
+        "fullName": "terminal.ansiCyan",
+        "titleName": "Terminal Ansi Cyan",
+        "groupedName": "Ansi Cyan",
+        "info": "'Cyan' ANSI color in the terminal",
+        "group": "Terminal"
+    },
+    {
+        "fullName": "terminal.ansiGreen",
+        "titleName": "Terminal Ansi Green",
+        "groupedName": "Ansi Green",
+        "info": "'Green' ANSI color in the terminal",
+        "group": "Terminal"
+    },
+    {
+        "fullName": "terminal.ansiMagenta",
+        "titleName": "Terminal Ansi Magenta",
+        "groupedName": "Ansi Magenta",
+        "info": "'Magenta' ANSI color in the terminal",
+        "group": "Terminal"
+    },
+    {
+        "fullName": "terminal.ansiRed",
+        "titleName": "Terminal Ansi Red",
+        "groupedName": "Ansi Red",
+        "info": "'Red' ANSI color in the terminal",
+        "group": "Terminal"
+    },
+    {
+        "fullName": "terminal.ansiWhite",
+        "titleName": "Terminal Ansi White",
+        "groupedName": "Ansi White",
+        "info": "'White' ANSI color in the terminal",
+        "group": "Terminal"
+    },
+    {
+        "fullName": "terminal.ansiYellow",
+        "titleName": "Terminal Ansi Yellow",
+        "groupedName": "Ansi Yellow",
+        "info": "'Yellow' ANSI color in the terminal",
+        "group": "Terminal"
+    },
+    {
+        "fullName": "terminal.selectionBackground",
+        "titleName": "Terminal Selection Background",
+        "groupedName": "Selection Background",
+        "info": "The selection background color of the terminal",
+        "group": "Terminal"
+    },
+    {
+        "fullName": "terminalCursor.background",
+        "titleName": "Terminal Cursor Background",
+        "groupedName": "Cursor Background",
+        "info": "The background color of the terminal cursor. Allows customizing the color of a character overlapped by a block cursor",
+        "group": "Terminal"
+    },
+    {
+        "fullName": "terminalCursor.foreground",
+        "titleName": "Terminal Cursor Foreground",
+        "groupedName": "Cursor Foreground",
+        "info": "The foreground color of the terminal cursor",
+        "group": "Terminal"
+    },
+    {
+        "fullName": "welcomePage.background",
+        "titleName": "Welcome Page Page Background",
+        "groupedName": "Page Background",
+        "info": "Background color for the Welcome page",
+        "group": "Welcome Page"
+    },
+    {
+        "fullName": "welcomePage.buttonBackground",
+        "titleName": "Welcome Page Page Button Background",
+        "groupedName": "Page Button Background",
+        "info": "Background color for the buttons on the Welcome page",
+        "group": "Welcome Page"
+    },
+    {
+        "fullName": "welcomePage.buttonHoverBackground",
+        "titleName": "Welcome Page Page Button Hover Background",
+        "groupedName": "Page Button Hover Background",
+        "info": "Hover background color for the buttons on the Welcome page",
+        "group": "Welcome Page"
+    },
+    {
+        "fullName": "walkThrough.embeddedEditorBackground",
+        "titleName": "Walkthrough Walkthrough Embedded Editor Background",
+        "groupedName": "Walkthrough Embedded Editor Background",
+        "info": "Background color for the embedded editors on the Interactive Playground",
+        "group": "Walkthrough"
+    },
+    {
+        "fullName": "gitDecoration.addedResourceForeground",
+        "titleName": "Git Decoration Added Resource Foreground",
+        "groupedName": "Decoration Added Resource Foreground",
+        "info": "Color for added Git resources. Used for file labels and the SCM viewlet",
+        "group": "Git"
+    },
+    {
+        "fullName": "gitDecoration.modifiedResourceForeground",
+        "titleName": "Git Decoration Modified Resource Foreground",
+        "groupedName": "Decoration Modified Resource Foreground",
+        "info": "Color for modified Git resources. Used for file labels and the SCM viewlet",
+        "group": "Git"
+    },
+    {
+        "fullName": "gitDecoration.deletedResourceForeground",
+        "titleName": "Git Decoration Deleted Resource Foreground",
+        "groupedName": "Decoration Deleted Resource Foreground",
+        "info": "Color for deleted Git resources. Used for file labels and the SCM viewlet",
+        "group": "Git"
+    },
+    {
+        "fullName": "gitDecoration.untrackedResourceForeground",
+        "titleName": "Git Decoration Untracked Resource Foreground",
+        "groupedName": "Decoration Untracked Resource Foreground",
+        "info": "Color for untracked Git resources. Used for file labels and the SCM viewlet",
+        "group": "Git"
+    },
+    {
+        "fullName": "gitDecoration.ignoredResourceForeground",
+        "titleName": "Git Decoration Ignored Resource Foreground",
+        "groupedName": "Decoration Ignored Resource Foreground",
+        "info": "Color for ignored Git resources. Used for file labels and the SCM viewlet",
+        "group": "Git"
+    },
+    {
+        "fullName": "gitDecoration.conflictingResourceForeground",
+        "titleName": "Git Decoration Conflicting Resource Foreground",
+        "groupedName": "Decoration Conflicting Resource Foreground",
+        "info": "Color for conflicting Git resources. Used for file labels and the SCM viewlet",
+        "group": "Git"
+    },
+    {
+        "fullName": "gitDecoration.submoduleResourceForeground",
+        "titleName": "Git Decoration Submodule Resource Foreground",
+        "groupedName": "Decoration Submodule Resource Foreground",
+        "info": "Color for submodule resources",
+        "group": "Git"
+    },
+    {
+        "fullName": "settings.headerForeground",
+        "titleName": "Settings Header Foreground",
+        "groupedName": "Header Foreground",
+        "info": "The foreground color for a section header or active title",
+        "group": "Settings"
+    },
+    {
+        "fullName": "settings.modifiedItemIndicator",
+        "titleName": "Settings Modified  Itemindicator",
+        "groupedName": "Modified  Itemindicator",
+        "info": "The line that indicates a modified setting",
+        "group": "Settings"
+    },
+    {
+        "fullName": "settings.dropdownBackground",
+        "titleName": "Settings Dropdown Background",
+        "groupedName": "Dropdown Background",
+        "info": "Dropdown background",
+        "group": "Settings"
+    },
+    {
+        "fullName": "settings.dropdownForeground",
+        "titleName": "Settings Dropdown Foreground",
+        "groupedName": "Dropdown Foreground",
+        "info": "Dropdown foreground",
+        "group": "Settings"
+    },
+    {
+        "fullName": "settings.dropdownBorder",
+        "titleName": "Settings Dropdown Border",
+        "groupedName": "Dropdown Border",
+        "info": "Dropdown border",
+        "group": "Settings"
+    },
+    {
+        "fullName": "settings.dropdownListBorder",
+        "titleName": "Settings Dropdown List Border",
+        "groupedName": "Dropdown List Border",
+        "info": "Dropdown list border",
+        "group": "Settings"
+    },
+    {
+        "fullName": "settings.checkboxBackground",
+        "titleName": "Settings Checkbox Background",
+        "groupedName": "Checkbox Background",
+        "info": "Checkbox background",
+        "group": "Settings"
+    },
+    {
+        "fullName": "settings.checkboxForeground",
+        "titleName": "Settings Checkbox Foreground",
+        "groupedName": "Checkbox Foreground",
+        "info": "Checkbox foreground",
+        "group": "Settings"
+    },
+    {
+        "fullName": "settings.checkboxBorder",
+        "titleName": "Settings Checkbox Border",
+        "groupedName": "Checkbox Border",
+        "info": "Checkbox border",
+        "group": "Settings"
+    },
+    {
+        "fullName": "settings.textInputBackground",
+        "titleName": "Settings Text Input Background",
+        "groupedName": "Text Input Background",
+        "info": "Text input box background",
+        "group": "Settings"
+    },
+    {
+        "fullName": "settings.textInputForeground",
+        "titleName": "Settings Text Input Foreground",
+        "groupedName": "Text Input Foreground",
+        "info": "Text input box foreground",
+        "group": "Settings"
+    },
+    {
+        "fullName": "settings.textInputBorder",
+        "titleName": "Settings Text Input Border",
+        "groupedName": "Text Input Border",
+        "info": "Text input box border",
+        "group": "Settings"
+    },
+    {
+        "fullName": "settings.numberInputBackground",
+        "titleName": "Settings Number Input Background",
+        "groupedName": "Number Input Background",
+        "info": "Number input box background",
+        "group": "Settings"
+    },
+    {
+        "fullName": "settings.numberInputForeground",
+        "titleName": "Settings Number Input Foreground",
+        "groupedName": "Number Input Foreground",
+        "info": "Number input box foreground",
+        "group": "Settings"
+    },
+    {
+        "fullName": "settings.numberInputBorder",
+        "titleName": "Settings Number Input Border",
+        "groupedName": "Number Input Border",
+        "info": "Number input box border",
+        "group": "Settings"
+    },
+    {
+        "fullName": "breadcrumb.foreground",
+        "titleName": "Breadcrumb Foreground",
+        "groupedName": "Foreground",
+        "info": "Color of breadcrumb items",
+        "group": "Breadcrumb"
+    },
+    {
+        "fullName": "breadcrumb.background",
+        "titleName": "Breadcrumb Background",
+        "groupedName": "Background",
+        "info": "Background color of breadcrumb items",
+        "group": "Breadcrumb"
+    },
+    {
+        "fullName": "breadcrumb.focusForeground",
+        "titleName": "Breadcrumb Focus Foreground",
+        "groupedName": "Focus Foreground",
+        "info": "Color of focused breadcrumb items",
+        "group": "Breadcrumb"
+    },
+    {
+        "fullName": "breadcrumb.activeSelectionForeground",
+        "titleName": "Breadcrumb Active Selection Foreground",
+        "groupedName": "Active Selection Foreground",
+        "info": "Color of selected breadcrumb items",
+        "group": "Breadcrumb"
+    },
+    {
+        "fullName": "breadcrumbPicker.background",
+        "titleName": "Breadcrumb Picker Background",
+        "groupedName": "Picker Background",
+        "info": "Background color of breadcrumb item picker",
+        "group": "Breadcrumb"
+    }
+]
