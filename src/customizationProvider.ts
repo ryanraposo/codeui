@@ -68,7 +68,7 @@ export class CustomizationProvider implements vscode.TreeDataProvider<vscode.Tre
 
     getChildren(category? : Category): vscode.TreeItem[] {
         if(category){ //If category supplied, get its elements
-            let returnElements =  this.getElements(category);
+            let returnElements =  this.getElementTreeItems(category);
             this.updateCustomizations();
             return returnElements;
         }else{ //If no category supplied, get the categories
@@ -91,7 +91,7 @@ export class CustomizationProvider implements vscode.TreeDataProvider<vscode.Tre
     }
 
 
-    getElements(category : Category): Element[] {
+    getElementTreeItems(category : Category): Element[] {
 
         let categoryName : string = category.name;
         let categoryElements : any;
@@ -274,14 +274,14 @@ export class ThemeViewDataProvider implements vscode.TreeDataProvider<vscode.Tre
 
         if(paletteGroup){ // If palette group is supplied, get its member UI elements...
             let themeColors = this.themeViewJsonObject['colors'];
-            let paletteGroupTreeItems : any = [];
+            let paletteGroupElements : any = [];
             for(let key in themeColors){
                 let value = themeColors[key];
                 if(paletteGroup.color === value){
-                    paletteGroupTreeItems.push(new vscode.TreeItem(key,vscode.TreeItemCollapsibleState.None));
+                    paletteGroupElements.push(key);
                 }
             }
-            return paletteGroupTreeItems;
+            return this.getPaletteItems(paletteGroupElements);
         }else{ // If root, get palette groups...
             return this.getPaletteGroups();
         }
@@ -347,12 +347,45 @@ export class ThemeViewDataProvider implements vscode.TreeDataProvider<vscode.Tre
 
     }
 
+    getPaletteItems(elementFullNames : string[]): any {
+
+        let text : string = "";
+        let allElementsJson;
+        let elementData : any = {};
+        let paletteItems : PaletteItem[] = [];
+
+        text = fs.readFileSync(path.join(__filename, '..', '..', 'data', 'vscodeUIElements.json'),"utf8");
+
+        allElementsJson = JSON.parse(text);
+
+        for(let elementName in elementFullNames){
+            for(let key in allElementsJson){
+                // Group : {elementname : {data1:..., data2:...,}}
+                if(elementFullNames[elementName] in allElementsJson[key]){
+                    elementData[elementFullNames[elementName]] = {'titleName': null, 'longName': null, 'description': null, 'group' : null};
+                    elementData[elementFullNames[elementName]]['fullName'] = elementFullNames[elementName];
+                    elementData[elementFullNames[elementName]]['titleName'] = allElementsJson[key][elementFullNames[elementName]]['label'];
+                    elementData[elementFullNames[elementName]]['description'] = allElementsJson[key][elementFullNames[elementName]]['description'];
+                    elementData[elementFullNames[elementName]]['group'] = allElementsJson[key][elementFullNames[elementName]]['group'];
+                 }
+            }
+        }
+
+        for(let key in elementData){
+            let value = elementData[key];
+                                           // label, description, tooltip
+            paletteItems.push(new PaletteItem(value['group'] + ": " + value['titleName'], '(' + value['fullName'] + ')', value['description'], vscode.TreeItemCollapsibleState.None));
+        }
+
+        return paletteItems;
+    }
+
 
     async customizeTargetPaletteGroup(element : any){
 
         var elementGroup : any = [];
         var customizations : any = [];
-        var color : string = '';
+        var color : string;
 
         // Get all theme elements with matching color
         if(element.description){
@@ -536,5 +569,16 @@ class PaletteGroup extends vscode.TreeItem {
 
         this.iconPath = new_svg_path;
     }
+}
 
+class PaletteItem extends vscode.TreeItem{
+
+    constructor(label : string, description: string, tooltip: string, collapsibleState : vscode.TreeItemCollapsibleState){
+        super(label, collapsibleState);
+
+        this.label = label;
+        this.description = description;
+        this.tooltip = tooltip;
+        this.collapsibleState = collapsibleState;
+    }
 }
