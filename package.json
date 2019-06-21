@@ -120,7 +120,7 @@
 				},
 				{
 					"command": "customizeTargetPaletteGroup",
-					"when": "view == themeCustomizationView && viewItem == element",
+					"when": "view == themeCustomizationView",
 					"arguements": []
 				},
 				{

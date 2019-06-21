@@ -256,9 +256,11 @@ export class ThemeViewDataProvider implements vscode.TreeDataProvider<vscode.Tre
         this.themeName = this.themeViewJsonObject['name'];
     }
 
+
     setJsonObject(themeJsonObject : any) {
         this.themeViewJsonObject = themeJsonObject;
     }
+
 
     getThemeName(): any {
         return this.themeViewJsonObject['name'];
@@ -271,7 +273,6 @@ export class ThemeViewDataProvider implements vscode.TreeDataProvider<vscode.Tre
 
 
     getChildren(paletteGroup?:any): any {
-
 
         if(paletteGroup){ // If palette group is supplied, get its member UI elements...
             let themeColors = this.themeViewJsonObject['colors'];
@@ -288,6 +289,7 @@ export class ThemeViewDataProvider implements vscode.TreeDataProvider<vscode.Tre
         }
 
     }
+
 
     getPaletteGroups(): any {
 
@@ -336,23 +338,27 @@ export class ThemeViewDataProvider implements vscode.TreeDataProvider<vscode.Tre
 
         // CREATE TREE ITEM (Palette Group) FOR EACH ITEM IN THE SORTED LIST
         var paletteGroups : any = [];
+
+        var currentThemeName : any = vscode.workspace.getConfiguration().get("workbench.colorTheme");
+
+        paletteGroups.push(new PaletteGroup(currentThemeName,"Theme",vscode.TreeItemCollapsibleState.Expanded));
+
         var groupNo = 1;
         for(let key in sortedPalette){
             let value = sortedPalette[key];
-            paletteGroups.push(new PaletteGroup(('Palette group #' + groupNo),key,vscode.TreeItemCollapsibleState.Collapsed));
+            paletteGroups.push(new PaletteGroup(('Palette group #' + groupNo),key,vscode.TreeItemCollapsibleState.Collapsed, undefined));
             groupNo += 1;
         }
-        // CREATE TREE ITEM (Palette Group) FOR EACH ITEM IN THE SORTED LIST
 
         return paletteGroups;
 
     }
 
+
     getPaletteItems(elementFullNames : string[]): any {
 
         let text : string = "";
         let allElementsJson;
-        let elementData : any = {};
         let paletteItems : PaletteItem[] = [];
 
         text = fs.readFileSync(path.join(__filename, '..', '..', 'data', 'vscodeElementsArray.json'),"utf8");
@@ -396,9 +402,6 @@ export class ThemeViewDataProvider implements vscode.TreeDataProvider<vscode.Tre
 
             }
         }
-
-
-
         // Prompt user for new color
         var updatedColor : any;
         await vscode.window.showInputBox({placeHolder : element.description}).then((returnResult) => {
@@ -418,6 +421,7 @@ export class ThemeViewDataProvider implements vscode.TreeDataProvider<vscode.Tre
 
         vscode.commands.executeCommand("writeCustomizationsToSettings", customizations);
     }
+
 
     darkenAllElementsWithColor(element : any) : void {
 
@@ -444,6 +448,7 @@ export class ThemeViewDataProvider implements vscode.TreeDataProvider<vscode.Tre
         vscode.commands.executeCommand('writeCustomizationsToSettings', customizations);
     }
 
+
     darkenColor(colorValue : string): any {
 
         let c = clr(colorValue, "hex").darken(.1).hex();
@@ -451,18 +456,6 @@ export class ThemeViewDataProvider implements vscode.TreeDataProvider<vscode.Tre
 
         return c;
     }
-
-    removeDups(names : any) {
-        let unique : any = {};
-        names.forEach(function(i : any) {
-          if(!unique[i]) {
-            unique[i] = true;
-          }
-        });
-        return Object.keys(unique);
-      }
-
-
 
 }
 
@@ -541,7 +534,8 @@ class PaletteGroup extends vscode.TreeItem {
     constructor(
         label: string,
         description: string,
-        collapsibleState: vscode.TreeItemCollapsibleState
+        collapsibleState: vscode.TreeItemCollapsibleState,
+        command?: vscode.Command
     ) {
         super(label, collapsibleState);
         this.description = description;
