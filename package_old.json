@@ -1,0 +1,159 @@
+{
+	"name": "codeui",
+	"displayName": "CodeUI",
+	"publisher": "ryanraposo",
+	"description": "Theme builder for Visual Studio Code",
+	"icon": "resources/logo-blueprint-128x128.png",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.34.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "updateCustomizations",
+				"title": "Update Customized Elements"
+			},
+			{
+				"command": "getWorkbenchColorCustomizations",
+				"title": "codeui: getWorkbenchColorCustomizations"
+			},
+			{
+				"command": "customizeFromList",
+				"title": "Choose color from list..."
+			},
+			{
+				"command": "editCustomization",
+				"title": "Edit"
+			},
+			{
+				"command": "clearCustomization",
+				"title": "Clear"
+			},
+			{
+				"command": "copyValue",
+				"title": "Copy"
+			},
+			{
+				"command": "pasteValue",
+				"title": "Paste"
+			},
+			{
+				"command": "refreshCustomizations",
+				"title": "Refresh"
+			},
+			{
+				"command": "customizeTargetPaletteGroup",
+				"title": "Customize all elements in this palette group..."
+			},
+			{
+				"command": "darkenAllWithValue",
+				"title": "Darken all elements with this color..."
+			},
+			{
+				"command": "writeCustomizationsToSettings",
+				"title": "DEBUG"
+			}
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "elementTreeView",
+					"title": "CodeUI",
+					"icon": "resources/paintbrush.png"
+				}
+			]
+		},
+		"views": {
+			"elementTreeView": [
+				{
+					"id": "allElementsTreeView",
+					"name": "Customizations (All)"
+				},
+				{
+					"id": "themeCustomizationView",
+					"name": "Current Theme"
+				}
+			]
+		},
+		"menus": {
+			"view/title": [
+				{
+					"command": "refreshCustomizations",
+					"when": "view == allElementsTreeView"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "customizeFromList",
+					"arguments": [],
+					"when": "view == allElementsTreeView && viewItem == element"
+				},
+				{
+					"command": "clearCustomization",
+					"arguments": [],
+					"group": "inline",
+					"when": "view == allElementsTreeView && viewItem == element"
+				},
+				{
+					"command": "editCustomization",
+					"arguments": [],
+					"group": "inline",
+					"when": "view == allElementsTreeView && viewItem == element"
+				},
+				{
+					"command": "copyValue",
+					"when": "viewItem == element",
+					"arguments": []
+				},
+				{
+					"command": "pasteValue",
+					"when": "view == allElementsTreeView && viewItem == element",
+					"arguments": []
+				},
+				{
+					"command": "customizeTargetPaletteGroup",
+					"when": "view == themeCustomizationView",
+					"arguements": []
+				},
+				{
+					"command": "darkenAllWithValue",
+					"when": "view == themeCustomizationView && viewItem == element",
+					"arguements": []
+				}
+			]
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "npm run compile && node ./node_modules/vscode/bin/test"
+	},
+	"devDependencies": {
+		"@types/copy-paste": "^1.1.30",
+		"@types/mocha": "^2.2.42",
+		"@types/node": "^10.12.21",
+		"tslint": "^5.17.0",
+		"typescript": "^3.5.1",
+		"vscode": "^1.1.28"
+	},
+	"dependencies": {
+		"@types/color": "^3.0.0",
+		"color": "^3.1.2",
+		"copy-paste": "^1.3.0",
+		"jsonc-parser": "^2.1.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ryanraposo/codeui"
+	}
+}

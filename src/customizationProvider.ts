@@ -186,11 +186,11 @@ export class CustomizationProvider implements vscode.TreeDataProvider<vscode.Tre
 
         vscode.window.showInputBox({placeHolder : currentValue}).then((returnResult) => {
             if(returnResult){
-                if(returnResult.startsWith("#") && returnResult.length <= 7){
+                if(returnResult.startsWith("#")){
                     let customizations : any = [];
                     customizations[element.name] = returnResult;
                     this.writeCustomizationsToSettings(customizations);
-                    // this.updateCustomizations();
+                    this.updateCustomizations();
                 }
             }
         });

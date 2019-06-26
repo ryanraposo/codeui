@@ -18,49 +18,18 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "updateCustomizations",
-				"title": "Update Customized Elements"
+				"command": "customizeElement",
+				"title": "Edit",
+				"icon": {
+					"light": "resources/light/edit.svg",
+					"dark": "resources/dark/edit.svg"
+				}
 			},
 			{
-				"command": "getWorkbenchColorCustomizations",
-				"title": "codeui: getWorkbenchColorCustomizations"
-			},
-			{
-				"command": "customizeFromList",
-				"title": "Choose color from list..."
-			},
-			{
-				"command": "editCustomization",
-				"title": "Edit"
-			},
-			{
-				"command": "clearCustomization",
-				"title": "Clear"
-			},
-			{
-				"command": "copyValue",
-				"title": "Copy"
-			},
-			{
-				"command": "pasteValue",
-				"title": "Paste"
-			},
-			{
-				"command": "refreshCustomizations",
-				"title": "Refresh"
-			},
-			{
-				"command": "customizeTargetPaletteGroup",
-				"title": "Customize all elements in this palette group..."
-			},
-			{
-				"command": "darkenAllWithValue",
-				"title": "Darken all elements with this color..."
-			},
-			{
-				"command": "writeCustomizationsToSettings",
-				"title": "DEBUG"
+				"command": "showElementInfo",
+				"title": "Show element info"
 			}
+
 		],
 		"viewsContainers": {
 			"activitybar": [
@@ -74,59 +43,28 @@
 		"views": {
 			"elementTreeView": [
 				{
-					"id": "allElementsTreeView",
-					"name": "Customizations (All)"
+					"id": "elementInfo",
+					"name": "Info"
 				},
 				{
-					"id": "themeCustomizationView",
-					"name": "Current Theme"
+					"id": "standardElementsView",
+					"name": "Elements (standard view)"
 				}
 			]
 		},
 		"menus": {
-			"view/title": [
-				{
-					"command": "refreshCustomizations",
-					"when": "view == allElementsTreeView"
-				}
-			],
+			"view/title": [],
 			"view/item/context": [
 				{
-					"command": "customizeFromList",
+					"command": "customizeElement",
 					"arguments": [],
-					"when": "view == allElementsTreeView && viewItem == element"
-				},
-				{
-					"command": "clearCustomization",
-					"arguments": [],
-					"group": "inline",
-					"when": "view == allElementsTreeView && viewItem == element"
-				},
-				{
-					"command": "editCustomization",
-					"arguments": [],
-					"group": "inline",
-					"when": "view == allElementsTreeView && viewItem == element"
-				},
-				{
-					"command": "copyValue",
 					"when": "viewItem == element",
-					"arguments": []
+					"group": "inline"
 				},
 				{
-					"command": "pasteValue",
-					"when": "view == allElementsTreeView && viewItem == element",
-					"arguments": []
-				},
-				{
-					"command": "customizeTargetPaletteGroup",
-					"when": "view == themeCustomizationView",
-					"arguements": []
-				},
-				{
-					"command": "darkenAllWithValue",
-					"when": "view == themeCustomizationView && viewItem == element",
-					"arguements": []
+					"command": "showElementInfo",
+					"arguements": [],
+					"when": "viewItem == element"
 				}
 			]
 		}

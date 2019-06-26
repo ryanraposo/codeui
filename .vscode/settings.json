@@ -13,7 +13,8 @@
     "python.linting.enabled": true,
 
     "turboConsoleLog.logMessagePrefix": "CodeUI debug :",
-    "turboConsoleLog.wrapLogMessage": false
+    "turboConsoleLog.wrapLogMessage": false,
+    "svg.preview.background": "black"
 
 
 }
