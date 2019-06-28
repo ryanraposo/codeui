@@ -49,23 +49,27 @@ export class CurrentTheme {
         let themePath = this.getThemePath();
 
         if(themePath){
-            text = fs.readFileSync(this.getThemePath(), 'utf8');
-
-            jsonObject = JSON.parse(text);
+            try{
+                text = fs.readFileSync(themePath, 'utf8');
+                jsonObject = JSON.parse(text);
+                return jsonObject;
+            }
+            catch{
+                console.log("CODEUI: No current theme.");
+            }
         }
-
-        return jsonObject;
     }
 
     getWorkbenchCustomizations(themeObject : any) : any {
 
-        let workbenchCustomizations : any = [];
+        if(themeObject){
+            let workbenchCustomizations : any = [];
 
-        for(let key in themeObject['colors']){
-            workbenchCustomizations[key] = themeObject['colors'][key];
+            for(let key in themeObject['colors']){
+                workbenchCustomizations[key] = themeObject['colors'][key];
+            }
+            return workbenchCustomizations;
         }
-
-        return workbenchCustomizations;
 
     }
 

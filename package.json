@@ -18,18 +18,18 @@
 	"contributes": {
 		"commands": [
 			{
+				"command": "clearCustomization",
+				"title": "Clear customization",
+				"icon": "resources/buttons/button_clear.svg"
+			},
+			{
 				"command": "customizeElement",
 				"title": "Edit",
 				"icon": {
 					"light": "resources/light/edit.svg",
-					"dark": "resources/dark/edit.svg"
+					"dark": "resources/buttons/button_edit.svg"
 				}
-			},
-			{
-				"command": "showElementInfo",
-				"title": "Show element info"
 			}
-
 		],
 		"viewsContainers": {
 			"activitybar": [
@@ -62,9 +62,10 @@
 					"group": "inline"
 				},
 				{
-					"command": "showElementInfo",
+					"command": "clearCustomization",
 					"arguements": [],
-					"when": "viewItem == element"
+					"when": "viewItem == element",
+					"group": "inline"
 				}
 			]
 		}

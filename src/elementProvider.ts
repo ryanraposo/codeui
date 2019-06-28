@@ -72,6 +72,25 @@ export class ElementProvider implements vscode.TreeDataProvider<vscode.TreeItem>
     }
 
 
+    loadCustomizableElements(): any{
+
+        let text : string = "";
+
+        text = fs.readFileSync(path.join(__filename, '..', '..', 'data', 'vscodeElementsArray.json'),"utf8");
+
+        allElements = JSON.parse(text);
+
+    }
+
+
+    loadColors(): any {
+
+        let text = fs.readFileSync(path.join(__filename, '..', '..', 'data', 'colors.json'),"utf8");
+        colors = JSON.parse(text);
+
+    }
+
+
     getStandardViewGroups(): ElementTreeGroup[] {
 
         let elementGroupNames = [];
@@ -96,74 +115,19 @@ export class ElementProvider implements vscode.TreeDataProvider<vscode.TreeItem>
     // }
 
 
-    loadCustomizableElements(): any{
+    // updateElements(): void {
 
-        let text : string = "";
+    //     for(let key in this.standardItems){
+    //         let element = this.standardItems[key];
+    //         element.update();
+    //     }
 
-        text = fs.readFileSync(path.join(__filename, '..', '..', 'data', 'vscodeElementsArray.json'),"utf8");
+    //     for(let key in this.paletteItems){
+    //         let element = this.paletteItems[key];
+    //         element.update();
+    //     }
 
-        allElements = JSON.parse(text);
-
-    }
-
-
-    loadColors(): any {
-
-        let text = fs.readFileSync(path.join(__filename, '..', '..', 'data', 'colors.json'),"utf8");
-        colors = JSON.parse(text);
-
-    }
-
-
-    updateElements(): void {
-
-        for(let key in this.standardItems){
-            let element = this.standardItems[key];
-            element.update();
-        }
-
-        for(let key in this.paletteItems){
-            let element = this.paletteItems[key];
-            element.update();
-        }
-
-    }
-
-
-    customizeElement(element : Element) : void {
-
-        let targetElementName : string = element.elementData["fullName"];
-        let colorItems : Array<string> = [];
-        let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
-        let customization : string = "";
-
-        for(let key in colors){
-            colorItems.push(colors[key] + " (" + key + ")");
-        }
-
-        vscode.window.showQuickPick(["Enter a value...", "Pick from a list..."]).then((actionSelection : any) => {
-            if(actionSelection === "Pick from a list..."){
-                vscode.window.showQuickPick(colorItems).then((selection : any) => {
-                if(selection){
-                    let value = selection.substring(selection.indexOf("#"), selection.indexOf(")"));
-                    customization = value;
-                    currentCustomizations[targetElementName] = customization;
-                    vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
-                }
-            });
-            }else{
-                vscode.window.showInputBox({placeHolder : "eg. #00ff00"}).then((selection) => {
-                    if(selection){
-                        customization = selection;
-                        currentCustomizations[targetElementName] = customization;
-                        vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
-                    }
-                });
-            }
-        });
-
-
-    }
+    // }
 
 
 }
@@ -208,47 +172,93 @@ export class Element extends vscode.TreeItem {
         this.themeColor = this.getThemeColorConfig();
         this.defaultColor = this.getDefaultColorConfig(true);
 
-        if(this.settingsColor){
-            this.description = this.settingsColor.toUpperCase();
-            this.iconPath = this.getGeneratedIcon(true);
-            return;
+        this.description = "";
+
+        if(this.defaultColor){
+            this.defaultColor = this.defaultColor.toUpperCase();
+            this.description = this.defaultColor;
         }
         if(this.themeColor){
-            this.description = this.themeColor.toUpperCase();
-            this.iconPath = this.getGeneratedIcon(false);
-            return;
+            this.themeColor = this.themeColor.toUpperCase();
+            this.description = this.themeColor;
         }
-        if(this.defaultColor){
-            this.description = this.defaultColor.toUpperCase();
-            this.iconPath = this.getGeneratedIcon(false);
-            return;
+        if(this.settingsColor){
+            this.settingsColor = this.settingsColor.toUpperCase();
+            this.description = this.settingsColor;
         }
+
+        this.iconPath = this.getGeneratedIcon();
 
     }
 
 
-    private getGeneratedIcon(isCustomized : boolean): string {
+    clear(): void {
+        let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
+        currentCustomizations[this.elementData["fullName"]] = undefined;
+        vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
+    }
 
-        let iconPath : string = "";
-        let template_svg_text : string = "";
-        let new_svg_text : string = "";
 
-        if(isCustomized){
-            template_svg_text = fs.readFileSync(path.join(__filename, '..', '..', 'resources', 'swatches', 'color_customized.svg'), 'utf8');
-            new_svg_text = template_svg_text.replace('#ffffff00', this.themeColor);
-            new_svg_text = new_svg_text.replace('%CUSTOMIZATIONCOLOR%', this.settingsColor);
-            iconPath = path.join(__filename, '..', '..', 'resources', 'swatches', 'generated', 'generated_' + this.settingsColor + "-" + this.themeColor + '.svg');
-        }else{
-            template_svg_text = fs.readFileSync(path.join(__filename, '..', '..', 'resources', 'swatches', 'color_base.svg'), 'utf8');
-            if(this.themeColor){
-                new_svg_text = template_svg_text.replace('%COLOR%', this.themeColor);
-            }else{
-                new_svg_text = template_svg_text.replace('%COLOR%', this.defaultColor);
-            }
-            iconPath = path.join(__filename, '..', '..', 'resources', 'swatches', 'generated', 'generated_' + this.themeColor + '.svg');
+    customize() : void {
+
+        let targetElementName : string = this.elementData["fullName"];
+        let colorItems : Array<string> = [];
+        let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
+        let customization : string = "";
+
+        for(let key in colors){
+            colorItems.push(colors[key] + " (" + key + ")");
         }
 
-        fs.writeFileSync(iconPath,new_svg_text);
+        vscode.window.showQuickPick(["Enter a value...", "Pick from a list..."]).then((actionSelection : any) => {
+            if(actionSelection === "Pick from a list..."){
+                vscode.window.showQuickPick(colorItems).then((selection : any) => {
+                if(selection){
+                    let value = selection.substring(selection.indexOf("#"), selection.indexOf(")"));
+                    customization = value;
+                    currentCustomizations[targetElementName] = customization;
+                    vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
+                }});
+            }
+            if(actionSelection === "Enter a value..."){
+                vscode.window.showInputBox({placeHolder : "eg. #00ff00"}).then((selection) => {
+                    if(selection){
+                        customization = selection;
+                        currentCustomizations[targetElementName] = customization;
+                        vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
+                    }
+                });
+            }
+        });
+
+
+    }
+
+    private getGeneratedIcon(): string {
+
+        let iconPath : string = "";
+        let svgText : string = "";
+        let baseColor : any;
+        // Load template svg text
+        svgText = fs.readFileSync(path.join(__filename, '..', '..', 'resources', 'swatches', 'swatch.svg'), 'utf8');
+        // Get & apply base color (if any)
+        if(this.defaultColor){
+            baseColor = this.defaultColor;
+        }
+        if(this.themeColor){
+            baseColor = this.themeColor;
+        }
+        if(baseColor){
+            svgText = svgText.replace('fill:%COLOR1%;fill-opacity:0', ('fill:' + baseColor + ';fill-opacity:1'));
+        }
+        // Apply customization color (if any)
+        if(this.settingsColor){
+            svgText = svgText.replace('<path style="fill:%COLOR2%;stroke-width:0.83446652;fill-opacity:0', '<path style="fill:' + this.settingsColor + ';stroke-width:0.83446652;fill-opacity:1');
+        }
+        // Write new svg text to a temp, generated svg file
+        iconPath = path.join(__filename, '..', '..', 'resources', 'swatches', 'generated', 'generated_' + baseColor + "-" + this.settingsColor + '.svg');
+        fs.writeFileSync(iconPath,svgText);
+        // Return the path
         return iconPath;
 
     }
@@ -272,9 +282,11 @@ export class Element extends vscode.TreeItem {
         let colorConfig : any;
         let currentTheme = new CurrentTheme();
 
-        colorConfig = currentTheme.workbenchCustomizations[this.elementData["fullName"]];
+        if(currentTheme.themeObject){
+            colorConfig = currentTheme.workbenchCustomizations[this.elementData["fullName"]];
+            return colorConfig;
+        }
 
-        return colorConfig;
 
     }
 
