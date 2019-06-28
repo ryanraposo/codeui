@@ -1,12 +1,19 @@
 import * as vscode from 'vscode';
 import * as fs from "fs";
 import * as path from "path";
+import * as copypaste from 'copy-paste';
 import { CurrentTheme } from './theme';
-import { slateblue } from 'color-name';
-import { deactivate } from './extension';
+
 
 var allElements : any;
 var colors : any;
+
+
+export enum ViewType {
+    Standard = 0,
+    Palette = 1
+}
+
 
 export class ElementProvider implements vscode.TreeDataProvider<vscode.TreeItem>{
 
@@ -115,21 +122,6 @@ export class ElementProvider implements vscode.TreeDataProvider<vscode.TreeItem>
     // }
 
 
-    // updateElements(): void {
-
-    //     for(let key in this.standardItems){
-    //         let element = this.standardItems[key];
-    //         element.update();
-    //     }
-
-    //     for(let key in this.paletteItems){
-    //         let element = this.paletteItems[key];
-    //         element.update();
-    //     }
-
-    // }
-
-
 }
 
 export class Element extends vscode.TreeItem {
@@ -140,7 +132,6 @@ export class Element extends vscode.TreeItem {
     defaultColor : any;
     themeColor : any;
     settingsColor : any;
-    effectiveColor : any;
 
     constructor(
         elementData : any,
@@ -192,47 +183,66 @@ export class Element extends vscode.TreeItem {
     }
 
 
-    clear(): void {
-        let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
-        currentCustomizations[this.elementData["fullName"]] = undefined;
-        vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
-    }
-
-
-    customize() : void {
+    customize(value?: string) : void {
 
         let targetElementName : string = this.elementData["fullName"];
         let colorItems : Array<string> = [];
         let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
         let customization : string = "";
 
-        for(let key in colors){
-            colorItems.push(colors[key] + " (" + key + ")");
-        }
-
-        vscode.window.showQuickPick(["Enter a value...", "Pick from a list..."]).then((actionSelection : any) => {
-            if(actionSelection === "Pick from a list..."){
-                vscode.window.showQuickPick(colorItems).then((selection : any) => {
-                if(selection){
-                    let value = selection.substring(selection.indexOf("#"), selection.indexOf(")"));
-                    customization = value;
-                    currentCustomizations[targetElementName] = customization;
-                    vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
-                }});
+        if(value){
+            currentCustomizations[targetElementName] = value;
+            vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
+        }else{
+            for(let key in colors){
+                colorItems.push(colors[key] + " (" + key + ")");
             }
-            if(actionSelection === "Enter a value..."){
-                vscode.window.showInputBox({placeHolder : "eg. #00ff00"}).then((selection) => {
+
+            vscode.window.showQuickPick(["Enter a value...", "Pick from a list..."]).then((actionSelection : any) => {
+                if(actionSelection === "Pick from a list..."){
+                    vscode.window.showQuickPick(colorItems).then((selection : any) => {
                     if(selection){
-                        customization = selection;
+                        let value = selection.substring(selection.indexOf("#"), selection.indexOf(")"));
+                        customization = value;
                         currentCustomizations[targetElementName] = customization;
                         vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
-                    }
-                });
-            }
-        });
-
+                    }});
+                }
+                if(actionSelection === "Enter a value..."){
+                    vscode.window.showInputBox({placeHolder : "eg. #00ff00"}).then((selection) => {
+                        if(selection){
+                            customization = selection;
+                            currentCustomizations[targetElementName] = customization;
+                            vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
+                        }
+                    });
+                }
+            });
+        }
 
     }
+
+
+    copy(): void {
+        if(this.description){
+            copypaste.copy(this.description);
+        }
+
+        vscode.window.showInformationMessage('CODEUI: Copied: ' + this.description);
+    }
+
+
+    paste(): void {
+        this.customize(copypaste.paste());
+    }
+
+
+    clear(): void {
+        let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
+        currentCustomizations[this.elementData["fullName"]] = undefined;
+        vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
+    }
+
 
     private getGeneratedIcon(): string {
 
@@ -339,7 +349,4 @@ class ElementTreeGroup extends vscode.TreeItem {
 }
 
 
-export enum ViewType {
-    Standard = 0,
-    Palette = 1
-}
+

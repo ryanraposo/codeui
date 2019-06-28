@@ -18,17 +18,25 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "clearCustomization",
-				"title": "Clear customization",
-				"icon": "resources/buttons/button_clear.svg"
-			},
-			{
 				"command": "customizeElement",
 				"title": "Edit",
 				"icon": {
 					"light": "resources/light/edit.svg",
 					"dark": "resources/buttons/button_edit.svg"
 				}
+			},
+			{
+				"command": "clearCustomization",
+				"title": "Clear customization",
+				"icon": "resources/buttons/button_clear.svg"
+			},
+			{
+				"command": "copy",
+				"title": "Copy"
+			},
+			{
+				"command": "paste",
+				"title": "Paste"
 			}
 		],
 		"viewsContainers": {
@@ -66,6 +74,14 @@
 					"arguements": [],
 					"when": "viewItem == element",
 					"group": "inline"
+				},
+				{
+					"command": "copy",
+					"when": "viewItem == element"
+				},
+				{
+					"command": "paste",
+					"when": "viewItem == element"
 				}
 			]
 		}

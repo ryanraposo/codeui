@@ -13,8 +13,11 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	const elementProvider = new ElementProvider(ViewType.Standard);
 	vscode.window.registerTreeDataProvider("standardElementsView", elementProvider);
-	vscode.commands.registerCommand("clearCustomization", (element) => element.clear());
 	vscode.commands.registerCommand("customizeElement", (element) => element.customize());
+	vscode.commands.registerCommand("clearCustomization", (element) => element.clear());
+	vscode.commands.registerCommand("copy", (element) => element.copy());
+	vscode.commands.registerCommand("paste", (element) => element.paste());
+
 
 	context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
 		if (e.affectsConfiguration('workbench.colorCustomizations') || e.affectsConfiguration("workbench.colorTheme")) {
