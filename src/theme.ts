@@ -8,9 +8,18 @@ export class CurrentTheme {
     workbenchCustomizations : any = [];
     themeObject : any;
 
+    themeName : any;
+    themeAuthor : any;
+    themeType : any;
+
+
     constructor(){
         this.themeObject = this.getThemeObject();
-        this.workbenchCustomizations = this.getWorkbenchCustomizations(this.themeObject);
+        if(this.themeObject){
+            this.workbenchCustomizations = this.getWorkbenchCustomizations(this.themeObject);
+            this.themeName = this.getThemeName();
+            this.themeType = this.getThemeType();
+        }
     }
 
     getThemePath(): any {
@@ -73,5 +82,14 @@ export class CurrentTheme {
 
     }
 
+
+    getThemeName(): any {
+        return this.themeObject["name"];
+    }
+
+
+    getThemeType(): any {
+        return this.themeObject["type"];
+    }
 
 }
