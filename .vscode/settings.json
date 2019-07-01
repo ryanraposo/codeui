@@ -14,7 +14,8 @@
 
     "turboConsoleLog.logMessagePrefix": "CodeUI debug :",
     "turboConsoleLog.wrapLogMessage": false,
-    "svg.preview.background": "transparent"
+    "svg.preview.background": "transparent",
+    "debug.internalConsoleOptions": "neverOpen"
 
 
 }
