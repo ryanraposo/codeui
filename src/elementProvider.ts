@@ -5,14 +5,7 @@ import * as copypaste from 'copy-paste';
 import { CurrentTheme } from './theme';
 
 
-
 var colors : any;
-
-
-export enum ViewType {
-    Standard = 0,
-    Palette = 1
-}
 
 
 export class ElementProvider implements vscode.TreeDataProvider<any>{
@@ -72,21 +65,6 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
 
     }
 
-    getPaletteGroupItems(elementTreeGroup : ElementTreeGroup) : any {
-
-        let paletteGroupItems : any = [];
-
-        for(let key in this.elements){
-            let element = this.elements[key];
-            if(element.description === elementTreeGroup.color){
-                paletteGroupItems.push(element);
-            }
-        }
-
-        return paletteGroupItems;
-
-    }
-
 
     loadCustomizableElements(): any{
 
@@ -119,8 +97,6 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         colors = JSON.parse(text);
 
     }
-
-
 
 
     getStandardViewGroups(): ElementTreeGroup[] {
@@ -180,85 +156,32 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }
 
 
+    getPaletteGroupItems(elementTreeGroup : ElementTreeGroup) : any {
 
+        let paletteGroupItems : any = [];
 
-
-
-
-}
-
-
-function getEffectiveColor(elementName : string): string | undefined {
-
-    let settingsColor : any = getUserSettingsColorConfig(elementName);
-    let themeColor : any = getThemeColorConfig(elementName);
-    let defaultColor : any = getDefaultColorConfig(elementName, true);
-
-    let effectiveColor : any;
-
-    for(let item in [defaultColor, themeColor, settingsColor]){
-        if(item){
-            effectiveColor = item;
+        for(let key in this.elements){
+            let element = this.elements[key];
+            if(element.description === elementTreeGroup.color){
+                paletteGroupItems.push(element);
+            }
         }
-    }
 
-    return effectiveColor;
+        return paletteGroupItems;
 
-}
-
-
-function getUserSettingsColorConfig(elementName : string): string | undefined {
-
-    let userSettings : any;
-    userSettings = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
-
-    let colorConfig : any;
-    colorConfig = userSettings[elementName];
-
-    return colorConfig;
-
-}
-
-
-function getThemeColorConfig(elementName : string): string | undefined {
-
-    let colorConfig : any;
-    let currentTheme = new CurrentTheme();
-
-    if(currentTheme.themeObject){
-        colorConfig = currentTheme.workbenchCustomizations[elementName];
-        return colorConfig;
     }
 
 
 }
 
 
-function getDefaultColorConfig(elementName : string, isDark : boolean): string | undefined{
-
-    let fileText : string = "";
-    let defaultColors : any;
-
-    if(isDark){
-        fileText = fs.readFileSync(path.join(__filename, '..', '..', 'data', 'defaultColors_dark.json'), 'utf8');
-    }
-
-    defaultColors = JSON.parse(fileText);
-
-    let defaultColorConfig = defaultColors[elementName];
-
-    return defaultColorConfig;
-
-}
 
 export class Element extends vscode.TreeItem {
 
     viewType : any;
     elementData : any;
+    colorConfig : any;
 
-    defaultColor : any;
-    themeColor : any;
-    settingsColor : any;
 
     constructor(
         elementData : any,
@@ -266,48 +189,28 @@ export class Element extends vscode.TreeItem {
         viewType : ViewType
         ){
             super('', collapsibleState);
-
             this.elementData = elementData;
-            this.viewType = viewType;
             this.tooltip = elementData["info"];
             this.command = {title: "", command : "showElementInfo", arguments : [this]};
-            this.viewType = viewType;
+            this.colorConfig = new ColorConfig(this.elementData["fullName"]);
 
-            if(this.viewType === ViewType.Standard){
+            if(viewType === ViewType.Standard){
                 this.label = this.elementData["groupedName"];
             }
 
-            if(this.viewType === ViewType.Palette){
+            if(viewType === ViewType.Palette){
                 this.label = this.elementData["titleName"];
             }
 
             this.update();
-        }
+
+    }
 
 
-    update(): void { // Retrieves the items config values, and updates the color description and icon accordingly
-
-        this.settingsColor = getUserSettingsColorConfig(this.elementData["fullName"]);
-        this.themeColor = getThemeColorConfig(this.elementData["fullName"]);
-        this.defaultColor = getDefaultColorConfig(this.elementData["fullName"], true);
-
-        this.description = "";
-
-        if(this.defaultColor){
-            this.defaultColor = this.defaultColor.toUpperCase();
-            this.description = this.defaultColor;
-        }
-        if(this.themeColor){
-            this.themeColor = this.themeColor.toUpperCase();
-            this.description = this.themeColor;
-        }
-        if(this.settingsColor){
-            this.settingsColor = this.settingsColor.toUpperCase();
-            this.description = this.settingsColor;
-        }
-
-        this.iconPath = this.getGeneratedIcon();
-
+    update(): void {
+        this.colorConfig = new ColorConfig(this.elementData["fullName"]);
+        this.description = this.colorConfig.effective;
+        this.iconPath = this.generateIcon();
     }
 
 
@@ -372,7 +275,7 @@ export class Element extends vscode.TreeItem {
     }
 
 
-    private getGeneratedIcon(): string {
+    private generateIcon(): string {
 
         let iconPath : string = "";
         let svgText : string = "";
@@ -380,21 +283,21 @@ export class Element extends vscode.TreeItem {
         // Load template svg text
         svgText = fs.readFileSync(path.join(__filename, '..', '..', 'resources', 'swatches', 'swatch.svg'), 'utf8');
         // Get & apply base color (if any)
-        if(this.defaultColor){
-            baseColor = this.defaultColor;
+        if(this.colorConfig.default){
+            baseColor = this.colorConfig.default;
         }
-        if(this.themeColor){
-            baseColor = this.themeColor;
+        if(this.colorConfig.theme){
+            baseColor = this.colorConfig.theme;
         }
         if(baseColor){
             svgText = svgText.replace('fill:%COLOR1%;fill-opacity:0', ('fill:' + baseColor + ';fill-opacity:1'));
         }
         // Apply customization color (if any)
-        if(this.settingsColor){
-            svgText = svgText.replace('<path style="fill:%COLOR2%;stroke-width:0.83446652;fill-opacity:0', '<path style="fill:' + this.settingsColor + ';stroke-width:0.83446652;fill-opacity:1');
+        if(this.colorConfig.settings){
+            svgText = svgText.replace('<path style="fill:%COLOR2%;stroke-width:0.83446652;fill-opacity:0', '<path style="fill:' + this.colorConfig.settings + ';stroke-width:0.83446652;fill-opacity:1');
         }
         // Write new svg text to a temp, generated svg file
-        iconPath = path.join(__filename, '..', '..', 'resources', 'swatches', 'generated', 'generated_' + baseColor + "-" + this.settingsColor + '.svg');
+        iconPath = path.join(__filename, '..', '..', 'resources', 'swatches', 'generated', 'generated_' + baseColor + "-" + this.colorConfig.settings + '.svg');
         fs.writeFileSync(iconPath,svgText);
         // Return the path
         return iconPath;
@@ -402,17 +305,13 @@ export class Element extends vscode.TreeItem {
     }
 
 
-    setViewType(viewType : ViewType) : void {
-
-
-    }
-
     contextValue = "element";
+
 
 }
 
 
-class ElementTreeGroup extends vscode.TreeItem {
+export class ElementTreeGroup extends vscode.TreeItem {
 
     size : any;
     children : any = [];
@@ -459,6 +358,89 @@ class ElementTreeGroup extends vscode.TreeItem {
                 this.description = this.children.length.toString();
         }
 
+}
+
+
+class ColorConfig{
+
+    name : string;
+    default : any;
+    theme : any;
+    settings : any;
+
+    constructor(elementName : string){
+        this.name = elementName;
+        this.update();
+    }
+
+    update(){
+       this.default = this.getDefault();
+       this.theme = this.getTheme();
+       this.settings = this.getSettings();
+    }
+
+    getDefault(): string | undefined {
+
+        let fileText : string = "";
+        let defaultColors : any;
+
+
+        fileText = fs.readFileSync(path.join(__filename, '..', '..', 'data', 'defaultColors_dark.json'), 'utf8');
+
+
+        defaultColors = JSON.parse(fileText);
+
+        let defaultColorConfig = defaultColors[this.name];
+
+        return defaultColorConfig;
+
+    }
+
+
+    getTheme(): string | undefined {
+
+        let colorConfig : any;
+        let currentTheme = new CurrentTheme();
+
+        if(currentTheme.themeObject){
+            colorConfig = currentTheme.workbenchCustomizations[this.name];
+            return colorConfig;
+        }
+
+    }
+
+
+    getSettings(): string | undefined {
+
+        let userSettings : any;
+        userSettings = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
+
+        let colorConfig : any;
+        colorConfig = userSettings[this.name];
+
+        return colorConfig;
+
+    }
+
+
+    get effective(): string | undefined {
+        this.update();
+        let effective : any;
+        for(let value in [this.default, this.theme, this.settings]){
+            if([this.default, this.theme, this.settings][value]){
+                effective = [this.default, this.theme, this.settings][value];
+            }
+        }
+        return effective;
+    }
+
+
+}
+
+
+export enum ViewType {
+    Standard = 0,
+    Palette = 1
 }
 
 

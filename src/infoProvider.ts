@@ -48,11 +48,10 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
             if(infoItem.label === "Element"){ // If element section...
                 let elementInfo : InfoItem[] = [];
                 if(this.selectedElement){
-                    elementInfo.push(new InfoItem("Default", this.selectedElement.defaultColor, vscode.TreeItemCollapsibleState.None));
-                    elementInfo.push(new InfoItem("Theme", this.selectedElement.themeColor, vscode.TreeItemCollapsibleState.None));
-                    elementInfo.push(new InfoItem("Customization", this.selectedElement.settingsColor, vscode.TreeItemCollapsibleState.None));
+                    elementInfo.push(new InfoItem("Default", this.selectedElement.colorConfig.default, vscode.TreeItemCollapsibleState.None));
+                    elementInfo.push(new InfoItem("Theme", this.selectedElement.colorConfig.theme, vscode.TreeItemCollapsibleState.None));
+                    elementInfo.push(new InfoItem("Settings", this.selectedElement.colorConfig.settings, vscode.TreeItemCollapsibleState.None));
                     infoItem.iconPath = this.selectedElement.iconPath;
-                    this.refresh(infoItem);
                 }else{
                     elementInfo.push(new InfoItem("Default", "", vscode.TreeItemCollapsibleState.None));
                     elementInfo.push(new InfoItem("Theme", "", vscode.TreeItemCollapsibleState.None));

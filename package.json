@@ -18,6 +18,10 @@
 	"contributes": {
 		"commands": [
 			{
+				"command": "toggleView",
+				"title": "Toggle view (standard / palette)"
+			},
+			{
 				"command": "customizeElement",
 				"title": "Customize",
 				"icon": "resources/buttons/button_edit.svg"
@@ -52,13 +56,18 @@
 					"name": "Info"
 				},
 				{
-					"id": "standardElementsView",
-					"name": "Elements (standard view)"
+					"id": "elementsView",
+					"name": "Elements"
 				}
 			]
 		},
 		"menus": {
-			"view/title": [],
+			"view/title": [
+				{
+					"command": "toggleView",
+					"when": "view == elementsView"
+				}
+			],
 			"view/item/context": [
 				{
 					"command": "customizeElement",
