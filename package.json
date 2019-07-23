@@ -19,7 +19,14 @@
 		"commands": [
 			{
 				"command": "toggleView",
-				"title": "Toggle view (standard / palette)"
+				"title": "Toggle Standard/Palette View",
+				"icon" : "resources/buttons/eye_dark.svg"
+			},
+			{
+				"command": "customizeGroup",
+				"title" : "Customize all elements of this color...",
+				"icon": "resources/buttons/button_edit.svg"
+
 			},
 			{
 				"command": "customizeElement",
@@ -65,7 +72,8 @@
 			"view/title": [
 				{
 					"command": "toggleView",
-					"when": "view == elementsView"
+					"when": "view == elementsView",
+					"group": "navigation"
 				}
 			],
 			"view/item/context": [
@@ -86,6 +94,11 @@
 				{
 					"command": "paste",
 					"when": "viewItem == element"
+				},
+				{
+					"command": "customizeGroup",
+					"when" : "viewItem == group",
+					"group": "inline"
 				}
 			]
 		}
@@ -107,9 +120,12 @@
 	},
 	"dependencies": {
 		"@types/color": "^3.0.0",
+		"code": "^5.2.4",
 		"color": "^3.1.2",
 		"copy-paste": "^1.3.0",
-		"jsonc-parser": "^2.1.0"
+		"jsonc-parser": "^2.1.0",
+		"vsce": "^1.64.0",
+		"yo": "^3.0.0"
 	},
 	"repository": {
 		"type": "git",

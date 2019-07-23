@@ -1,0 +1,10 @@
+- (1) color presets (2) config data should be retrieved, stored, and made accesible by the dataProvider
+- elements should always "ask" the provider for data
+
+elements --ask--> dataProvider --watch--> data
+
+modify an element:
+
+    1. change settings value
+    2. refresh data
+    3. refresh item

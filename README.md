@@ -1,6 +1,6 @@
-<span style="text-align: right">
+<!-- <span style="text-align: right">
     <image src="resources\logo-blueprint-128x128.png">
-</span>
+</span> -->
 
 
 
@@ -10,9 +10,9 @@
 Easily customize elements of VS Code's interface
 
 <<<<<<< HEAD
-![](resources\animation_customizeColor.gif)
+<!-- ![](resources\animation_customizeColor.gif) -->
 =======
-![](resources/animation_customizeColor.gif)
+<!-- ![](resources/animation_customizeColor.gif) -->
 >>>>>>> d3f28ea5787d390a4e320b871675f384e4b82c25
 
 ## Requirements

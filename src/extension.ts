@@ -15,7 +15,9 @@ export async function activate(context: vscode.ExtensionContext) {
 	vscode.window.registerTreeDataProvider("elementInfo", infoProvider);
 	vscode.commands.registerCommand("showElementInfo", (element) => infoProvider.setElement(element));
 
-	createView();
+	elementProvider = new ElementProvider(ViewType.Standard);
+	vscode.window.registerTreeDataProvider("elementsView", elementProvider);
+	vscode.commands.registerCommand("customizeGroup", (group) => elementProvider.customizeGroup(group));
 	vscode.commands.registerCommand("customizeElement", (element) => element.customize());
 	vscode.commands.registerCommand("clearCustomization", (element) => element.clear());
 	vscode.commands.registerCommand("copy", (element) => element.copy());
@@ -27,10 +29,6 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
 		if (e.affectsConfiguration('workbench.colorCustomizations') || e.affectsConfiguration("workbench.colorTheme")) {
-			for(let key in elementProvider.elements){
-					elementProvider.elements[key].update();
-					elementProvider.refresh(elementProvider.elements[key]);
-				}
 			elementProvider.refresh();
 		}
 		if(infoProvider.selectedElement){
@@ -40,28 +38,15 @@ export async function activate(context: vscode.ExtensionContext) {
 	}));
 }
 
-function createView(): vscode.TreeDataProvider<any> {
-	elementProvider = new ElementProvider(currentViewType);
-
-	return elementProvider;
-
-}
-
-export function toggleView(){
-	if(currentViewType === ViewType.Standard){
-		currentViewType = ViewType.Palette;
+function toggleView() {
+	if(elementProvider.viewType === ViewType.Standard){
 		elementProvider = new ElementProvider(ViewType.Palette);
-		vscode.window.registerTreeDataProvider("elementsView", elementProvider);
-		return;
-
+		vscode.window.registerTreeDataProvider('elementsView', elementProvider);
 	}
-	if(currentViewType === ViewType.Palette){
-		currentViewType = ViewType.Standard;
+	else{
 		elementProvider = new ElementProvider(ViewType.Standard);
-		vscode.window.registerTreeDataProvider("elementsView", elementProvider);
-		return;
+		vscode.window.registerTreeDataProvider('elementsView', elementProvider);
 	}
 }
-
 
 export function deactivate() {}

@@ -1,13 +1,15 @@
 # Folders
-allElements-fix
-old
+allElements-fix/**
+old/**
 todo.md
-media
+media/**
+resources/swatches/generated/**
 
 #Files
 .vscode/**
 .vscode-test/**
 out/test/**
+test/**
 src/**
 **/tsconfig.json
 **/tslint.json
