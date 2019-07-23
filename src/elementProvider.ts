@@ -32,6 +32,8 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             let treeItem = new Element(elementData, vscode.TreeItemCollapsibleState.None, this.viewType, this);
             this.elementItems[elementData["fullName"]] = treeItem;
         }
+
+        
     }
 
 
@@ -270,62 +272,59 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
 
     }
 
-    async customizeGroup(elementTreeGroup : ElementTreeGroup) {
-        
+
+    async chooseColor() : Promise<string> {
+
         let customization : any;
-        let targetElements : any = [];
         let colorItems : Array<string> = [];
-        let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
 
         for(let key in this.colors){
             colorItems.push(this.colors[key] + " (" + key + ")");
         }
 
-        vscode.window.showQuickPick(["Enter a value...", "Pick from a list..."]).then(async (actionSelection : any) => {
+        await vscode.window.showQuickPick(["Enter a value...", "Pick from a list..."]).then(async (actionSelection : any) => {
             if(actionSelection === "Pick from a list..."){
-                await vscode.window.showQuickPick(colorItems).then((selection : any) => {
-                if(selection){
-                    customization = selection.substring(selection.indexOf("#"), selection.indexOf(")"));
-                    for(let key in elementTreeGroup.children){
-                        let child = elementTreeGroup.children[key];
-                        targetElements.push(child);
+                await vscode.window.showQuickPick(colorItems).then((selection) => {
+                    if(selection){
+                        customization = selection.substring(selection.indexOf("#"), selection.indexOf(")"));
+                        vscode.window.showInformationMessage(customization + " selected!");
                     }
-                if(targetElements.length > 0){
-                    for(let key in targetElements){
-                        let value = targetElements[key];
-                        let elementName = value.elementData["fullName"];
-                        currentCustomizations[elementName] = customization;
-                    }
-                    vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
-                }
-                }});
+                });
             }
             if(actionSelection === "Enter a value..."){
                 await vscode.window.showInputBox({placeHolder : "eg. #00ff00"}).then(async (selection) => {
                     if(selection){
                         customization = selection;
-                    }
-                    for(let key in elementTreeGroup.children){
-                        let child = elementTreeGroup.children[key];
-                        targetElements.push(child);
+                        vscode.window.showInformationMessage(customization + " selected!");
                     }
                 });
             }
-        });  
-
-        if(targetElements.length > 0){
-            for(let key in targetElements){
-                let value = targetElements[key];
-                let elementName = value.elementData["fullName"];
-                currentCustomizations[elementName] = customization;
-            }
-            vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
-        }
-                
+        });
+        
+        Promise.resolve(customization);
+        return customization;        
+        
     }
 
 
-
+    async customizeGroup(elementTreeGroup : ElementTreeGroup) {
+        
+        let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
+        let targetElements = elementTreeGroup.children;
+        await this.chooseColor().then(async (userChoice) => {
+            vscode.window.showInformationMessage(userChoice);
+            if(targetElements.length > 0){
+                for(let key in targetElements){
+                    let value = targetElements[key];
+                    let elementName = value.elementData["fullName"];
+                    currentCustomizations[elementName] = userChoice;
+                }
+                vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
+            }
+        });
+                
+    }
+    
 }
 
     function getEffectiveColor(colorConfig:ColorConfig) : string | undefined {
