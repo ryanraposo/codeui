@@ -11,6 +11,7 @@ resources/swatches/generated/**
 out/test/**
 test/**
 src/**
+modules/**
 **/tsconfig.json
 **/tslint.json
 .gitignore

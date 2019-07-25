@@ -3,7 +3,9 @@ import * as fs from "fs";
 import * as path from "path";
 import * as copypaste from 'copy-paste';
 import { CurrentTheme } from './theme';
-
+import { type } from 'os';
+import tinycolor, { TinyColor } from '@ctrl/tinycolor';
+import { get } from 'http';
 
 
 export class ElementProvider implements vscode.TreeDataProvider<any>{
@@ -33,9 +35,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             this.elementItems[elementData["fullName"]] = treeItem;
         }
 
-        
     }
-
 
 
     refresh(element? : any): void {
@@ -324,7 +324,53 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         });
                 
     }
-    
+
+    darken(item : Element | ElementTreeGroup) {
+
+        let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
+
+        if(item instanceof Element){
+            let darkenedValue = tinycolor(getEffectiveColor(item.colorConfig)).darken(10);
+            currentCustomizations[item.elementData['fullName']] = darkenedValue;
+            vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
+            return;
+        }
+
+        if(item instanceof ElementTreeGroup){
+            for(let key in item.children){
+                let value = item.children[key];
+                let darkenedValue = tinycolor(getEffectiveColor(value.colorConfig)).darken(10);
+                currentCustomizations[value.elementData['fullName']] = darkenedValue;    
+            }
+            return;
+        }
+        
+    }
+
+
+    lighten(item : any) {
+
+        let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
+
+        if(item instanceof Element){
+            let lightenedValue = tinycolor(getEffectiveColor(item.colorConfig)).lighten(10);
+            currentCustomizations[item.elementData['fullName']] = lightenedValue;
+            vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
+            return;
+        }
+
+        if(item instanceof ElementTreeGroup){
+            for(let key in item.children){
+                let value = item.children[key];
+                let lightenedValue = tinycolor(getEffectiveColor(value.colorConfig)).lighten(10);
+                currentCustomizations[value.elementData['fullName']] = lightenedValue;    
+            }
+            return;
+        }
+        
+    }
+        
+
 }
 
     function getEffectiveColor(colorConfig:ColorConfig) : string | undefined {

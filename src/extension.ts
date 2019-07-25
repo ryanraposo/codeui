@@ -1,8 +1,11 @@
 "use strict";
 
 import * as vscode from "vscode";
+import * as fs from "fs";
+import * as path from "path";
 import { ElementProvider, ViewType } from './elementProvider';
 import { InfoProvider } from './infoProvider';
+import { NONAME } from "dns";
 
 var currentViewType : ViewType = ViewType.Standard;
 
@@ -25,8 +28,6 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	vscode.commands.registerCommand("toggleView", () => toggleView());
 
-
-
 	context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
 		if (e.affectsConfiguration('workbench.colorCustomizations') || e.affectsConfiguration("workbench.colorTheme")) {
 			elementProvider.refresh();
@@ -36,6 +37,7 @@ export async function activate(context: vscode.ExtensionContext) {
 			infoProvider.refresh();
 		}
 	}));
+	
 }
 
 function toggleView() {

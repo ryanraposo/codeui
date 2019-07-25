@@ -2,8 +2,8 @@
 	"name": "codeui",
 	"displayName": "CodeUI",
 	"publisher": "ryanraposo",
-	"description": "Theme builder for Visual Studio Code",
-	"icon": "resources/logo-blueprint-128x128.png",
+	"description": "Build, view, & edit color themes in VS Code",
+	"icon": "media/logo/logo-codeui.png",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.34.0"
@@ -20,13 +20,12 @@
 			{
 				"command": "toggleView",
 				"title": "Toggle Standard/Palette View",
-				"icon" : "resources/buttons/eye_dark.svg"
+				"icon": "resources/buttons/eye_dark.svg"
 			},
 			{
 				"command": "customizeGroup",
-				"title" : "Customize all elements of this color...",
+				"title": "Customize all elements of this color...",
 				"icon": "resources/buttons/button_edit.svg"
-
 			},
 			{
 				"command": "customizeElement",
@@ -97,7 +96,7 @@
 				},
 				{
 					"command": "customizeGroup",
-					"when" : "viewItem == group",
+					"when": "viewItem == group",
 					"group": "inline"
 				}
 			]
@@ -119,6 +118,7 @@
 		"vscode": "^1.1.28"
 	},
 	"dependencies": {
+		"@ctrl/tinycolor": "^2.5.3",
 		"@types/color": "^3.0.0",
 		"code": "^5.2.4",
 		"color": "^3.1.2",
