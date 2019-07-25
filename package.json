@@ -44,6 +44,14 @@
 			{
 				"command": "paste",
 				"title": "Paste"
+			},
+			{
+				"command": "darken",
+				"title": "Darken"
+			},
+			{
+				"command": "lighten",
+				"title": "Lighten"
 			}
 		],
 		"viewsContainers": {
@@ -98,6 +106,14 @@
 					"command": "customizeGroup",
 					"when": "viewItem == group",
 					"group": "inline"
+				},
+				{
+					"command": "darken",
+					"when" : "view == elementsView"
+				},
+				{
+					"command": "lighten",
+					"when" : "view == elementsView"
 				}
 			]
 		}

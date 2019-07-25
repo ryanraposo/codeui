@@ -330,44 +330,43 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
 
         if(item instanceof Element){
-            let darkenedValue = tinycolor(getEffectiveColor(item.colorConfig)).darken(10);
+            let darkenedValue = "#" + tinycolor(getEffectiveColor(item.colorConfig)).darken(5).toHex();
             currentCustomizations[item.elementData['fullName']] = darkenedValue;
-            vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
-            return;
         }
-
+        
         if(item instanceof ElementTreeGroup){
             for(let key in item.children){
                 let value = item.children[key];
-                let darkenedValue = tinycolor(getEffectiveColor(value.colorConfig)).darken(10);
+                let darkenedValue = "#" + tinycolor(getEffectiveColor(value.colorConfig)).darken(5).toHex();
                 currentCustomizations[value.elementData['fullName']] = darkenedValue;    
             }
-            return;
         }
         
+        vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
+
     }
+    
 
 
-    lighten(item : any) {
+    lighten(item : Element | ElementTreeGroup) {
 
         let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
 
         if(item instanceof Element){
-            let lightenedValue = tinycolor(getEffectiveColor(item.colorConfig)).lighten(10);
+            let lightenedValue = "#" + tinycolor(getEffectiveColor(item.colorConfig)).lighten(5).toHex();
             currentCustomizations[item.elementData['fullName']] = lightenedValue;
-            vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
-            return;
         }
-
+        
         if(item instanceof ElementTreeGroup){
             for(let key in item.children){
                 let value = item.children[key];
-                let lightenedValue = tinycolor(getEffectiveColor(value.colorConfig)).lighten(10);
+                let lightenedValue = "#" + tinycolor(getEffectiveColor(value.colorConfig)).lighten(5).toHex();
                 currentCustomizations[value.elementData['fullName']] = lightenedValue;    
             }
-            return;
         }
         
+        vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
+
     }
         
 

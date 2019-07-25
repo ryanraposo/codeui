@@ -25,6 +25,9 @@ export async function activate(context: vscode.ExtensionContext) {
 	vscode.commands.registerCommand("clearCustomization", (element) => element.clear());
 	vscode.commands.registerCommand("copy", (element) => element.copy());
 	vscode.commands.registerCommand("paste", (element) => element.paste());
+	vscode.commands.registerCommand("darken", (item) => elementProvider.darken(item));
+	vscode.commands.registerCommand("lighten", (item) => elementProvider.lighten(item));
+
 
 	vscode.commands.registerCommand("toggleView", () => toggleView());
 
