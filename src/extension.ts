@@ -29,11 +29,6 @@ export async function activate(context: vscode.ExtensionContext) {
 	vscode.commands.registerCommand("darken", (item) => elementProvider.darken(item));
 	vscode.commands.registerCommand("lighten", (item) => elementProvider.lighten(item));
 
-
-	console.log(__dirname);
-	vscode.window.showInformationMessage(__dirname);
-	vscode.window.showInformationMessage(__filename);
-
 	vscode.commands.registerCommand("toggleView", () => toggleView());
 
 	

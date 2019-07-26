@@ -285,7 +285,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                 await vscode.window.showQuickPick(colorItems).then((selection) => {
                     if(selection){
                         customization = selection.substring(selection.indexOf("#"), selection.indexOf(")"));
-                        vscode.window.showInformationMessage(customization + " selected!");
+                        // vscode.window.showInformationMessage("CodeUI: hex value '" + selection + "' successfully applied!");
                     }
                 });
             }
@@ -293,7 +293,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                 await vscode.window.showInputBox({placeHolder : "eg. #00ff00"}).then(async (selection) => {
                     if(selection){
                         customization = selection;
-                        vscode.window.showInformationMessage(customization + " selected!");
+                        // vscode.window.showInformationMessage(customization + " selected!");
                     }
                 });
             }
@@ -310,7 +310,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
         let targetElements = elementTreeGroup.children;
         await this.chooseColor().then(async (userChoice) => {
-            vscode.window.showInformationMessage(userChoice);
+            // vscode.window.showInformationMessage(userChoice);
             if(targetElements.length > 0){
                 for(let key in targetElements){
                     let value = targetElements[key];
@@ -429,9 +429,6 @@ export class Element extends vscode.TreeItem {
             }
             this.dataProvider = dataProvider;
 
-            console.log(this.toString());
-
-
             this.update();
 
     }
@@ -489,7 +486,7 @@ export class Element extends vscode.TreeItem {
             copypaste.copy(this.description);
         }
 
-        vscode.window.showInformationMessage('CODEUI: Copied: ' + this.description);
+        vscode.window.showInformationMessage('CodeUI: Copied: ' + this.description);
     }
 
 

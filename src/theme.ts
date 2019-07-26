@@ -38,10 +38,8 @@ export class CurrentTheme {
             currentThemeName = currentThemeName.toLowerCase();
             currentThemeName = currentThemeName.replace(" ", "-");
             // Find the extension folder for the theme
-            // vscode.window.showInformationMessage("CodeUI: Current theme name: " + currentThemeName);
             for(var extension of vscode.extensions.all){
                 if(extension.id.includes(currentThemeBaseName)){
-                    // vscode.window.showInformationMessage("CodeUI: Current theme folder: " + extension.extensionPath);
                     themeDirPath = extension.extensionPath;
                     // Build the full path for the current theme's json file
                     themeJsonPath = path.join(themeDirPath + "/themes/" + (currentThemeName + ".json"));
@@ -64,7 +62,7 @@ export class CurrentTheme {
                 return jsonObject;
             }
             catch{
-                console.log("CODEUI: No current theme.");
+                // console.log("CODEUI: No current theme.");
             }
         }
     }
