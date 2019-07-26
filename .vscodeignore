@@ -3,20 +3,18 @@ allElements-fix/**
 old/**
 todo.md
 media/**
-resources/swatches/generated/**
+# resources/swatches/generated/**
 
-#Files
+#Default
 .vscode/**
 .vscode-test/**
 out/test/**
-test/**
 src/**
-modules/**
-**/tsconfig.json
-**/tslint.json
 .gitignore
 vsc-extension-quickstart.md
-
-# Filetypes
+**/tsconfig.json
+**/tslint.json
 **/*.map
 **/*.ts
+
+# Filetypes

@@ -3,9 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as copypaste from 'copy-paste';
 import { CurrentTheme } from './theme';
-import { type } from 'os';
-import tinycolor, { TinyColor } from '@ctrl/tinycolor';
-import { get } from 'http';
+import tinycolor from '@ctrl/tinycolor';
 
 
 export class ElementProvider implements vscode.TreeDataProvider<any>{
@@ -368,24 +366,37 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
 
     }
+
+
+    clearIconCache() : void {
+
+        let generatedIconDirPath = path.join(__filename, '..', '..', 'resources', 'swatches', 'generated');
+        let dirContents : any = fs.readdirSync(generatedIconDirPath);
+        
+        if(dirContents){
+            
+        }
+    }
         
 
 }
 
-    function getEffectiveColor(colorConfig:ColorConfig) : string | undefined {
+export function getEffectiveColor(colorConfig:ColorConfig) : string | undefined {
 
-        let effective : string | undefined;
+    let effective : string | undefined;
 
-        for(let key in colorConfig){
-            let value = colorConfig[key];
-            if(value){
-                effective = value;
-            }
+    for(let key in colorConfig){
+        let value = colorConfig[key];
+        if(value){
+            effective = value;
         }
-
-        return effective;
-
     }
+
+    return effective;
+
+}
+
+    
 
 
 

@@ -3,13 +3,14 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
 import * as path from "path";
-import { ElementProvider, ViewType } from './elementProvider';
+// import { ElementProvider, ViewType } from './elementProvider';
+import * as ep from './elementProvider';
+
 import { InfoProvider } from './infoProvider';
-import { NONAME } from "dns";
 
-var currentViewType : ViewType = ViewType.Standard;
+var currentViewType : ep.ViewType = ep.ViewType.Standard;
 
-var elementProvider : ElementProvider;
+var elementProvider : ep.ElementProvider;
 
 
 export async function activate(context: vscode.ExtensionContext) {
@@ -18,7 +19,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	vscode.window.registerTreeDataProvider("elementInfo", infoProvider);
 	vscode.commands.registerCommand("showElementInfo", (element) => infoProvider.setElement(element));
 
-	elementProvider = new ElementProvider(ViewType.Standard);
+	elementProvider = new ep.ElementProvider(ep.ViewType.Standard);
 	vscode.window.registerTreeDataProvider("elementsView", elementProvider);
 	vscode.commands.registerCommand("customizeGroup", (group) => elementProvider.customizeGroup(group));
 	vscode.commands.registerCommand("customizeElement", (element) => element.customize());
@@ -29,7 +30,15 @@ export async function activate(context: vscode.ExtensionContext) {
 	vscode.commands.registerCommand("lighten", (item) => elementProvider.lighten(item));
 
 
+	console.log(__dirname);
+	vscode.window.showInformationMessage(__dirname);
+	vscode.window.showInformationMessage(__filename);
+
 	vscode.commands.registerCommand("toggleView", () => toggleView());
+
+	
+
+	// elementProvider.clearIconCache();
 
 	context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
 		if (e.affectsConfiguration('workbench.colorCustomizations') || e.affectsConfiguration("workbench.colorTheme")) {
@@ -43,13 +52,13 @@ export async function activate(context: vscode.ExtensionContext) {
 	
 }
 
-function toggleView() {
-	if(elementProvider.viewType === ViewType.Standard){
-		elementProvider = new ElementProvider(ViewType.Palette);
+export function toggleView() {
+	if(elementProvider.viewType === ep.ViewType.Standard){
+		elementProvider = new ep.ElementProvider(ep.ViewType.Palette);
 		vscode.window.registerTreeDataProvider('elementsView', elementProvider);
 	}
 	else{
-		elementProvider = new ElementProvider(ViewType.Standard);
+		elementProvider = new ep.ElementProvider(ep.ViewType.Standard);
 		vscode.window.registerTreeDataProvider('elementsView', elementProvider);
 	}
 }
