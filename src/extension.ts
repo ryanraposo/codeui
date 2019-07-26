@@ -33,7 +33,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	
 
-	// elementProvider.clearIconCache();
+	clearIconCache();
 
 	context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
 		if (e.affectsConfiguration('workbench.colorCustomizations') || e.affectsConfiguration("workbench.colorTheme")) {
@@ -58,4 +58,24 @@ export function toggleView() {
 	}
 }
 
-export function deactivate() {}
+
+export function deactivate() {
+
+	clearIconCache();
+
+}
+
+
+function clearIconCache() {
+
+	const cachePath : string = path.join(__filename, "..", "..", "resources", "swatches", "generated");
+
+	fs.readdir(cachePath, function(err, files : any) {
+		if (files) {
+			for(let fileName of files){
+				fs.unlinkSync(path.join(cachePath, fileName));
+			}	
+		}
+	});
+
+}
