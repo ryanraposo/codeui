@@ -29,7 +29,7 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
     getChildren(infoItem?: InfoItem) : vscode.TreeItem[] {
 
         let children : vscode.TreeItem[] = [];
-
+        
         if(!infoItem){ // If root...
             let sections : InfoItem[] = [];
             sections.push(new InfoItem({ label: "Current Theme", description: this.currentTheme.themeName, collapsibleState: vscode.TreeItemCollapsibleState.Collapsed }));
@@ -47,15 +47,24 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
             }
             if(infoItem.label === "Element"){ // If element section...
                 let elementInfo : InfoItem[] = [];
+                let values : Array<any> = [];
                 if(this.selectedElement){
-                    elementInfo.push(new InfoItem({ label: "Default", description: this.selectedElement.colorConfig.default, collapsibleState: vscode.TreeItemCollapsibleState.None }));
-                    elementInfo.push(new InfoItem({ label: "Theme", description: this.selectedElement.colorConfig.theme, collapsibleState: vscode.TreeItemCollapsibleState.None }));
-                    elementInfo.push(new InfoItem({ label: "Settings", description: this.selectedElement.colorConfig.settings, collapsibleState: vscode.TreeItemCollapsibleState.None }));
+                    for(let key in this.selectedElement.colorConfig){
+                        let value = this.selectedElement.colorConfig[key];
+                        if(value){
+                            values.push(value);
+                        }else{
+                            values.push("-");
+                        }
+                    }
+                    elementInfo.push(new InfoItem({ label: "Default", description: values[0], collapsibleState: vscode.TreeItemCollapsibleState.None }));
+                    elementInfo.push(new InfoItem({ label: "Theme", description: values[1], collapsibleState: vscode.TreeItemCollapsibleState.None }));
+                    elementInfo.push(new InfoItem({ label: "Settings", description: values[2], collapsibleState: vscode.TreeItemCollapsibleState.None }));
                     infoItem.iconPath = this.selectedElement.iconPath;
                 }else{
-                    elementInfo.push(new InfoItem({ label: "Default", description: "", collapsibleState: vscode.TreeItemCollapsibleState.None }));
-                    elementInfo.push(new InfoItem({ label: "Theme", description: "", collapsibleState: vscode.TreeItemCollapsibleState.None }));
-                    elementInfo.push(new InfoItem({ label: "Customization", description: "", collapsibleState: vscode.TreeItemCollapsibleState.None }));
+                    elementInfo.push(new InfoItem({ label: "Default", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.None }));
+                    elementInfo.push(new InfoItem({ label: "Theme", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.None }));
+                    elementInfo.push(new InfoItem({ label: "Customization", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.None }));
                     infoItem.iconPath = undefined;
 
                 }

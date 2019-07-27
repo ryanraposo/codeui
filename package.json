@@ -3,7 +3,7 @@
 	"displayName": "CodeUI",
 	"publisher": "ryanraposo",
 	"description": "Build, view, & edit color themes in VS Code",
-	"icon": "resources/logo-codeui.png",
+	"icon": "resources/logo-codeui-badge.png",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.34.0"
@@ -13,6 +13,7 @@
 		"Other"
 	],
 	"activationEvents": [
+		"onCommand:extension.toggleView",
 		"*"
 	],
 	"main": "./out/extension.js",

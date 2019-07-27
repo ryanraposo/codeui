@@ -15,6 +15,8 @@ var elementProvider : ep.ElementProvider;
 
 export async function activate(context: vscode.ExtensionContext) {
 
+	// await clearIconCache();
+
 	const infoProvider = new InfoProvider();
 	vscode.window.registerTreeDataProvider("elementInfo", infoProvider);
 	vscode.commands.registerCommand("showElementInfo", (element) => infoProvider.setElement(element));
@@ -31,10 +33,6 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	vscode.commands.registerCommand("toggleView", () => toggleView());
 
-	
-
-	clearIconCache();
-
 	context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
 		if (e.affectsConfiguration('workbench.colorCustomizations') || e.affectsConfiguration("workbench.colorTheme")) {
 			elementProvider.refresh();
@@ -44,7 +42,7 @@ export async function activate(context: vscode.ExtensionContext) {
 			infoProvider.refresh();
 		}
 	}));
-	
+
 }
 
 export function toggleView() {
