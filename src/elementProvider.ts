@@ -278,7 +278,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }
 
 
-    chooseColor() : string | undefined {
+    async chooseColor()  {
 
         let customization : any;
         let colorItems : Array<string> = [];
@@ -292,6 +292,12 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                 vscode.window.showQuickPick(colorItems).then((selection) => {
                     if(selection){
                             customization = selection.substring(selection.indexOf("#"), selection.indexOf(")"));                       
+                            if(is_hexadecimal(customization)) {
+                                // Promise.resolve(customization);
+                                return customization;        
+                            }else{
+                                return undefined;
+                            }
                     }
                 });
             }
@@ -314,20 +320,47 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
 
 
     customizeGroup(elementTreeGroup : ElementTreeGroup) {
-        
+
         let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
-        let targetElements = elementTreeGroup.children;
-        let chosenColor = this.chooseColor();
-        // this.chooseColor().then((userChoice : any) => {
-            // vscode.window.showInformationMessage(userChoice);
-        if(targetElements.length > 0){
-            for(let key in targetElements){
-                let value = targetElements[key];
-                let elementName = value.elementData["fullName"];
-                currentCustomizations[elementName] = chosenColor;
-            }
-            vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
+        
+        let colorItems : Array<string> = [];
+        let customization : string = "";
+
+        for(let key in this.colors){
+            colorItems.push(this.colors[key] + " (" + key + ")");
         }
+
+        vscode.window.showQuickPick(["Enter a value...", "Pick from a list..."]).then((actionSelection : any) => {
+            if(actionSelection === "Pick from a list..."){
+                vscode.window.showQuickPick(colorItems).then((selection) => {
+                if(selection){
+                    let value = selection.substring(selection.indexOf("#"), selection.indexOf(")"));
+                    customization = value;
+                    for(let key in elementTreeGroup.children){
+                        let value = elementTreeGroup.children[key];
+                        currentCustomizations[value.elementData["fullName"]] = customization;
+                    }
+                    vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
+                }});
+            }
+            if(actionSelection === "Enter a value..."){
+                vscode.window.showInputBox({placeHolder : "eg. #00ff00"}).then((selection) => {
+                    if(selection){
+                        if(is_hexadecimal(selection)){
+                            customization = selection;
+                            for(let key in elementTreeGroup.children){
+                                let value = elementTreeGroup.children[key];
+                                currentCustomizations[value.elementData["fullName"]] = customization;
+                            }
+                            vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);        
+                        }else{
+                            vscode.window.showInformationMessage("CodeUI: '" + selection + "' is not a valid color code! Use hex format (#00ff00)");
+                        }
+                    }
+                });
+            }
+        });
+
         
                 
     }
@@ -476,11 +509,12 @@ export class Element extends vscode.TreeItem {
 
         let targetElementName : string = this.elementData["fullName"];
         let colorItems : Array<string> = [];
-        let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
         let customization : string = "";
+        let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
 
         if(value){
             currentCustomizations[targetElementName] = value;
+            vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
             return;
         }else{
             for(let key in this.dataProvider.colors){
@@ -626,6 +660,12 @@ export class ElementTreeGroup extends vscode.TreeItem {
 
         setCommand(command : vscode.Command) : void {
             this.command = command;
+        }
+
+
+        customizeChildren(){
+
+
         }
 
         contextValue =  "group";
