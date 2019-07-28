@@ -1,1 +1,0 @@
-- setColor & getGeneratedIconPath need to appreciate the different icon types depending on config source

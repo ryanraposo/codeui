@@ -47,11 +47,6 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
             }
             children = sections;
         }else{
-            // if(infoItem.label === "Theme" && infoItem.description.length > 1){ // If theme section...
-            //     let themeInfo : InfoItem[] = [];
-            //     themeInfo.push(new InfoItem({ label: "Type", description: this.currentTheme.themeType, collapsibleState: vscode.TreeItemCollapsibleState.None }));
-            //     children = themeInfo;
-            // }
             if(infoItem.label === "Element"){ // If element section...
                 let elementInfo : InfoItem[] = [];
                 let values : Array<any> = [];

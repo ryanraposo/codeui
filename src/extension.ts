@@ -8,19 +8,23 @@ import * as ep from './elementProvider';
 
 import { InfoProvider } from './infoProvider';
 
-var currentViewType : ep.ViewType = ep.ViewType.Standard;
-
 var elementProvider : ep.ElementProvider;
+var currentViewType : ep.ViewType = ep.ViewType.Standard;
+var viewTypeStatusBarItem : vscode.StatusBarItem;
 
 
 export async function activate(context: vscode.ExtensionContext) {
 
-	// await clearIconCache();
+	// await clearIconCache(); 
+
+	// vscode.window.showInformationMessage("CodeUI activated!");
 
 	const infoProvider = new InfoProvider();
 	vscode.window.registerTreeDataProvider("elementInfo", infoProvider);
 	vscode.commands.registerCommand("showElementInfo", (element) => infoProvider.setElement(element));
-
+	
+	vscode.commands.registerCommand("toggleView", () => toggleView());
+	
 	elementProvider = new ep.ElementProvider(ep.ViewType.Standard);
 	vscode.window.registerTreeDataProvider("elementsView", elementProvider);
 	vscode.commands.registerCommand("customizeGroup", (group) => elementProvider.customizeGroup(group));
@@ -31,7 +35,8 @@ export async function activate(context: vscode.ExtensionContext) {
 	vscode.commands.registerCommand("darken", (item) => elementProvider.darken(item));
 	vscode.commands.registerCommand("lighten", (item) => elementProvider.lighten(item));
 
-	vscode.commands.registerCommand("toggleView", () => toggleView());
+
+	setStatusBarItem(currentViewType);
 
 	context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
 		if (e.affectsConfiguration('workbench.colorCustomizations') || e.affectsConfiguration("workbench.colorTheme")) {
@@ -44,17 +49,20 @@ export async function activate(context: vscode.ExtensionContext) {
 			infoProvider.refresh();
 		}
 	}));
-
 }
 
+
 export function toggleView() {
+
 	if(elementProvider.viewType === ep.ViewType.Standard){
 		elementProvider = new ep.ElementProvider(ep.ViewType.Palette);
 		vscode.window.registerTreeDataProvider('elementsView', elementProvider);
+		setStatusBarItem(ep.ViewType.Palette);
 	}
 	else{
 		elementProvider = new ep.ElementProvider(ep.ViewType.Standard);
 		vscode.window.registerTreeDataProvider('elementsView', elementProvider);
+		setStatusBarItem(ep.ViewType.Standard);
 	}
 }
 
@@ -62,6 +70,26 @@ export function toggleView() {
 export function deactivate() {
 
 	clearIconCache();
+
+}
+
+
+function setStatusBarItem(viewType : ep.ViewType) {
+
+	if(viewTypeStatusBarItem){
+		viewTypeStatusBarItem.dispose();
+	}
+
+	viewTypeStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
+	viewTypeStatusBarItem.command = "toggleView";
+	
+	if(viewType === ep.ViewType.Standard){
+		viewTypeStatusBarItem.text = "[CodeUI]: Standard View";
+	}else{
+		viewTypeStatusBarItem.text = "[CodeUI]: Palette View";
+	}	
+
+	viewTypeStatusBarItem.show();
 
 }
 

@@ -120,6 +120,18 @@
 			]
 		}
 	},
+	"configuration": [
+		{
+			"title": "Configuration Samples",
+			"properties": {
+				"codeui.showNotifications": {
+					"type": "boolean",
+					"default": "true",
+					"description": "Show various notifications about CodeUI's activity."
+				}
+			}
+		}
+	],
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",
