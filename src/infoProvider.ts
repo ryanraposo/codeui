@@ -8,9 +8,10 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
     readonly onDidChangeTreeData: vscode.Event<InfoItem| undefined> = this._onDidChangeTreeData.event;
 
     selectedElement : any;
-    currentTheme : any = new CurrentTheme();
+    currentTheme : any;
 
     constructor(){
+        this.currentTheme = new CurrentTheme();
     }
 
 
@@ -32,19 +33,25 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
         
         if(!infoItem){ // If root...
             let sections : InfoItem[] = [];
-            sections.push(new InfoItem({ label: "Current Theme", description: this.currentTheme.themeName, collapsibleState: vscode.TreeItemCollapsibleState.Collapsed }));
+            let themeConfiguration : any = vscode.workspace.getConfiguration().get("workbench.colorTheme");
+            if(themeConfiguration){
+                sections.push(new InfoItem({ label: "Theme", description: themeConfiguration, collapsibleState: vscode.TreeItemCollapsibleState.None}));
+            }else{
+                sections.push(new InfoItem({ label: "Theme", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.None }));
+
+            }
             if(this.selectedElement){
                 sections.push(new InfoItem({ label: "Element", description: this.selectedElement.elementData["titleName"], collapsibleState: vscode.TreeItemCollapsibleState.Expanded }));
             }else{
-                sections.push(new InfoItem({ label: "Element", description: "None selected", collapsibleState: vscode.TreeItemCollapsibleState.Expanded }));
+                sections.push(new InfoItem({ label: "Element", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.Expanded }));
             }
             children = sections;
         }else{
-            if(infoItem.label === "Theme"){ // If theme section...
-                let themeInfo : InfoItem[] = [];
-                themeInfo.push(new InfoItem({ label: "Type", description: this.currentTheme.themeType, collapsibleState: vscode.TreeItemCollapsibleState.None }));
-                children = themeInfo;
-            }
+            // if(infoItem.label === "Theme" && infoItem.description.length > 1){ // If theme section...
+            //     let themeInfo : InfoItem[] = [];
+            //     themeInfo.push(new InfoItem({ label: "Type", description: this.currentTheme.themeType, collapsibleState: vscode.TreeItemCollapsibleState.None }));
+            //     children = themeInfo;
+            // }
             if(infoItem.label === "Element"){ // If element section...
                 let elementInfo : InfoItem[] = [];
                 let values : Array<any> = [];
@@ -79,6 +86,12 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
 
     setElement(element : Element) {
         this.selectedElement = element;
+        this.refresh();
+    }
+
+
+    setTheme() {
+        this.currentTheme = new CurrentTheme();
         this.refresh();
     }
 

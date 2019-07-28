@@ -80,13 +80,6 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         if(this.viewType === ViewType.Palette){
             if(elementTreeGroup){
                 return elementTreeGroup.children;
-                // for(let key in this.elementItems){
-                //     let value = this.elementItems[key];
-                //     if(getEffectiveColor(value.colorConfig) === elementTreeGroup.label){
-                //         children.push(value);
-                //     }
-                // }
-                // return children;
             }else{
                 return this.getPaletteViewGroups();
             }
@@ -123,11 +116,19 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             for(let key in elementNames){
                 let element : string = elementNames[key];
 
-                colorConfig[element]={
-                    default : defaultConfigs[element],
-                    theme : themeConfigs[element],
-                    settings : settingsConfigs[element]
-                };
+                if(themeConfigs){
+                    colorConfig[element]={
+                        default : defaultConfigs[element],
+                        theme : themeConfigs[element],
+                        settings : settingsConfigs[element]
+                    };
+                }else{
+                    colorConfig[element]={
+                        default : defaultConfigs[element],
+                        theme : "",
+                        settings : settingsConfigs[element]
+                    };
+                }
             }
 
             return colorConfig;
@@ -144,11 +145,16 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         }
 
 
-        function getThemeConfigs(): Object {
+        function getThemeConfigs(): any {
 
             let currentTheme = new CurrentTheme();
             let themeObject = currentTheme.themeObject;
-            let themeColorsObject = themeObject["colors"];
+
+            let themeColorsObject : any = undefined;
+            
+            if(themeObject){
+                themeColorsObject = themeObject["colors"]; 
+            }
 
             return themeColorsObject;
 
@@ -270,42 +276,6 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         return paletteGroupItems;
 
     }
-
-
-    // async chooseColor() : Promise<string> {
-
-    //     let customization : any;
-    //     let colorItems : Array<string> = [];
-
-    //     for(let key in this.colors){
-    //         colorItems.push(this.colors[key] + " (" + key + ")");
-    //     }
-
-    //     await vscode.window.showQuickPick(["Enter a value...", "Pick from a list..."]).then(async (actionSelection : any) => {
-    //         if(actionSelection === "Pick from a list..."){
-    //             await vscode.window.showQuickPick(colorItems).then((selection) => {
-    //                 if(selection){
-    //                         customization = selection.substring(selection.indexOf("#"), selection.indexOf(")"));                       
-    //                 }
-    //             });
-    //         }
-    //         if(actionSelection === "Enter a value..."){
-    //             await vscode.window.showInputBox({placeHolder : "eg. #00ff00"}).then(async (selection) => {
-    //                 if(selection){
-    //                     customization = selection;
-    //                 }
-    //             });
-    //         }
-    //     });
-        
-    //     if(/^#(?:[0-9a-fA-F]{3}){1,2}$/.test(customization)){
-    //         Promise.resolve(customization);
-    //     }else{
-    //         Promise.reject("CodeUI: Use hex values (#123456");
-    //     }
-    //     return customization;        
-        
-    // }
 
 
     chooseColor() : string | undefined {
@@ -493,7 +463,11 @@ export class Element extends vscode.TreeItem {
 
     update(): void {
         this.colorConfig = this.dataProvider.colorConfigs[this.elementData["fullName"]];
-        this.description = getEffectiveColor(this.colorConfig);
+        if(getEffectiveColor(this.colorConfig)){
+            this.description = getEffectiveColor(this.colorConfig);
+        }else{
+            this.description = "-";
+        }
         this.iconPath = this.generateIcon();
     }
 
