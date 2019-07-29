@@ -4,15 +4,17 @@
 Build, view, & edit color themes in VS Code
 <!-- ![](https://i.imgur.com/71bKt1i.png) -->
 
-![](resources/demo_codeui_views.png)
+![](resources\demo-multi-feature.png)
 
 ## Features
 
-- Customize specific colors, wherever they appear in the UI
-
 - Browse the elements of VS Code's interface, with a realtime visual representation their color settings.
 
-- Darken, lighten, copy & paste values across elements in the UI
+- Change color settings for each element to your liking or target specific colors- wherever they appear in the UI
+
+- Darken, lighten, copy & paste values across items in the UI
+
+- View the source of any color configuration (default, theme, or settings)
 
 ## Extension Settings
 
