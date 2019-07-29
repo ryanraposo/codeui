@@ -15,10 +15,6 @@ var viewTypeStatusBarItem : vscode.StatusBarItem;
 
 export async function activate(context: vscode.ExtensionContext) {
 
-	// await clearIconCache(); 
-
-	// vscode.window.showInformationMessage("CodeUI activated!");
-
 	const infoProvider = new InfoProvider();
 	vscode.window.registerTreeDataProvider("elementInfo", infoProvider);
 	vscode.commands.registerCommand("showElementInfo", (element) => infoProvider.setElement(element));
@@ -69,7 +65,7 @@ export function toggleView() {
 
 export function deactivate() {
 
-	clearIconCache();
+	// clearIconCache();
 
 }
 
@@ -105,5 +101,9 @@ function clearIconCache() {
 			}	
 		}
 	});
-
 }
+
+
+
+
+

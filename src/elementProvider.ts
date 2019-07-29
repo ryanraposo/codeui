@@ -278,47 +278,6 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }
 
 
-    async chooseColor()  {
-
-        let customization : any;
-        let colorItems : Array<string> = [];
-
-        for(let key in this.colors){
-            colorItems.push(this.colors[key] + " (" + key + ")");
-        }
-
-        vscode.window.showQuickPick(["Enter a value...", "Pick from a list..."]).then((actionSelection : any) => {
-            if(actionSelection === "Pick from a list..."){
-                vscode.window.showQuickPick(colorItems).then((selection) => {
-                    if(selection){
-                            customization = selection.substring(selection.indexOf("#"), selection.indexOf(")"));                       
-                            if(is_hexadecimal(customization)) {
-                                // Promise.resolve(customization);
-                                return customization;        
-                            }else{
-                                return undefined;
-                            }
-                    }
-                });
-            }
-            if(actionSelection === "Enter a value..."){
-                vscode.window.showInputBox({placeHolder : "eg. #00ff00"}).then((selection) => {
-                    if(selection){
-                        customization = selection;
-                    }
-                });
-            }
-        });
-        
-        if(is_hexadecimal(customization)) {
-            return customization;        
-        }else{
-            return undefined;
-        }
-
-    }
-
-
     customizeGroup(elementTreeGroup : ElementTreeGroup) {
 
         let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
@@ -354,7 +313,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                             }
                             vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);        
                         }else{
-                            vscode.window.showInformationMessage("CodeUI: '" + selection + "' is not a valid color code! Use hex format (#00ff00)");
+                            showNotification("CodeUI: '" + selection + "' is not a valid color code! Use hex format (#00ff00)");
                         }
                     }
                 });
@@ -456,9 +415,18 @@ function is_hexadecimal(str: string) {
       }
 }
 
-    
 
+function showNotification(message : string) {
 
+    const isEnabled = vscode.workspace.getConfiguration().get("codeui.showNotifications");
+
+	if(isEnabled === true){
+		vscode.window.showInformationMessage(message);
+	}else{
+		return;
+	}
+
+}
 
 
 export class Element extends vscode.TreeItem {
@@ -529,6 +497,7 @@ export class Element extends vscode.TreeItem {
                         customization = value;
                         currentCustomizations[targetElementName] = customization;
                         vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
+                        showNotification("CodeUI: Success! " + selection + " applied to " + this.elementData["fullName"]);
                     }});
                 }
                 if(actionSelection === "Enter a value..."){
@@ -538,8 +507,10 @@ export class Element extends vscode.TreeItem {
                                 customization = selection;
                                 currentCustomizations[targetElementName] = customization;
                                 vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
+                                showNotification("CodeUI: Success! " + selection + " applied to " + this.elementData["fullName"]);
+
                             }else{
-                                vscode.window.showInformationMessage("CodeUI: '" + selection + "' is not a valid color code! Use hex format (#00ff00)");
+                                showNotification("CodeUI: '" + selection + "' is not a valid color code! Use hex format (#00ff00)");
                             }
                         }
                     });
@@ -627,8 +598,11 @@ export class ElementTreeGroup extends vscode.TreeItem {
             if(color){
                 this.iconPath = this.getGeneratedIcon();
             }
+            if(viewType === ViewType.Palette){
+                this.contextValue =  "group";
+            }
             // if(viewType === ViewType.Palette){
-            //     this.setCommand(this.command = {title: "", command : "customizeGroup", arguments : [this]});
+                //     this.setCommand(this.command = {title: "", command : "customizeGroup", arguments : [this]});
             // }
 
         }
@@ -668,7 +642,6 @@ export class ElementTreeGroup extends vscode.TreeItem {
 
         }
 
-        contextValue =  "group";
 
 }
 
