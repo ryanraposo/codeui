@@ -526,7 +526,8 @@ export class Element extends vscode.TreeItem {
             copypaste.copy(this.description);
         }
 
-        vscode.window.showInformationMessage('CodeUI: Copied: ' + this.description);
+        showNotification("CodeUI: copied " + copypaste.paste());
+        
     }
 
 
