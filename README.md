@@ -4,7 +4,7 @@
 Build, view, & edit color themes in VS Code
 <!-- ![](https://i.imgur.com/71bKt1i.png) -->
 
-![](resources\demo-multi-feature.png)
+![](https://i.imgur.com/WZsvCzU.png)
 
 ## Features
 
