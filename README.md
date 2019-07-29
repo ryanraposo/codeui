@@ -1,7 +1,10 @@
 
 
-![](https://i.imgur.com/71bKt1i.png)
+# CodeUI
+Build, view, & edit color themes in VS Code
+<!-- ![](https://i.imgur.com/71bKt1i.png) -->
 
+![](resources/demo_codeui_views.png)
 
 ## Features
 
@@ -13,7 +16,7 @@
 
 ## Extension Settings
 
- - ADD: setting for notifications
+ - codeui.showNotifications : Toggle various notifications about CodeUI's activity 
 
 ## Release Notes 
 
