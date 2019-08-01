@@ -30,8 +30,8 @@ export async function activate(context: vscode.ExtensionContext) {
 	vscode.commands.registerCommand("clearCustomization", (element) => element.clear());
 	vscode.commands.registerCommand("adjustBrightness", (element) => elementProvider.adjustBrightness(element));
 
-	vscode.commands.registerCommand("copy", (element) => element.copy());
-	vscode.commands.registerCommand("paste", (element) => element.paste());
+	vscode.commands.registerCommand("copy", (element) => elementProvider.copy(element));
+	// vscode.commands.registerCommand("paste", (element) => elementProvider.paste(element));
 
 
 	setStatusBarItem(currentViewType);

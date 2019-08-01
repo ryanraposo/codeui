@@ -64,10 +64,6 @@
 				"title": "Copy"
 			},
 			{
-				"command": "paste",
-				"title": "Paste"
-			},
-			{
 				"command": "adjustBrightness",
 				"title": "Adjust brightness...",
 				"icon": "resources/buttons/brightness_dark.svg"
@@ -120,10 +116,6 @@
 				},
 				{
 					"command": "copy",
-					"when": "viewItem == element"
-				},
-				{
-					"command": "paste",
 					"when": "viewItem == element"
 				},
 				{

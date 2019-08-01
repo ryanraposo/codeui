@@ -334,9 +334,16 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                 }
             }
         });
-
-        
     }
+
+
+    copy(item : Element): void {
+        if(item.description){
+            copypaste.copy(item.description);
+        }
+        showNotification("CodeUI: copied " + copypaste.paste());        
+    }
+
 
     darken(item : Element | ElementTreeGroup) {
 
@@ -532,19 +539,6 @@ export class Element extends vscode.TreeItem {
         }
 
     }    
-
-
-    copy(): void {
-        if(this.description){
-            copypaste.copy(this.description);
-        }
-        showNotification("CodeUI: copied " + copypaste.paste());        
-    }
-
-
-    paste(): void {
-        this.customize(copypaste.paste());
-    }
 
 
     clear(): void {
