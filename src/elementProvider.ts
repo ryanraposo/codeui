@@ -318,10 +318,24 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                     }
                 });
             }
+        });           
+    }
+
+
+    adjustBrightness(item : Element | ElementTreeGroup) {
+
+        vscode.window.showQuickPick(["Darken (10%)", "Lighten (10%)"]).then((actionSelection : any) => {
+            if(actionSelection){
+                if(actionSelection === "Darken (10%)"){
+                    this.darken(item);
+                }
+            if(actionSelection === "Lighten (10%)"){
+                    this.lighten(item);
+                }
+            }
         });
 
         
-                
     }
 
     darken(item : Element | ElementTreeGroup) {
@@ -508,7 +522,6 @@ export class Element extends vscode.TreeItem {
                                 currentCustomizations[targetElementName] = customization;
                                 vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
                                 showNotification("CodeUI: Success! " + selection + " applied to " + this.elementData["fullName"]);
-
                             }else{
                                 showNotification("CodeUI: '" + selection + "' is not a valid color code! Use hex format (#00ff00)");
                             }
@@ -518,16 +531,14 @@ export class Element extends vscode.TreeItem {
             });
         }
 
-    }
+    }    
 
 
     copy(): void {
         if(this.description){
             copypaste.copy(this.description);
         }
-
-        showNotification("CodeUI: copied " + copypaste.paste());
-        
+        showNotification("CodeUI: copied " + copypaste.paste());        
     }
 
 
@@ -600,11 +611,12 @@ export class ElementTreeGroup extends vscode.TreeItem {
                 this.iconPath = this.getGeneratedIcon();
             }
             if(viewType === ViewType.Palette){
-                this.contextValue =  "group";
+                this.contextValue =  "paletteGroup";
             }
-            // if(viewType === ViewType.Palette){
-                //     this.setCommand(this.command = {title: "", command : "customizeGroup", arguments : [this]});
-            // }
+            if(viewType === ViewType.Standard){
+                this.contextValue =  "standardGroup";
+            }
+
 
         }
 

@@ -14,6 +14,8 @@ var viewTypeStatusBarItem : vscode.StatusBarItem;
 
 
 export async function activate(context: vscode.ExtensionContext) {
+	
+	await clearIconCache();
 
 	const infoProvider = new InfoProvider();
 	vscode.window.registerTreeDataProvider("elementInfo", infoProvider);
@@ -26,13 +28,14 @@ export async function activate(context: vscode.ExtensionContext) {
 	vscode.commands.registerCommand("customizeGroup", (group) => elementProvider.customizeGroup(group));
 	vscode.commands.registerCommand("customizeElement", (element) => element.customize());
 	vscode.commands.registerCommand("clearCustomization", (element) => element.clear());
+	vscode.commands.registerCommand("adjustBrightness", (element) => elementProvider.adjustBrightness(element));
+
 	vscode.commands.registerCommand("copy", (element) => element.copy());
 	vscode.commands.registerCommand("paste", (element) => element.paste());
-	vscode.commands.registerCommand("darken", (item) => elementProvider.darken(item));
-	vscode.commands.registerCommand("lighten", (item) => elementProvider.lighten(item));
 
 
 	setStatusBarItem(currentViewType);
+
 
 	context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
 		if (e.affectsConfiguration('workbench.colorCustomizations') || e.affectsConfiguration("workbench.colorTheme")) {

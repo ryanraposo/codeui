@@ -15,6 +15,13 @@
 		"*"
 	],
 	"main": "./out/extension.js",
+	"badges": [
+		{
+			"description": "version",
+			"url": "https://img.shields.io/badge/codeui-0.1-red",
+			"href": ""
+		}
+	],
 	"contributes": {
 		"configuration": {
 			"title": "CodeUI",
@@ -23,6 +30,11 @@
 					"type": "boolean",
 					"default": true,
 					"description": "Show various notifications about CodeUI's activity."
+				},
+				"codeui.favouriteColors": {
+					"type": "array",
+					"default": [],
+					"description": "User-defined colors for use by CodeUI"
 				}
 			}
 		},
@@ -34,12 +46,12 @@
 			},
 			{
 				"command": "customizeGroup",
-				"title": "Customize all elements of this color...",
+				"title": "Customize...",
 				"icon": "resources/buttons/button_edit.svg"
 			},
 			{
 				"command": "customizeElement",
-				"title": "Customize",
+				"title": "Customize...",
 				"icon": "resources/buttons/button_edit.svg"
 			},
 			{
@@ -56,12 +68,9 @@
 				"title": "Paste"
 			},
 			{
-				"command": "darken",
-				"title": "Darken"
-			},
-			{
-				"command": "lighten",
-				"title": "Lighten"
+				"command": "adjustBrightness",
+				"title": "Adjust brightness...",
+				"icon": "resources/buttons/brightness_dark.svg"
 			}
 		],
 		"viewsContainers": {
@@ -69,7 +78,7 @@
 				{
 					"id": "elementTreeView",
 					"title": "CodeUI",
-					"icon": "resources/paintbrush.png"
+					"icon": "resources/activityBarIcon.png"
 				}
 			]
 		},
@@ -105,6 +114,11 @@
 					"group": "inline"
 				},
 				{
+					"command": "adjustBrightness",
+					"when": "viewItem != standardGroup && view == elementsView",
+					"group": "inline"
+				},
+				{
 					"command": "copy",
 					"when": "viewItem == element"
 				},
@@ -114,16 +128,8 @@
 				},
 				{
 					"command": "customizeGroup",
-					"when": "viewItem == group",
+					"when": "viewItem == paletteGroup",
 					"group": "inline"
-				},
-				{
-					"command": "darken",
-					"when": "view == elementsView"
-				},
-				{
-					"command": "lighten",
-					"when": "view == elementsView"
 				}
 			]
 		}

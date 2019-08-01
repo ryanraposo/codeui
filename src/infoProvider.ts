@@ -33,13 +33,13 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
         
         if(!infoItem){ // If root...
             let sections : InfoItem[] = [];
-            let themeConfiguration : any = vscode.workspace.getConfiguration().get("workbench.colorTheme");
-            if(themeConfiguration){
-                sections.push(new InfoItem({ label: "Theme", description: themeConfiguration, collapsibleState: vscode.TreeItemCollapsibleState.None}));
-            }else{
-                sections.push(new InfoItem({ label: "Theme", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.None }));
+            // let themeConfiguration : any = vscode.workspace.getConfiguration().get("workbench.colorTheme");
+            // if(themeConfiguration){
+            //     sections.push(new InfoItem({ label: "Theme", description: themeConfiguration, collapsibleState: vscode.TreeItemCollapsibleState.None}));
+            // }else{
+            //     sections.push(new InfoItem({ label: "Theme", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.None }));
 
-            }
+            // }
             if(this.selectedElement){
                 sections.push(new InfoItem({ label: "Element", description: this.selectedElement.elementData["titleName"], collapsibleState: vscode.TreeItemCollapsibleState.Expanded }));
             }else{
