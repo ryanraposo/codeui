@@ -1,5 +1,14 @@
 - make sure all icons have dark & light version
 
-COPY PASTE ISSUE:
+- retake screenshot (high-res, brightness button)
 
-    - leaving launch.json, elementProvider.ts intact and disabling registerCommand (extension.ts) restores normal copy paste functionality
+
+
+
+
+
+				"codeui.favouriteColors": {
+					"type": "array",
+					"default": [],
+					"description": "User-defined colors for use by CodeUI"
+				}

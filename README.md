@@ -5,11 +5,13 @@
 ### Build, edit, & explore your color theme for VS Code.
 <!-- ![](https://i.imgur.com/71bKt1i.png) -->
 
-![](https://i.imgur.com/WZsvCzU.png)
+<!-- ![](https://i.imgur.com/WZsvCzU.png) -->
+![](resources/demo-main.png)
 
 ## Features
 
 - Browse the elements of VS Code's interface, with realtime visual representations of their color settings.
+
 
 - Change color settings for each element to your liking or target specific colors- wherever they appear in the UI
 

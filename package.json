@@ -2,7 +2,7 @@
 	"name": "codeui",
 	"displayName": "CodeUI",
 	"publisher": "ryanraposo",
-	"description": "Build, view, & edit color themes in VS Code",
+	"description": "Build, edit, & explore your color theme for VS Code.",
 	"icon": "resources/logo-codeui-badge.png",
 	"version": "0.0.1",
 	"engines": {
@@ -30,11 +30,6 @@
 					"type": "boolean",
 					"default": true,
 					"description": "Show various notifications about CodeUI's activity."
-				},
-				"codeui.favouriteColors": {
-					"type": "array",
-					"default": [],
-					"description": "User-defined colors for use by CodeUI"
 				}
 			}
 		},

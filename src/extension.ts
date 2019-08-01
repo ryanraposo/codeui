@@ -15,7 +15,7 @@ var viewTypeStatusBarItem : vscode.StatusBarItem;
 
 export async function activate(context: vscode.ExtensionContext) {
 	
-	await clearIconCache();
+	// await clearIconCache();
 
 	const infoProvider = new InfoProvider();
 	vscode.window.registerTreeDataProvider("elementInfo", infoProvider);
