@@ -1,17 +1,14 @@
 
 
-[![Version](https://img.shields.io/badge/version-0.1-red)]()
+[![Version](https://img.shields.io/badge/version-0.1.0-red)]()
 # CodeUI
 ### Build, edit, & explore your color theme for VS Code.
-<!-- ![](https://i.imgur.com/71bKt1i.png) -->
 
-<!-- ![](https://i.imgur.com/WZsvCzU.png) -->
-![](resources/demo-main.png)
+![](https://i.imgur.com/hwbz8aF.png)
 
 ## Features
 
-- Browse the elements of VS Code's interface, with realtime visual representations of their color settings.
-
+- Browse the elements of VS Code's interface, with realtime visual representations of their color settings
 
 - Change color settings for each element to your liking or target specific colors- wherever they appear in the UI
 

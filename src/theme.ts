@@ -37,12 +37,27 @@ export class CurrentTheme {
             // Build name as it will be found in the title of the themes JSON file
             currentThemeName = currentThemeName.toLowerCase();
             currentThemeName = currentThemeName.replace(" ", "-");
+            let themeExtension : any;
             // Find the extension folder for the theme
             for(var extension of vscode.extensions.all){
                 if(extension.id.includes(currentThemeBaseName)){
-                    themeDirPath = extension.extensionPath;
-                    // Build the full path for the current theme's json file
-                    themeJsonPath = path.join(themeDirPath + "/themes/" + (currentThemeName + ".json"));
+                    let strippedThemeName : string = "";
+                    let split : Array<string> = [];
+                    split = extension.id.split(".");
+                    strippedThemeName = split[1];
+                    split = strippedThemeName.split("-");
+                    strippedThemeName = "";
+                    for(let key in split){
+                        let part = split[key];
+                        if(part !== 'vscode' && part !== 'theme'){
+                            strippedThemeName += part + " ";
+                        }
+                    }
+                    strippedThemeName = strippedThemeName.trimRight();
+                    if(strippedThemeName === currentThemeName){
+                        themeDirPath = extension.extensionPath;
+                        themeJsonPath = path.join(themeDirPath + "/themes/" + (currentThemeName + ".json"));
+                    }
                 }
             }
             // Return the path

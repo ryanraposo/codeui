@@ -3,7 +3,7 @@
 	"displayName": "CodeUI",
 	"publisher": "ryanraposo",
 	"description": "Build, edit, & explore your color theme for VS Code.",
-	"icon": "resources/logo-codeui-badge.png",
+	"icon": "resources/marketplace/logo-codeui.png",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.36.0"
@@ -37,22 +37,34 @@
 			{
 				"command": "toggleView",
 				"title": "Toggle Standard/Palette View",
-				"icon": "resources/buttons/eye_dark.svg"
+				"icon": {
+					"light": "resources/light/view.svg",
+					"dark": "resources/dark/view.svg"
+				}
 			},
 			{
 				"command": "customizeGroup",
 				"title": "Customize...",
-				"icon": "resources/buttons/button_edit.svg"
+				"icon": {
+					"light": "resources/light/edit.svg",
+					"dark": "resources/dark/edit.svg"
+				}
 			},
 			{
 				"command": "customizeElement",
 				"title": "Customize...",
-				"icon": "resources/buttons/button_edit.svg"
+				"icon": {
+					"light": "resources/light/edit.svg",
+					"dark": "resources/dark/edit.svg"
+				}
 			},
 			{
 				"command": "clearCustomization",
 				"title": "Delete",
-				"icon": "resources/buttons/button_clear.svg"
+				"icon": {
+					"light": "resources/light/clear.svg",
+					"dark": "resources/dark/clear.svg"
+				}
 			},
 			{
 				"command": "copy",
@@ -61,7 +73,10 @@
 			{
 				"command": "adjustBrightness",
 				"title": "Adjust brightness...",
-				"icon": "resources/buttons/brightness_dark.svg"
+				"icon": {
+					"light": "resources/light/brightness.svg",
+					"dark": "resources/dark/brightness.svg"
+				}
 			}
 		],
 		"viewsContainers": {
@@ -69,7 +84,7 @@
 				{
 					"id": "elementTreeView",
 					"title": "CodeUI",
-					"icon": "resources/activityBarIcon.png"
+					"icon": "resources/activityBar/activityBar.svg"
 				}
 			]
 		},

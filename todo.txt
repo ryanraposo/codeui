@@ -1,14 +1,2 @@
-- make sure all icons have dark & light version
-
-- retake screenshot (high-res, brightness button)
 
 
-
-
-
-
-				"codeui.favouriteColors": {
-					"type": "array",
-					"default": [],
-					"description": "User-defined colors for use by CodeUI"
-				}

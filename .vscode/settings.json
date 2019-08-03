@@ -8,8 +8,5 @@
     },
     // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
     "typescript.tsc.autoDetect": "off",
-    "debug.internalConsoleOptions": "neverOpen",
-    "workbench.colorCustomizations": {
-        "titleBar.border": "#ffd666"
-    }
+    "debug.internalConsoleOptions": "neverOpen"
 }
