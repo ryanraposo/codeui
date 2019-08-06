@@ -4,7 +4,9 @@
 # CodeUI
 ### Build, edit, & explore your color theme for VS Code.
 
-![](https://i.imgur.com/hwbz8aF.png)
+<!-- ![](https://i.imgur.com/hwbz8aF.png) -->
+
+![](resources/screenshots/demo-main-668-582.png)
 
 ## Features
 

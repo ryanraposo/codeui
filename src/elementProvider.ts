@@ -22,6 +22,9 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
 
 
     constructor(viewType : ViewType){
+
+
+        
         this.viewType = viewType;
         this.loadElementData();
         this.loadColors();
@@ -109,6 +112,19 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
 
     loadColorConfigs() : void {
 
+        let elementNames : string[] = [];
+        for(let key in this.elementData){
+            let value = this.elementData[key];
+            elementNames.push(value["fullName"]);
+
+        }
+        let defaultConfigs = getDefaultConfigs();
+        let themeConfigs = getThemeConfigs();
+        let settingsConfigs = getSettingsConfigs();
+
+        this.colorConfigs = appendConfigs(elementNames, defaultConfigs, themeConfigs, settingsConfigs);
+
+
         function appendConfigs(elementNames: string[], defaultConfigs: any, themeConfigs: any, settingsConfigs : any) : Array<ColorConfig>{
 
             let colorConfig : any = {};
@@ -148,15 +164,9 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         function getThemeConfigs(): any {
 
             let currentTheme = new CurrentTheme();
-            let themeObject = currentTheme.themeObject;
+            let workbenchCustomizations = currentTheme.workbenchCustomizations;
 
-            let themeColorsObject : any = undefined;
-            
-            if(themeObject){
-                themeColorsObject = themeObject["colors"]; 
-            }
-
-            return themeColorsObject;
+            return workbenchCustomizations;
 
         }
 
@@ -179,19 +189,6 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             return settingsConfigs;
 
         }
-
-
-        let elementNames : string[] = [];
-        for(let key in this.elementData){
-            let value = this.elementData[key];
-            elementNames.push(value["fullName"]);
-
-        }
-        let defaultConfigs = getDefaultConfigs();
-        let themeConfigs = getThemeConfigs();
-        let settingsConfigs = getSettingsConfigs();
-
-        this.colorConfigs = appendConfigs(elementNames, defaultConfigs, themeConfigs, settingsConfigs);
 
     }
 
@@ -341,7 +338,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         if(item.description){
             copypaste.copy(item.description);
         }
-        showNotification("CodeUI: copied " + copypaste.paste());        
+        showNotification("CodeUI: copied " + item.description);        
     }
 
 
@@ -387,17 +384,6 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         
         vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
 
-    }
-
-
-    clearIconCache() : void {
-
-        let generatedIconDirPath = path.join(__filename, '..', '..', 'resources', 'swatches', 'generated');
-        let dirContents : any = fs.readdirSync(generatedIconDirPath);
-        
-        if(dirContents){
-            
-        }
     }
         
 
@@ -484,6 +470,11 @@ export class Element extends vscode.TreeItem {
 
 
     update(): void {
+
+        if(this.elementData["fullName"] === "dropdown.background"){
+            console.log();            
+        }
+        
         this.colorConfig = this.dataProvider.colorConfigs[this.elementData["fullName"]];
         if(getEffectiveColor(this.colorConfig)){
             this.description = getEffectiveColor(this.colorConfig);

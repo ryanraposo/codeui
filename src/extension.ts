@@ -3,7 +3,6 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
 import * as path from "path";
-// import { ElementProvider, ViewType } from './elementProvider';
 import * as ep from './elementProvider';
 
 import { InfoProvider } from './infoProvider';
@@ -14,8 +13,6 @@ var viewTypeStatusBarItem : vscode.StatusBarItem;
 
 
 export async function activate(context: vscode.ExtensionContext) {
-	
-	// await clearIconCache();
 
 	const infoProvider = new InfoProvider();
 	vscode.window.registerTreeDataProvider("elementInfo", infoProvider);
@@ -39,15 +36,17 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
 		if (e.affectsConfiguration('workbench.colorCustomizations') || e.affectsConfiguration("workbench.colorTheme")) {
+			elementProvider.refresh();
 			infoProvider.setElement(infoProvider.selectedElement);
 			infoProvider.refresh();
-			elementProvider.refresh();
 		}
 		if(infoProvider.selectedElement){
 			infoProvider.setElement(infoProvider.selectedElement);
 			infoProvider.refresh();
 		}
 	}));
+
+	
 }
 
 
@@ -68,7 +67,22 @@ export function toggleView() {
 
 export function deactivate() {
 
-	// clearIconCache();
+	const directory = path.join(__filename, "..", "..", "resources", "swatches", "generated");
+
+	fs.readdir(directory, (err, files) => {
+		if (err){
+			throw err;
+		}	  
+		for (const file of files) {
+			if(file !== '.index'){
+				fs.unlink(path.join(directory, file), err => {
+					if (err) {
+						throw err;
+					}
+				});
+			}
+		}
+	});
 
 }
 
@@ -93,18 +107,6 @@ function setStatusBarItem(viewType : ep.ViewType) {
 }
 
 
-function clearIconCache() {
-
-	const cachePath : string = path.join(__filename, "..", "..", "resources", "swatches", "generated");
-
-	fs.readdir(cachePath, function(err, files : any) {
-		if (files) {
-			for(let fileName of files){
-				fs.unlinkSync(path.join(cachePath, fileName));
-			}	
-		}
-	});
-}
 
 
 

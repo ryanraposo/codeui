@@ -1,13 +1,14 @@
 #Folders
 out
 node_modules
-allElements-fix
-old
-media
+resources/master
+resources/
 
 #Files
 todo.md
-resources/swatches/generated/**
+.vscodeignore
+CONTRIBUTING-template.md
+resources/swatches/generated/*.svg
 
 #Filetypes
 *.vsix

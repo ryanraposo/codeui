@@ -1,9 +1,10 @@
 # Folders
-allElements-fix/**
-old/**
+media
+resources/master
+
+# Files
+CONTRIBUTING-template.md
 todo.md
-media/**
-# resources/swatches/generated/**
 
 #Default
 .vscode/**

@@ -6,6 +6,7 @@ import * as fs from 'fs';
 export class CurrentTheme {
 
     workbenchCustomizations : any = [];
+    themePath : string | undefined;
     themeObject : any;
 
     themeName : any;
@@ -13,7 +14,7 @@ export class CurrentTheme {
     themeType : any;
 
 
-    constructor(){
+    constructor(){        
         this.themeObject = this.getThemeObject();
         if(this.themeObject){
             this.workbenchCustomizations = this.getWorkbenchCustomizations(this.themeObject);
@@ -22,48 +23,6 @@ export class CurrentTheme {
         }
     }
 
-    getThemePath(): any {
-        var currentThemeName : string | undefined = vscode.workspace.getConfiguration().get("workbench.colorTheme");
-        var currentThemeBaseName : any;
-        var themeDirPath : any;
-        var themeJsonPath : any;
-
-        if(currentThemeName){
-            // Get theme base name eg. "Monokai" of "Monokai Dark"
-            let split = currentThemeName.split(" ");
-            if(split.length > 0){
-                currentThemeBaseName = split[0].toLowerCase();
-            }
-            // Build name as it will be found in the title of the themes JSON file
-            currentThemeName = currentThemeName.toLowerCase();
-            currentThemeName = currentThemeName.replace(" ", "-");
-            let themeExtension : any;
-            // Find the extension folder for the theme
-            for(var extension of vscode.extensions.all){
-                if(extension.id.includes(currentThemeBaseName)){
-                    let strippedThemeName : string = "";
-                    let split : Array<string> = [];
-                    split = extension.id.split(".");
-                    strippedThemeName = split[1];
-                    split = strippedThemeName.split("-");
-                    strippedThemeName = "";
-                    for(let key in split){
-                        let part = split[key];
-                        if(part !== 'vscode' && part !== 'theme'){
-                            strippedThemeName += part + " ";
-                        }
-                    }
-                    strippedThemeName = strippedThemeName.trimRight();
-                    if(strippedThemeName === currentThemeName){
-                        themeDirPath = extension.extensionPath;
-                        themeJsonPath = path.join(themeDirPath + "/themes/" + (currentThemeName + ".json"));
-                    }
-                }
-            }
-            // Return the path
-            return themeJsonPath;
-        }
-    }
 
     getThemeObject(): any {
         let text : string = '';
@@ -88,7 +47,13 @@ export class CurrentTheme {
             let workbenchCustomizations : any = [];
 
             for(let key in themeObject['colors']){
-                workbenchCustomizations[key] = themeObject['colors'][key];
+                let customization : string;
+                if(themeObject['colors'][key] !== null){
+                    customization = themeObject['colors'][key];
+                    workbenchCustomizations[key] = customization.toLowerCase();
+                }else{
+                    workbenchCustomizations[key] = null;
+                }
             }
             return workbenchCustomizations;
         }
@@ -104,5 +69,33 @@ export class CurrentTheme {
     getThemeType(): any {
         return this.themeObject["type"];
     }
+
+
+    getThemePath(): string | undefined {
+
+        // Get colorTheme name from settings
+        let configTheme : any = vscode.workspace.getConfiguration().get("workbench.colorTheme");
+        let themePath : any = undefined;
+
+        // If user has a theme selected, locate extension folder for the theme
+        if(configTheme){
+            for(var extension of vscode.extensions.all){
+                let contributions : any = extension.packageJSON["contributes"];
+                if(contributions){
+                    if(contributions["themes"]){
+                        for(let theme of contributions["themes"]){
+                            if(theme["label"] === configTheme){
+                                return path.join(extension.extensionPath, theme["path"]);
+                            }
+                        }
+                    }
+                }              
+            }
+        }
+
+        return undefined;
+
+    }
+
 
 }
