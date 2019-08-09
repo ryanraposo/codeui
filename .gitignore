@@ -2,7 +2,6 @@
 out
 node_modules
 resources/master
-resources/
 
 #Files
 todo.md
