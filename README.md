@@ -5,18 +5,22 @@
 ### Build, edit, & explore your color theme for VS Code.
 
 <!-- ![](https://i.imgur.com/hwbz8aF.png) -->
+<!-- ![Screenshot](resources/screenshots/demo-main-668-582.png) -->
 
-![](resources/screenshots/demo-main-668-582.png)
 
 ## Features
 
 - Browse the elements of VS Code's interface, with realtime visual representations of their color settings
+![Favorite](https://media.giphy.com/media/MFNwR4p7y97XF9MPGh/giphy.gif)
 
 - Change color settings for each element to your liking, or target specific colors- wherever they appear
+![Brightness](https://media.giphy.com/media/SwNhylYisjFar3G7yq/giphy.gif)
 
 - Darken, lighten, copy & paste values across items in the UI
+![Copy](https://media.giphy.com/media/Y4UsUSUfsxd9XSLdsE/giphy.gif)
 
 - View the sources of any color configuration (default, theme,  settings)
+![Preset](https://media.giphy.com/media/QWujT2RC7LqpMe9n5A/giphy.gif)
 
 ## Extension Settings
 
