@@ -1,9 +1,8 @@
 # Change Log
+All notable changes to CodeUI extension will be documented in this file.
 
-All notable changes to the "codeui" extension will be documented in this file.
+##    [0.1.0] Initial release
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+    - View & customize the colors of VS Code's interface
 
-## [Unreleased]
-
-- Initial release
+    - Global workbench customization only
