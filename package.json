@@ -30,10 +30,20 @@
 					"type": "boolean",
 					"default": true,
 					"description": "Show various notifications about CodeUI's activity."
+				},
+				"codeui.favoriteColors": {
+					"type": "object",
+					"properties": {"name" : "hex_value"},
+					"default": {},
+					"description": "User-defined colors for use by CodeUI (eg. \"Clay\" : \"#F28585\")"
 				}
 			}
 		},
 		"commands": [
+			{
+				"command": "testCommand",
+				"title": "CodeUI: Test Command"
+			},
 			{
 				"command": "toggleView",
 				"title": "Toggle Standard/Palette View",
@@ -43,15 +53,7 @@
 				}
 			},
 			{
-				"command": "customizeGroup",
-				"title": "Customize...",
-				"icon": {
-					"light": "resources/light/edit.svg",
-					"dark": "resources/dark/edit.svg"
-				}
-			},
-			{
-				"command": "customizeElement",
+				"command": "customize",
 				"title": "Customize...",
 				"icon": {
 					"light": "resources/light/edit.svg",
@@ -110,8 +112,8 @@
 			],
 			"view/item/context": [
 				{
-					"command": "customizeElement",
-					"when": "viewItem == element",
+					"command": "customize",
+					"when": "viewItem != standardGroup && view == elementsView",
 					"group": "inline"
 				},
 				{
@@ -127,11 +129,6 @@
 				{
 					"command": "copy",
 					"when": "viewItem == element"
-				},
-				{
-					"command": "customizeGroup",
-					"when": "viewItem == paletteGroup",
-					"group": "inline"
 				}
 			]
 		}

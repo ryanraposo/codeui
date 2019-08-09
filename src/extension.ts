@@ -22,13 +22,12 @@ export async function activate(context: vscode.ExtensionContext) {
 	
 	elementProvider = new ep.ElementProvider(ep.ViewType.Standard);
 	vscode.window.registerTreeDataProvider("elementsView", elementProvider);
-	vscode.commands.registerCommand("customizeGroup", (group) => elementProvider.customizeGroup(group));
-	vscode.commands.registerCommand("customizeElement", (element) => element.customize());
+	vscode.commands.registerCommand("customize", (element) => elementProvider.customize(element));
 	vscode.commands.registerCommand("clearCustomization", (element) => element.clear());
 	vscode.commands.registerCommand("adjustBrightness", (element) => elementProvider.adjustBrightness(element));
-
 	vscode.commands.registerCommand("copy", (element) => elementProvider.copy(element));
-	// vscode.commands.registerCommand("paste", (element) => elementProvider.paste(element));
+
+	vscode.commands.registerCommand("testCommand", () => ep.testFunction());
 
 
 	setStatusBarItem(currentViewType);

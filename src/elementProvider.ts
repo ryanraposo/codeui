@@ -2,8 +2,8 @@ import * as vscode from 'vscode';
 import * as fs from "fs";
 import * as path from "path";
 import * as copypaste from 'copy-paste';
-import { CurrentTheme } from './theme';
 import tinycolor from '@ctrl/tinycolor';
+import { CurrentTheme } from './theme';
 
 
 export class ElementProvider implements vscode.TreeDataProvider<any>{
@@ -15,16 +15,12 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
 
     colors : any;
     elementData : any = [];
-
     colorConfigs : ColorConfig[] = [];
-
     elementItems : any = [];
 
 
     constructor(viewType : ViewType){
 
-
-        
         this.viewType = viewType;
         this.loadElementData();
         this.loadColors();
@@ -90,13 +86,31 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }
 
 
-
-
     loadColors(): any {
 
-        let text = fs.readFileSync(path.join(__filename, '..', '..', 'data', 'colors.json'),"utf8");
-        this.colors = JSON.parse(text);
+        this.colors = {};
+        
+        let userColors : any = vscode.workspace.getConfiguration().get("codeui.favoriteColors");
+        if(userColors){
+            for(let key in userColors){
+                let value = userColors[key];
+                if(isHexidecimal(value)){
+                    this.colors[value] = "$(star)  " + key;
+                }else{
+                    showNotification("CodeUI: " + "user-defined color '" + key + ":" + value + " is not valid. Refer to the configuration tooltip");
+                }
+            }
+        }        
 
+        let presetColorsText = fs.readFileSync(path.join(__filename, '..', '..', 'data', 'colors.json'),"utf8");        
+        let presetColors = JSON.parse(presetColorsText);
+        for(let key in presetColors){
+            let value = presetColors[key];
+            if(!this.colors[key]){
+                this.colors[key] = value;             
+            }
+        }
+        
     }
 
 
@@ -241,8 +255,6 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         }
 
         elementTreeGroups = elementTreeGroups.sort((e1,e2) => {
-            // e1.description = "(" + e1.children.length + ")";
-            // e2.description = "(" + e2.children.length + ")";
             if(e1.children.length > e2.children.length){
                 return -1;
             }
@@ -251,71 +263,64 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             }
         });
 
-
-
         return elementTreeGroups;
 
     }
 
 
-    getPaletteGroupItems(elementTreeGroup : ElementTreeGroup) : any {
-
-        let paletteGroupItems : any = [];
-
-        for(let key in this.colorConfigs){
-            let value = this.colorConfigs[key];
-            let effectiveColor = getEffectiveColor(value);
-            if(effectiveColor === elementTreeGroup.color){
-                // this.elements
-            }
-        }
-
-        return paletteGroupItems;
-
-    }
-
-
-    customizeGroup(elementTreeGroup : ElementTreeGroup) {
-
-        let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
+    customize(item : Element | ElementTreeGroup) {
         
-        let colorItems : Array<string> = [];
-        let customization : string = "";
+        let targetElements : Array<any> = [];
+        let colorItems : Array<vscode.QuickPickItem> = [];
+        let customizations : WorkbenchCustomizations = {};
+        let userColor : string | undefined;
 
+
+        // Get preset quickpickItems (colors)
         for(let key in this.colors){
-            colorItems.push(this.colors[key] + " (" + key + ")");
+            let value = this.colors[key];
+            colorItems.push({label:value,description:key});
+        }        
+
+        // Parse selected element(s)
+        if(item instanceof(Element)){
+            targetElements.push(item.elementData["fullName"]);
+        }
+        if(item instanceof(ElementTreeGroup)){
+            for(let child of item.children){
+                targetElements.push(child.elementData["fullName"]);
+            }
         }
 
-        vscode.window.showQuickPick(["Enter a value...", "Pick from a list..."]).then((actionSelection : any) => {
-            if(actionSelection === "Pick from a list..."){
-                vscode.window.showQuickPick(colorItems).then((selection) => {
-                if(selection){
-                    let value = selection.substring(selection.indexOf("#"), selection.indexOf(")"));
-                    customization = value;
-                    for(let key in elementTreeGroup.children){
-                        let value = elementTreeGroup.children[key];
-                        currentCustomizations[value.elementData["fullName"]] = customization;
-                    }
-                    vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
-                }});
-            }
-            if(actionSelection === "Enter a value..."){
-                vscode.window.showInputBox({placeHolder : "eg. #00ff00"}).then((selection) => {
-                    if(selection){
-                        if(is_hexadecimal(selection)){
-                            customization = selection;
-                            for(let key in elementTreeGroup.children){
-                                let value = elementTreeGroup.children[key];
-                                currentCustomizations[value.elementData["fullName"]] = customization;
-                            }
-                            vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);        
-                        }else{
-                            showNotification("CodeUI: '" + selection + "' is not a valid color code! Use hex format (#00ff00)");
+        // Get customization value from user
+        vscode.window.showQuickPick([{label:"Enter a value..."}, {label:"Choose a preset..."}]).then((selection) => {
+            if(selection){
+                if(selection.label === "Enter a value..."){
+                    vscode.window.showInputBox({placeHolder:"eg. #f2f2f2"}).then((selectedColor) => {
+                        if(selectedColor){
+                            userColor = selectedColor;
+                            apply(); // Write the customization to settings
                         }
-                    }
-                });
+                    });
+                }
+                if(selection.label === "Choose a preset..."){
+                    vscode.window.showQuickPick(colorItems,{canPickMany:false}).then((selectedColor) => {
+                        if(selectedColor){
+                            userColor = selectedColor.description;
+                            apply(); // Write the customization to settings
+                        }
+                    });
+                }
             }
-        });           
+        });
+
+        function apply() {
+            for(let element of targetElements){
+                customizations[element] = userColor;
+            }
+            updateWorkbenchColors(customizations,vscode.ConfigurationTarget.Global);
+        }
+
     }
 
 
@@ -324,13 +329,55 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         vscode.window.showQuickPick(["Darken (10%)", "Lighten (10%)"]).then((actionSelection : any) => {
             if(actionSelection){
                 if(actionSelection === "Darken (10%)"){
-                    this.darken(item);
+                    darken(item);
                 }
             if(actionSelection === "Lighten (10%)"){
-                    this.lighten(item);
+                    lighten(item);
                 }
             }
         });
+
+        function darken(item : Element | ElementTreeGroup) {
+
+            let customizations : WorkbenchCustomizations = {};
+    
+            if(item instanceof Element){
+                let darkenedValue = "#" + tinycolor(getEffectiveColor(item.colorConfig)).darken(5).toHex();
+                customizations[item.elementData['fullName']] = darkenedValue;
+            }
+            
+            if(item instanceof ElementTreeGroup){
+                for(let key in item.children){
+                    let value = item.children[key];
+                    let darkenedValue = "#" + tinycolor(getEffectiveColor(value.colorConfig)).darken(5).toHex();
+                    customizations[value.elementData['fullName']] = darkenedValue;    
+                }
+            }
+            
+            updateWorkbenchColors(customizations,vscode.ConfigurationTarget.Global);
+        }
+    
+    
+        function lighten(item : Element | ElementTreeGroup) {
+    
+            let customizations : WorkbenchCustomizations = {};
+    
+            if(item instanceof Element){
+                let lightenedValue = "#" + tinycolor(getEffectiveColor(item.colorConfig)).lighten(5).toHex();
+                customizations[item.elementData['fullName']] = lightenedValue;
+            }
+            
+            if(item instanceof ElementTreeGroup){
+                for(let key in item.children){
+                    let value = item.children[key];
+                    let lightenedValue = "#" + tinycolor(getEffectiveColor(value.colorConfig)).lighten(5).toHex();
+                    customizations[value.elementData['fullName']] = lightenedValue;    
+                }
+            }
+            
+            updateWorkbenchColors(customizations,vscode.ConfigurationTarget.Global);
+        }
+
     }
 
 
@@ -341,97 +388,6 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         showNotification("CodeUI: copied " + item.description);        
     }
 
-
-    darken(item : Element | ElementTreeGroup) {
-
-        let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
-
-        if(item instanceof Element){
-            let darkenedValue = "#" + tinycolor(getEffectiveColor(item.colorConfig)).darken(5).toHex();
-            currentCustomizations[item.elementData['fullName']] = darkenedValue;
-        }
-        
-        if(item instanceof ElementTreeGroup){
-            for(let key in item.children){
-                let value = item.children[key];
-                let darkenedValue = "#" + tinycolor(getEffectiveColor(value.colorConfig)).darken(5).toHex();
-                currentCustomizations[value.elementData['fullName']] = darkenedValue;    
-            }
-        }
-        
-        vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
-
-    }
-    
-
-
-    lighten(item : Element | ElementTreeGroup) {
-
-        let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
-
-        if(item instanceof Element){
-            let lightenedValue = "#" + tinycolor(getEffectiveColor(item.colorConfig)).lighten(5).toHex();
-            currentCustomizations[item.elementData['fullName']] = lightenedValue;
-        }
-        
-        if(item instanceof ElementTreeGroup){
-            for(let key in item.children){
-                let value = item.children[key];
-                let lightenedValue = "#" + tinycolor(getEffectiveColor(value.colorConfig)).lighten(5).toHex();
-                currentCustomizations[value.elementData['fullName']] = lightenedValue;    
-            }
-        }
-        
-        vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
-
-    }
-        
-
-}
-
-
-
-
-export function getEffectiveColor(colorConfig:ColorConfig) : string | undefined {
-
-    let effective : string | undefined;
-
-    for(let key in colorConfig){
-        let value = colorConfig[key];
-        if(value){
-            effective = value;
-        }
-    }
-
-    return effective;
-
-}
-
-
-function is_hexadecimal(str: string) {
-    
-    let regexp = /^#[0-9a-fA-F]+$/;
-
-    if (regexp.test(str))
-      {
-        return true;
-      }
-    else
-      {
-        return false;
-      }
-}
-
-
-function showNotification(message : string) {
-
-    const isEnabled = vscode.workspace.getConfiguration().get("codeui.showNotifications");
-
-	if(isEnabled === true){
-		vscode.window.showInformationMessage(message);
-	}else{
-		return;
-	}
 
 }
 
@@ -465,16 +421,13 @@ export class Element extends vscode.TreeItem {
             this.dataProvider = dataProvider;
 
             this.update();
+            
 
     }
 
 
     update(): void {
 
-        if(this.elementData["fullName"] === "dropdown.background"){
-            console.log();            
-        }
-        
         this.colorConfig = this.dataProvider.colorConfigs[this.elementData["fullName"]];
         if(getEffectiveColor(this.colorConfig)){
             this.description = getEffectiveColor(this.colorConfig);
@@ -483,53 +436,6 @@ export class Element extends vscode.TreeItem {
         }
         this.iconPath = this.generateIcon();
     }
-
-
-    customize(value?: string) : void {
-
-        let targetElementName : string = this.elementData["fullName"];
-        let colorItems : Array<string> = [];
-        let customization : string = "";
-        let currentCustomizations : any = vscode.workspace.getConfiguration().get("workbench.colorCustomizations");
-
-        if(value){
-            currentCustomizations[targetElementName] = value;
-            vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
-            return;
-        }else{
-            for(let key in this.dataProvider.colors){
-                colorItems.push(this.dataProvider.colors[key] + " (" + key + ")");
-            }
-
-            vscode.window.showQuickPick(["Enter a value...", "Pick from a list..."]).then((actionSelection : any) => {
-                if(actionSelection === "Pick from a list..."){
-                    vscode.window.showQuickPick(colorItems).then((selection : any) => {
-                    if(selection){
-                        let value = selection.substring(selection.indexOf("#"), selection.indexOf(")"));
-                        customization = value;
-                        currentCustomizations[targetElementName] = customization;
-                        vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
-                        showNotification("CodeUI: Success! " + selection + " applied to " + this.elementData["fullName"]);
-                    }});
-                }
-                if(actionSelection === "Enter a value..."){
-                    vscode.window.showInputBox({placeHolder : "eg. #00ff00"}).then((selection) => {
-                        if(selection){
-                            if(is_hexadecimal(selection)){
-                                customization = selection;
-                                currentCustomizations[targetElementName] = customization;
-                                vscode.workspace.getConfiguration().update("workbench.colorCustomizations", currentCustomizations, vscode.ConfigurationTarget.Global);
-                                showNotification("CodeUI: Success! " + selection + " applied to " + this.elementData["fullName"]);
-                            }else{
-                                showNotification("CodeUI: '" + selection + "' is not a valid color code! Use hex format (#00ff00)");
-                            }
-                        }
-                    });
-                }
-            });
-        }
-
-    }    
 
 
     clear(): void {
@@ -657,3 +563,77 @@ interface ColorConfig {
     "settings" : string | undefined;
 }
 
+
+interface WorkbenchCustomizations{[key:string]:any;}
+
+
+export function testFunction(){// Debug
+
+}
+
+
+function updateWorkbenchColors(customizations: WorkbenchCustomizations, target : vscode.ConfigurationTarget){
+
+    let workbenchCustomizations : WorkbenchCustomizations = vscode.workspace.getConfiguration().get("workbench.colorCustomizations", {});
+
+    for(let element in customizations){
+        let value = customizations[element];
+        if(value === undefined){
+            delete workbenchCustomizations[element];
+        }else{
+            if(isHexidecimal(value)){
+                workbenchCustomizations[element] = value;
+            }else{
+                showNotification("CodeUI: " + value + "is not a valid hex color!");
+                return; 
+            }
+        }
+    }
+    
+    vscode.workspace.getConfiguration().update("workbench.colorCustomizations", workbenchCustomizations, target);
+    
+}
+
+
+function getEffectiveColor(colorConfig:ColorConfig) : string | undefined {
+
+    let effective : string | undefined;
+
+    for(let key in colorConfig){
+        let value = colorConfig[key];
+        if(value){
+            effective = value;
+        }
+    }
+
+    return effective;
+
+}
+
+
+function isHexidecimal(str: string) {
+    
+    let regexp = /^#[0-9a-fA-F]+$/;
+
+    if (regexp.test(str))
+      {
+        return true;
+      }
+    else
+      {
+        return false;
+      }
+}
+
+
+function showNotification(message : string) {
+
+    const isEnabled = vscode.workspace.getConfiguration().get("codeui.showNotifications");
+
+	if(isEnabled === true){
+		vscode.window.showInformationMessage(message);
+	}else{
+		return;
+	}
+
+}
