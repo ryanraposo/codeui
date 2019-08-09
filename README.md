@@ -12,7 +12,7 @@
 
 - Browse the elements of VS Code's interface, with realtime visual representations of their color settings
 
-- Change color settings for each element to your liking or target specific colors- wherever they appear in the UI
+- Change color settings for each element to your liking, or target specific colors- wherever they appear
 
 - Darken, lighten, copy & paste values across items in the UI
 
@@ -20,7 +20,9 @@
 
 ## Extension Settings
 
- - codeui.showNotifications : Toggle various notifications about CodeUI's activity 
+ - ```codeui.showNotifications``` : Toggle various notifications about CodeUI's activity 
+
+ - ```codeui.favoriteColors``` : User-defined colors for use by CodeUI
 
 ## Release Notes 
 
@@ -28,11 +30,7 @@
 
         - View & customize the colors of VS Code's interface
 
-        - Workbench customization only
-
-## Known Issues
-
-- Does not account for theme-specific workbench color customizations in user settings
+        - Global workbench customization only
 
 
 

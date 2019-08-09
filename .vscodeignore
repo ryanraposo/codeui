@@ -4,6 +4,8 @@ resources/master
 
 # Files
 CONTRIBUTING-template.md
+CONTRIBUTING.md
+CHANGELOG.md
 todo.md
 
 #Default
