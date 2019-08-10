@@ -27,11 +27,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	vscode.commands.registerCommand("adjustBrightness", (element) => elementProvider.adjustBrightness(element));
 	vscode.commands.registerCommand("copy", (element) => elementProvider.copy(element));
 
-	vscode.commands.registerCommand("testCommand", () => ep.testFunction());
-
-
 	setStatusBarItem(currentViewType);
-
 
 	context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
 		if (e.affectsConfiguration('workbench.colorCustomizations') || e.affectsConfiguration("workbench.colorTheme")) {
@@ -44,8 +40,7 @@ export async function activate(context: vscode.ExtensionContext) {
 			infoProvider.refresh();
 		}
 	}));
-
-	
+		
 }
 
 

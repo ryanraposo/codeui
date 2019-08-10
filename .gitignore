@@ -5,6 +5,7 @@ resources/master
 
 #Files
 todo.md
+dc.bat
 .vscodeignore
 CONTRIBUTING-template.md
 resources/swatches/generated/*.svg

@@ -5,7 +5,11 @@
 	"license": "SEE LICENSE IN LICENSE.md",
 	"description": "Build, edit, & explore your color theme for VS Code.",
 	"icon": "resources/marketplace/logo-codeui.png",
-	"version": "0.0.1",
+	"version": "0.1.0",
+	"galleryBanner": {
+		"color": "#18191e",
+		"theme": "dark"
+	},
 	"engines": {
 		"vscode": "^1.36.0"
 	},

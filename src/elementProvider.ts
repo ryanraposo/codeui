@@ -567,11 +567,6 @@ interface ColorConfig {
 interface WorkbenchCustomizations{[key:string]:any;}
 
 
-export function testFunction(){// Debug
-
-}
-
-
 function updateWorkbenchColors(customizations: WorkbenchCustomizations, target : vscode.ConfigurationTarget){
 
     let workbenchCustomizations : WorkbenchCustomizations = vscode.workspace.getConfiguration().get("workbench.colorCustomizations", {});
