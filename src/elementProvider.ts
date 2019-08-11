@@ -35,7 +35,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }
 
 
-    refresh(element? : any): void {
+    public refresh(element? : any): void {
 
         this.loadColorConfigs();
 
@@ -376,16 +376,29 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             }
             
             updateWorkbenchColors(customizations,vscode.ConfigurationTarget.Global);
+            
         }
 
     }
 
 
+    clear(item : Element){
+
+        let elementName : string = item.elementData["fullName"];
+
+        updateWorkbenchColors({[elementName]:undefined},vscode.ConfigurationTarget.Global);
+        
+    }
+
+
     copy(item : Element): void {
+        
         if(item.description){
             copypaste.copy(item.description);
         }
-        showNotification("CodeUI: copied " + item.description);        
+
+        showNotification("CodeUI: copied " + item.description);
+
     }
 
 
@@ -586,6 +599,7 @@ function updateWorkbenchColors(customizations: WorkbenchCustomizations, target :
     }
     
     vscode.workspace.getConfiguration().update("workbench.colorCustomizations", workbenchCustomizations, target);
+    
     
 }
 

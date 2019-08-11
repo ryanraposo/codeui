@@ -4,8 +4,9 @@
 	"publisher": "ryanraposo",
 	"license": "SEE LICENSE IN LICENSE.md",
 	"description": "Build, edit, & explore your color theme for VS Code.",
-	"icon": "resources/marketplace/logo-codeui.png",
+	"icon": "resources/marketplace/codeui-300.png",
 	"version": "0.1.0",
+	"preview": true,
 	"galleryBanner": {
 		"color": "#18191e",
 		"theme": "dark"
@@ -73,8 +74,8 @@
 				}
 			},
 			{
-				"command": "clearCustomization",
-				"title": "Delete",
+				"command": "clear",
+				"title": "Clear",
 				"icon": {
 					"light": "resources/light/clear.svg",
 					"dark": "resources/dark/clear.svg"
@@ -129,7 +130,7 @@
 					"group": "inline"
 				},
 				{
-					"command": "clearCustomization",
+					"command": "clear",
 					"when": "viewItem == element",
 					"group": "inline"
 				},

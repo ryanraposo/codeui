@@ -34,6 +34,6 @@ Darken, lighten, copy & paste values across items in the UI. Use Standard or Pal
         - Global workbench customization only
 
 ## Get involved
-Help make CodeUI the standard theming tool for vscode! Whether it's new features, optimizations, or general knowledge - I would very much appreciate your contribution. Email raposo.ryan@gmail.com at any time if you have an idea, tip, or comment of any sort. You can join the project on [Github](https://github.com/ryanraposo/codeui).
+Help make CodeUI the standard theming tool for vscode! Whether it's new features, optimizations, or general knowledge - I would very much appreciate your contribution. You can join the project on [Github](https://github.com/ryanraposo/codeui). Email raposo.ryan@gmail.com at any time if you have an idea, tip, or comment of any sort. 
 
 Thank you for supporting CodeUI!
