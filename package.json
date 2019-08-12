@@ -59,10 +59,22 @@
 			},
 			{
 				"command": "toggleView",
-				"title": "Toggle Standard/Palette View",
+				"title": "Toggle Standard/Palette view",
 				"icon": {
 					"light": "resources/light/view.svg",
 					"dark": "resources/dark/view.svg"
+				}
+			},
+			{
+				"command": "toggleScope",
+				"title": "Toggle Global/Workspace customization scope"
+			},
+			{
+				"command": "adjustBrightness",
+				"title": "Adjust brightness...",
+				"icon": {
+					"light": "resources/light/brightness.svg",
+					"dark": "resources/dark/brightness.svg"
 				}
 			},
 			{
@@ -75,7 +87,7 @@
 			},
 			{
 				"command": "clear",
-				"title": "Clear",
+				"title": "Delete",
 				"icon": {
 					"light": "resources/light/clear.svg",
 					"dark": "resources/dark/clear.svg"
@@ -84,14 +96,6 @@
 			{
 				"command": "copy",
 				"title": "Copy"
-			},
-			{
-				"command": "adjustBrightness",
-				"title": "Adjust brightness...",
-				"icon": {
-					"light": "resources/light/brightness.svg",
-					"dark": "resources/dark/brightness.svg"
-				}
 			}
 		],
 		"viewsContainers": {
@@ -125,13 +129,13 @@
 			],
 			"view/item/context": [
 				{
-					"command": "customize",
-					"when": "viewItem != standardGroup && view == elementsView",
+					"command": "clear",
+					"when": "viewItem == element",
 					"group": "inline"
 				},
 				{
-					"command": "clear",
-					"when": "viewItem == element",
+					"command": "customize",
+					"when": "viewItem != standardGroup && view == elementsView",
 					"group": "inline"
 				},
 				{

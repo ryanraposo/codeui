@@ -1,0 +1,1 @@
+todo: make sure getSettingsConfigs reflects customizationScope

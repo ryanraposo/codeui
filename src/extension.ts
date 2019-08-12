@@ -6,9 +6,13 @@ import * as path from "path";
 import * as ep from './elementProvider';
 
 import { InfoProvider } from './infoProvider';
+import { showNotification } from './elementProvider';
 
 var elementProvider : ep.ElementProvider;
-var currentViewType : ep.ViewType = ep.ViewType.Standard;
+
+var defaultViewType : ep.ViewType = ep.ViewType.Standard;
+var defaultCustomizationScope : vscode.ConfigurationTarget = vscode.ConfigurationTarget.Global;
+
 var viewTypeStatusBarItem : vscode.StatusBarItem;
 
 
@@ -19,15 +23,16 @@ export async function activate(context: vscode.ExtensionContext) {
 	vscode.commands.registerCommand("showElementInfo", (element) => infoProvider.setElement(element));
 	
 	vscode.commands.registerCommand("toggleView", () => toggleView());
+	vscode.commands.registerCommand("toggleScope", () => toggleScope());
 	
-	elementProvider = new ep.ElementProvider(ep.ViewType.Standard);
+	elementProvider = new ep.ElementProvider(defaultViewType, defaultCustomizationScope);
 	vscode.window.registerTreeDataProvider("elementsView", elementProvider);
 	vscode.commands.registerCommand("customize", (element) => elementProvider.customize(element));
 	vscode.commands.registerCommand("adjustBrightness", (element) => elementProvider.adjustBrightness(element));
-	vscode.commands.registerCommand("copy", (element) => elementProvider.copy(element));
 	vscode.commands.registerCommand("clear", (element) => elementProvider.clear(element));
+	vscode.commands.registerCommand("copy", (element) => elementProvider.copy(element));
 
-	setStatusBarItem(currentViewType);
+	setStatusBarItem(defaultCustomizationScope);
 
 	context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
 		if (e.affectsConfiguration('workbench.colorCustomizations') || e.affectsConfiguration("workbench.colorTheme")) {
@@ -45,17 +50,51 @@ export async function activate(context: vscode.ExtensionContext) {
 
 
 export function toggleView() {
-
 	if(elementProvider.viewType === ep.ViewType.Standard){
-		elementProvider = new ep.ElementProvider(ep.ViewType.Palette);
+		elementProvider = new ep.ElementProvider(ep.ViewType.Palette, elementProvider.customizationScope);
 		vscode.window.registerTreeDataProvider('elementsView', elementProvider);
-		setStatusBarItem(ep.ViewType.Palette);
 	}
 	else{
-		elementProvider = new ep.ElementProvider(ep.ViewType.Standard);
+		elementProvider = new ep.ElementProvider(ep.ViewType.Standard, elementProvider.customizationScope);
 		vscode.window.registerTreeDataProvider('elementsView', elementProvider);
-		setStatusBarItem(ep.ViewType.Standard);
 	}
+}
+
+
+function toggleScope() {
+	if(elementProvider.customizationScope === vscode.ConfigurationTarget.Global){
+		if(vscode.workspace.workspaceFolders){ //If a workspace is open...
+			elementProvider = new ep.ElementProvider(elementProvider.viewType, vscode.ConfigurationTarget.Workspace);
+			vscode.window.registerTreeDataProvider('elementsView', elementProvider);
+			setStatusBarItem(vscode.ConfigurationTarget.Workspace);
+		}else{
+			showNotification("CodeUI: A workspace must be open to switch to workspace customization mode");
+		}
+	}else{
+		elementProvider = new ep.ElementProvider(elementProvider.viewType, vscode.ConfigurationTarget.Global);
+		vscode.window.registerTreeDataProvider('elementsView', elementProvider);
+		setStatusBarItem(vscode.ConfigurationTarget.Global);
+	}
+}
+
+
+function setStatusBarItem(customizationScope : vscode.ConfigurationTarget) {
+
+	if(viewTypeStatusBarItem){
+		viewTypeStatusBarItem.dispose();
+	}
+
+	viewTypeStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
+	viewTypeStatusBarItem.command = "toggleScope";
+	
+	if(customizationScope === vscode.ConfigurationTarget.Global){
+		viewTypeStatusBarItem.text = "[CodeUI]: Global";
+	}else{
+		viewTypeStatusBarItem.text = "[CodeUI]: Workspace";
+	}	
+
+	viewTypeStatusBarItem.show();
+
 }
 
 
@@ -77,26 +116,6 @@ export function deactivate() {
 			}
 		}
 	});
-
-}
-
-
-function setStatusBarItem(viewType : ep.ViewType) {
-
-	if(viewTypeStatusBarItem){
-		viewTypeStatusBarItem.dispose();
-	}
-
-	viewTypeStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
-	viewTypeStatusBarItem.command = "toggleView";
-	
-	if(viewType === ep.ViewType.Standard){
-		viewTypeStatusBarItem.text = "[CodeUI]: Standard View";
-	}else{
-		viewTypeStatusBarItem.text = "[CodeUI]: Palette View";
-	}	
-
-	viewTypeStatusBarItem.show();
 
 }
 
