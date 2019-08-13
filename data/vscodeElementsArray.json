@@ -36,8 +36,8 @@
     },
     {
         "fullName": "errorForeground",
-        "titleName": "General Foreground",
-        "groupedName": "Foreground",
+        "titleName": "General Error Foreground",
+        "groupedName": "Error Foreground",
         "info": "Overall foreground color for error messages (this color is only used if not overridden by a component)",
         "group": "General"
     },

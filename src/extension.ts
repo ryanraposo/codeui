@@ -4,17 +4,9 @@ import * as vscode from "vscode";
 import * as fs from "fs";
 import * as path from "path";
 import * as ep from './elementProvider';
-
 import { InfoProvider } from './infoProvider';
-import { showNotification } from './elementProvider';
 
 var elementProvider : ep.ElementProvider;
-
-var defaultViewType : ep.ViewType = ep.ViewType.Standard;
-var defaultCustomizationScope : vscode.ConfigurationTarget = vscode.ConfigurationTarget.Global;
-
-var viewTypeStatusBarItem : vscode.StatusBarItem;
-
 
 export async function activate(context: vscode.ExtensionContext) {
 
@@ -23,16 +15,14 @@ export async function activate(context: vscode.ExtensionContext) {
 	vscode.commands.registerCommand("showElementInfo", (element) => infoProvider.setElement(element));
 	
 	vscode.commands.registerCommand("toggleView", () => toggleView());
-	vscode.commands.registerCommand("toggleScope", () => toggleScope());
+	// vscode.commands.registerCommand("toggleScope", () => toggleScope());
 	
-	elementProvider = new ep.ElementProvider(defaultViewType, defaultCustomizationScope);
+	elementProvider = new ep.ElementProvider(ep.ViewType.Standard);
 	vscode.window.registerTreeDataProvider("elementsView", elementProvider);
 	vscode.commands.registerCommand("customize", (element) => elementProvider.customize(element));
 	vscode.commands.registerCommand("adjustBrightness", (element) => elementProvider.adjustBrightness(element));
 	vscode.commands.registerCommand("clear", (element) => elementProvider.clear(element));
 	vscode.commands.registerCommand("copy", (element) => elementProvider.copy(element));
-
-	setStatusBarItem(defaultCustomizationScope);
 
 	context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
 		if (e.affectsConfiguration('workbench.colorCustomizations') || e.affectsConfiguration("workbench.colorTheme")) {
@@ -45,55 +35,7 @@ export async function activate(context: vscode.ExtensionContext) {
 			infoProvider.refresh();
 		}
 	}));
-		
-}
 
-
-export function toggleView() {
-	if(elementProvider.viewType === ep.ViewType.Standard){
-		elementProvider = new ep.ElementProvider(ep.ViewType.Palette, elementProvider.customizationScope);
-		vscode.window.registerTreeDataProvider('elementsView', elementProvider);
-	}
-	else{
-		elementProvider = new ep.ElementProvider(ep.ViewType.Standard, elementProvider.customizationScope);
-		vscode.window.registerTreeDataProvider('elementsView', elementProvider);
-	}
-}
-
-
-function toggleScope() {
-	if(elementProvider.customizationScope === vscode.ConfigurationTarget.Global){
-		if(vscode.workspace.workspaceFolders){ //If a workspace is open...
-			elementProvider = new ep.ElementProvider(elementProvider.viewType, vscode.ConfigurationTarget.Workspace);
-			vscode.window.registerTreeDataProvider('elementsView', elementProvider);
-			setStatusBarItem(vscode.ConfigurationTarget.Workspace);
-		}else{
-			showNotification("CodeUI: A workspace must be open to switch to workspace customization mode");
-		}
-	}else{
-		elementProvider = new ep.ElementProvider(elementProvider.viewType, vscode.ConfigurationTarget.Global);
-		vscode.window.registerTreeDataProvider('elementsView', elementProvider);
-		setStatusBarItem(vscode.ConfigurationTarget.Global);
-	}
-}
-
-
-function setStatusBarItem(customizationScope : vscode.ConfigurationTarget) {
-
-	if(viewTypeStatusBarItem){
-		viewTypeStatusBarItem.dispose();
-	}
-
-	viewTypeStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
-	viewTypeStatusBarItem.command = "toggleScope";
-	
-	if(customizationScope === vscode.ConfigurationTarget.Global){
-		viewTypeStatusBarItem.text = "[CodeUI]: Global";
-	}else{
-		viewTypeStatusBarItem.text = "[CodeUI]: Workspace";
-	}	
-
-	viewTypeStatusBarItem.show();
 
 }
 
@@ -118,6 +60,44 @@ export function deactivate() {
 	});
 
 }
+
+
+export function toggleView() {
+	if(elementProvider.viewType === ep.ViewType.Standard){
+		elementProvider = new ep.ElementProvider(ep.ViewType.Palette);
+		vscode.window.registerTreeDataProvider('elementsView', elementProvider);
+	}
+	else{
+		elementProvider = new ep.ElementProvider(ep.ViewType.Standard);
+		vscode.window.registerTreeDataProvider('elementsView', elementProvider);
+	}
+}
+
+
+export async function chooseTarget() {
+	let i = 0;
+	const result = await vscode.window.showQuickPick([{label:"Global",target:vscode.ConfigurationTarget.Global},{label:"Workspace",target:vscode.ConfigurationTarget.Workspace}], {
+		placeHolder: 'Select a target...',
+		onDidSelectItem: item => vscode.window.showInformationMessage(`Focus ${++i}: ${item}`)
+	});
+	if(result){
+		return result.target;
+	}
+}
+
+
+export function showNotification(message : string) {
+
+    const isEnabled = vscode.workspace.getConfiguration().get("codeui.showNotifications");
+
+	if(isEnabled === true){
+		vscode.window.showInformationMessage(message);
+	}else{
+		return;
+	}
+
+}
+
 
 
 

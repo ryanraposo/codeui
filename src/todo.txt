@@ -1,1 +1,8 @@
-todo: make sure getSettingsConfigs reflects customizationScope
+
+to update config methods:
+
+    - modify interface ColorConfig
+    - update read @ infoProvider
+    - update read @ Element level
+    - update read @ palette ElementTreeGroup level
+    - update getEffectiveColor() function

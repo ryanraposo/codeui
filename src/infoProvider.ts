@@ -38,7 +38,6 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
                 sections.push(new InfoItem({ label: "Theme", description: themeConfiguration, collapsibleState: vscode.TreeItemCollapsibleState.None}));
             }else{
                 sections.push(new InfoItem({ label: "Theme", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.None }));
-
             }
             if(this.selectedElement){
                 sections.push(new InfoItem({ label: "Element", description: this.selectedElement.elementData["titleName"], collapsibleState: vscode.TreeItemCollapsibleState.Expanded }));
@@ -49,19 +48,10 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
         }else{
             if(infoItem.label === "Element"){ // If element section...
                 let elementInfo : InfoItem[] = [];
-                let values : Array<any> = [];
                 if(this.selectedElement){
-                    for(let key in this.selectedElement.colorConfig){
-                        let value = this.selectedElement.colorConfig[key];
-                        if(value){
-                            values.push(value);
-                        }else{
-                            values.push("-");
-                        }
-                    }
-                    elementInfo.push(new InfoItem({ label: "Default", description: values[0], collapsibleState: vscode.TreeItemCollapsibleState.None }));
-                    elementInfo.push(new InfoItem({ label: "Theme", description: values[1], collapsibleState: vscode.TreeItemCollapsibleState.None }));
-                    elementInfo.push(new InfoItem({ label: "Settings", description: values[2], collapsibleState: vscode.TreeItemCollapsibleState.None }));
+                    elementInfo.push(new InfoItem({ label: "Default", description: definitionToString(this.selectedElement.colorConfig.default), collapsibleState: vscode.TreeItemCollapsibleState.None }));
+                    elementInfo.push(new InfoItem({ label: "Theme", description: definitionToString(this.selectedElement.colorConfig.theme), collapsibleState: vscode.TreeItemCollapsibleState.None }));
+                    elementInfo.push(new InfoItem({ label: "Settings", description:"", collapsibleState: vscode.TreeItemCollapsibleState.Expanded}));
                     infoItem.iconPath = this.selectedElement.iconPath;
                 }else{
                     elementInfo.push(new InfoItem({ label: "Default", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.None }));
@@ -71,6 +61,12 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
 
                 }
                 children = elementInfo;
+            }
+            if(infoItem.label === "Settings"){
+                let settingsItems : InfoItem[] = [];
+                settingsItems.push(new InfoItem({label: "Global", description: definitionToString(this.selectedElement.colorConfig.settings.global), collapsibleState: vscode.TreeItemCollapsibleState.None}));
+                settingsItems.push(new InfoItem({label: "Workspace", description: definitionToString(this.selectedElement.colorConfig.settings.workspace), collapsibleState: vscode.TreeItemCollapsibleState.None}));
+                children = settingsItems;
             }
         }
 
@@ -102,4 +98,13 @@ class InfoItem extends vscode.TreeItem{
         this.description = description;
     }
 
+}
+
+
+function definitionToString(value : any) : string {
+    if(value){
+        return value;
+    }else{
+        return "-";
+    }
 }

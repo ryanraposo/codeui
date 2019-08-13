@@ -4,7 +4,27 @@ import * as path from "path";
 import * as copypaste from 'copy-paste';
 import tinycolor from '@ctrl/tinycolor';
 import { CurrentTheme } from './theme';
+import { chooseTarget, showNotification } from './extension';
 
+
+interface ColorConfig {
+    [index:number] : string;
+    "default" : string | undefined;
+    "theme" : string | undefined;
+    "settings" : {
+        "global" : string | undefined;
+        "workspace" : string | undefined;
+    };
+}
+
+
+interface WorkbenchCustomizations{[key:string]:any;}
+
+
+export enum ViewType {
+    Standard = 0,
+    Palette = 1
+}
 
 
 export class ElementProvider implements vscode.TreeDataProvider<any>{
@@ -13,18 +33,16 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     readonly onDidChangeTreeData: vscode.Event<any> = this._onDidChangeTreeData.event;
 
     viewType : ViewType;
-    customizationScope : vscode.ConfigurationTarget;
 
     colors : any;
     elementData : any = [];
-    colorConfigs : ColorConfig[] = [];
+    colorConfigs : any;
     elementItems : any = [];
 
 
-    constructor(viewType : ViewType, customizationScope : vscode.ConfigurationTarget){
+    constructor(viewType : ViewType){
 
         this.viewType = viewType;
-        this.customizationScope = customizationScope;
         this.loadElementData();
         this.loadColors();
         this.loadColorConfigs();
@@ -38,7 +56,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }
 
 
-    public refresh(element? : any): void {
+    refresh(element? : any): void {
 
         this.loadColorConfigs();
 
@@ -127,7 +145,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }
 
 
-    loadColorConfigs() : void {
+    loadColorConfigs() : any {
 
         let elementNames : string[] = [];
         for(let key in this.elementData){
@@ -137,34 +155,47 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         }
         let defaultConfigs = getDefaultConfigs();
         let themeConfigs = getThemeConfigs();
-        let settingsConfigs = getSettingsConfigs(this);
+        let settingsConfigs = getSettingsConfigs();
 
         this.colorConfigs = appendConfigs(elementNames, defaultConfigs, themeConfigs, settingsConfigs);
+        
 
+        function appendConfigs(elementNames: string[], defaultConfigs: any, themeConfigs: any, settingsConfigs : any) : any{
 
-        function appendConfigs(elementNames: string[], defaultConfigs: any, themeConfigs: any, settingsConfigs : any) : Array<ColorConfig>{
-
-            let colorConfig : any = {};
+            let colorConfigurations : any = {};
 
             for(let key in elementNames){
                 let element : string = elementNames[key];
+                let colorConfig : ColorConfig = {
+                    default : undefined,
+                    theme : undefined,
+                    settings : {
+                        global : undefined,
+                        workspace : undefined
+                    }
+                };
+
+                colorConfig.default = defaultConfigs[element];
 
                 if(themeConfigs){
-                    colorConfig[element]={
-                        default : defaultConfigs[element],
-                        theme : themeConfigs[element],
-                        settings : settingsConfigs[element]
-                    };
-                }else{
-                    colorConfig[element]={
-                        default : defaultConfigs[element],
-                        theme : "",
-                        settings : settingsConfigs[element]
-                    };
+                    colorConfig.theme = themeConfigs[element];
                 }
+
+                if(settingsConfigs){
+                    if(settingsConfigs.globalValue){
+                        colorConfig.settings.global = settingsConfigs.globalValue[element];
+                    }
+                    if(settingsConfigs.workspaceValue){
+                        colorConfig.settings.workspace = settingsConfigs.workspaceValue[element];
+                    }
+                }
+
+
+                colorConfigurations[element] = colorConfig;
+                
             }
 
-            return colorConfig;
+            return colorConfigurations;
 
         }
 
@@ -178,45 +209,30 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         }
 
 
-        function getThemeConfigs(): any {
+        function getThemeConfigs(): Object {
 
             let currentTheme = new CurrentTheme();
             let workbenchCustomizations = currentTheme.workbenchCustomizations;
 
-            return workbenchCustomizations;
+            if(workbenchCustomizations){
+                return workbenchCustomizations;
+            }else{
+                return {};
+            }
 
         }
 
 
-        function getSettingsConfigs(provider : ElementProvider) : Object {
+        function getSettingsConfigs() : Object {
 
             let configurations : vscode.WorkspaceConfiguration = vscode.workspace.getConfiguration();
-            var allCustomizations = configurations.inspect("workbench.colorCustomizations");
-            var customizations : any;
+            const workbenchColorCustomizations = configurations.inspect("workbench.colorCustomizations");
 
-            if(provider.customizationScope === vscode.ConfigurationTarget.Workspace){
-                if(allCustomizations){
-                    customizations = allCustomizations.workspaceValue;
-                }
+            if(workbenchColorCustomizations){
+                return workbenchColorCustomizations;
             }else{
-                if(allCustomizations){
-                    customizations = allCustomizations.globalValue;
-                }
+                return {};
             }
-            
-            let settingsConfigs : any = {};
-
-            for(let key in customizations){
-                let value = customizations[key];
-
-                if(key.startsWith("[")){
-                    continue;
-                }
-
-                settingsConfigs[key] = value;
-            }
-
-            return settingsConfigs;
 
         }
 
@@ -289,9 +305,8 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         let targetElements : Array<any> = [];
         let colorItems : Array<vscode.QuickPickItem> = [];
         let customizations : WorkbenchCustomizations = {};
-        let userColor : string | undefined;
-
-
+        let userColor : string | undefined;         
+        
         // Get preset quickpickItems (colors)
         for(let key in this.colors){
             let value = this.colors[key];
@@ -330,6 +345,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             }
         });
 
+
         function apply(provider : any) {
             for(let element of targetElements){
                 customizations[element] = userColor;
@@ -342,16 +358,18 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
 
     adjustBrightness(item : Element | ElementTreeGroup) {
 
+
         vscode.window.showQuickPick(["Darken (10%)", "Lighten (10%)"]).then((actionSelection : any) => {
             if(actionSelection){
                 if(actionSelection === "Darken (10%)"){
                     darken(item, this);
                 }
-            if(actionSelection === "Lighten (10%)"){
-                    lighten(item, this);
-                }
+                if(actionSelection === "Lighten (10%)"){
+                        lighten(item, this);
+                    }
             }
         });
+
 
         function darken(item : Element | ElementTreeGroup, provider : any) {
 
@@ -395,15 +413,15 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             
         }
 
+
     }
 
 
     clear(item : Element){
 
         let elementName : string = item.elementData["fullName"];
-
         this.updateWorkbenchColors({[elementName]:undefined});
-        
+
     }
 
 
@@ -418,17 +436,20 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }    
 
 
-    public updateWorkbenchColors(customizations: WorkbenchCustomizations){
+    async updateWorkbenchColors(customizations: WorkbenchCustomizations){
 
-        let workbenchCustomizations : WorkbenchCustomizations = vscode.workspace.getConfiguration().get("workbench.colorCustomizations", {});
-    
+        let workbenchColorCustomizations : any = vscode.workspace.getConfiguration().inspect("workbench.colorCustomizations");
+        let targetColorCustomizations : any = {};
+
+        const target = await chooseTarget();
+
         for(let element in customizations){
             let value = customizations[element];
             if(value === undefined){
-                delete workbenchCustomizations[element];
+                targetColorCustomizations[element] = undefined;
             }else{
                 if(isHexidecimal(value)){
-                    workbenchCustomizations[element] = value;
+                    targetColorCustomizations[element] = value;
                 }else{
                     showNotification("CodeUI: " + value + "is not a valid hex color!");
                     return; 
@@ -436,9 +457,10 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             }
         }
 
-        vscode.workspace.getConfiguration().update("workbench.colorCustomizations", workbenchCustomizations, this.customizationScope);
-        
+        vscode.workspace.getConfiguration().update("workbench.colorCustomizations", targetColorCustomizations, target);
+            
     }
+
     
 }
 
@@ -459,6 +481,8 @@ export class Element extends vscode.TreeItem {
         ){
             super('', collapsibleState);
             this.elementData = elementData;
+
+
             this.tooltip = elementData["info"];
             this.command = {title: "", command : "showElementInfo", arguments : [this]};
 
@@ -472,19 +496,28 @@ export class Element extends vscode.TreeItem {
             this.dataProvider = dataProvider;
 
             this.update();
+
+
             
 
     }
 
 
-    update(): void {
+    private update(): void {
 
         this.colorConfig = this.dataProvider.colorConfigs[this.elementData["fullName"]];
         if(getEffectiveColor(this.colorConfig)){
             this.description = getEffectiveColor(this.colorConfig);
         }else{
-            this.description = "-";
+            this.description = "-";            
         }
+
+        // debug
+        if(this.elementData["fullName"] === "terminal.foreground"){
+            console.log("term");                
+        }
+        // debug
+
         this.iconPath = this.generateIcon();
     }
 
@@ -494,7 +527,8 @@ export class Element extends vscode.TreeItem {
 
         let iconPath : string = "";
         let svgText : string = "";
-        let baseColor : any;
+        let baseColor : string = "";
+        let customizationColor : string = "";
         // Load template svg text
         svgText = fs.readFileSync(path.join(__filename, '..', '..', 'resources', 'swatches', 'swatch.svg'), 'utf8');
         // Get & apply base color (if any)
@@ -509,10 +543,17 @@ export class Element extends vscode.TreeItem {
         }
         // Apply customization color (if any)
         if(this.colorConfig.settings){
-            svgText = svgText.replace('<path style="fill:%COLOR2%;stroke-width:0.83446652;fill-opacity:0', '<path style="fill:' + this.colorConfig.settings + ';stroke-width:0.83446652;fill-opacity:1');
+            if(this.colorConfig.settings.global){
+                customizationColor = this.colorConfig.settings.global;
+                svgText = svgText.replace('<path style="fill:%COLOR2%;stroke-width:0.83446652;fill-opacity:0', '<path style="fill:' + this.colorConfig.settings.global + ';stroke-width:0.83446652;fill-opacity:1');
+            }
+            if(this.colorConfig.settings.workspace){
+                customizationColor = this.colorConfig.settings.workspace;
+                svgText = svgText.replace('<path style="fill:%COLOR2%;stroke-width:0.83446652;fill-opacity:0', '<path style="fill:' + this.colorConfig.settings.workspace + ';stroke-width:0.83446652;fill-opacity:1');
+            }
         }
         // Write new svg text to a temp, generated svg file
-        iconPath = path.join(__filename, '..', '..', 'resources', 'swatches', 'generated', 'generated_' + baseColor + "-" + this.colorConfig.settings + '.svg');
+        iconPath = path.join(__filename, '..', '..', 'resources', 'swatches', 'generated', 'generated_' + baseColor + "-" + customizationColor + '.svg');
         fs.writeFileSync(iconPath,svgText);
         // Return the path
         return iconPath;
@@ -562,10 +603,9 @@ export class ElementTreeGroup extends vscode.TreeItem {
             let baseColor : any;
             // Load template svg text
             svgText = fs.readFileSync(path.join(__filename, '..', '..', 'resources', 'swatches', 'swatch.svg'), 'utf8');
+
             // Get & apply base color (if any)
-
             svgText = svgText.replace('fill:%COLOR1%;fill-opacity:0', ('fill:' + this.color + ';fill-opacity:1'));
-
 
             // Write new svg text to a temp, generated svg file
             iconPath = path.join(__filename, '..', '..', 'resources', 'swatches', 'generated', 'generated_' + this.color + '.svg');
@@ -584,34 +624,13 @@ export class ElementTreeGroup extends vscode.TreeItem {
 }
 
 
-export enum ViewType {
-    Standard = 0,
-    Palette = 1
-}
-
-
-interface ColorConfig {
-    [index:number] : string;
-    "default" : string | undefined;
-    "theme" : string | undefined;
-    "settings" : string | undefined;
-}
-
-
-interface WorkbenchCustomizations{[key:string]:any;}
-
-
-
-
-
 function getEffectiveColor(colorConfig:ColorConfig) : string | undefined {
 
     let effective : string | undefined;
 
-    for(let key in colorConfig){
-        let value = colorConfig[key];
-        if(value){
-            effective = value;
+    for(let item of [colorConfig.default, colorConfig.theme, colorConfig.settings.global, colorConfig.settings.workspace]){
+        if(item){
+            effective = item;
         }
     }
 
@@ -632,17 +651,4 @@ function isHexidecimal(str: string) {
       {
         return false;
       }
-}
-
-
-export function showNotification(message : string) {
-
-    const isEnabled = vscode.workspace.getConfiguration().get("codeui.showNotifications");
-
-	if(isEnabled === true){
-		vscode.window.showInformationMessage(message);
-	}else{
-		return;
-	}
-
 }
