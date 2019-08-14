@@ -9,7 +9,6 @@
 
   [![Version](https://img.shields.io/badge/version-0.1.0-red)]()
   [![License](https://img.shields.io/badge/license-MIT-blue.svg)]()
-  [![Repo](https://github.com/ryanraposo/codeui)]()
 
 </div>
 
@@ -70,7 +69,6 @@ code --install-extension codeui-0.1.0.vsix
 Use it so good ya
 
 ## Extension Settings
-
  - ```codeui.showNotifications``` : Toggle various notifications about CodeUI's activity 
 
  - ```codeui.favoriteColors``` : User-defined colors for use by CodeUI

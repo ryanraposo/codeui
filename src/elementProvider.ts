@@ -118,7 +118,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                 if(isHexidecimal(value)){
                     this.colors[value] = "$(star)  " + key;
                 }else{
-                    showNotification("CodeUI: " + "user-defined color '" + key + ":" + value + " is not valid. Refer to the configuration tooltip");
+                    showNotification("user-defined color '" + key + ":" + value + " is not valid. Refer to the configuration tooltip");
                 }
             }
         }        
@@ -425,14 +425,12 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }
 
 
-    copy(item : Element): void {
-        
+    copy(item : Element): void {        
         if(item.description){
             copypaste.copy(item.description);
         }
 
-        showNotification("CodeUI: copied " + item.description);
-
+        showNotification("copied " + item.description);
     }    
 
 
@@ -451,13 +449,13 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                 if(isHexidecimal(value)){
                     targetColorCustomizations[element] = value;
                 }else{
-                    showNotification("CodeUI: " + value + "is not a valid hex color!");
+                    showNotification(value + "is not a valid hex color!");
                     return; 
                 }
             }
         }
 
-        vscode.workspace.getConfiguration().update("workbench.colorCustomizations", targetColorCustomizations, target);
+        await vscode.workspace.getConfiguration().update("workbench.colorCustomizations", targetColorCustomizations, target);
             
     }
 

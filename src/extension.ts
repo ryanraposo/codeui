@@ -5,6 +5,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as ep from './elementProvider';
 import { InfoProvider } from './infoProvider';
+import * as copypaste from 'copy-paste';
 
 var elementProvider : ep.ElementProvider;
 
@@ -76,8 +77,11 @@ export function toggleView() {
 
 export async function chooseTarget() {
 	let i = 0;
-	const result = await vscode.window.showQuickPick([{label:"Global",target:vscode.ConfigurationTarget.Global},{label:"Workspace",target:vscode.ConfigurationTarget.Workspace}], {
-		placeHolder: 'Select a target...',
+	const result = await vscode.window.showQuickPick([
+		{label:"Global",target:vscode.ConfigurationTarget.Global},
+		{label:"Workspace",target:vscode.ConfigurationTarget.Workspace}
+	],
+		{placeHolder: 'Select a target...',		
 		onDidSelectItem: item => vscode.window.showInformationMessage(`Focus ${++i}: ${item}`)
 	});
 	if(result){
@@ -86,16 +90,13 @@ export async function chooseTarget() {
 }
 
 
-export function showNotification(message : string) {
-
-    const isEnabled = vscode.workspace.getConfiguration().get("codeui.showNotifications");
-
+export async function showNotification(message : string) {
+    const isEnabled = await vscode.workspace.getConfiguration().get("codeui.showNotifications");
 	if(isEnabled === true){
-		vscode.window.showInformationMessage(message);
+		vscode.window.showInformationMessage("CodeUI: " + message);
 	}else{
 		return;
 	}
-
 }
 
 
