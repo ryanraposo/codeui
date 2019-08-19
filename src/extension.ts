@@ -5,18 +5,15 @@ import * as fs from "fs";
 import * as path from "path";
 import * as ep from './elementProvider';
 import { InfoProvider } from './infoProvider';
-import * as copypaste from 'copy-paste';
 
 var elementProvider : ep.ElementProvider;
 
-export async function activate(context: vscode.ExtensionContext) {
-
+export async function activate(context: vscode.ExtensionContext) {	
 	const infoProvider = new InfoProvider();
 	vscode.window.registerTreeDataProvider("elementInfo", infoProvider);
 	vscode.commands.registerCommand("showElementInfo", (element) => infoProvider.setElement(element));
 	
 	vscode.commands.registerCommand("toggleView", () => toggleView());
-	// vscode.commands.registerCommand("toggleScope", () => toggleScope());
 	
 	elementProvider = new ep.ElementProvider(ep.ViewType.Standard);
 	vscode.window.registerTreeDataProvider("elementsView", elementProvider);
@@ -36,15 +33,11 @@ export async function activate(context: vscode.ExtensionContext) {
 			infoProvider.refresh();
 		}
 	}));
-
-
 }
 
 
 export function deactivate() {
-
 	const directory = path.join(__filename, "..", "..", "resources", "swatches", "generated");
-
 	fs.readdir(directory, (err, files) => {
 		if (err){
 			throw err;
@@ -59,7 +52,6 @@ export function deactivate() {
 			}
 		}
 	});
-
 }
 
 
@@ -76,17 +68,17 @@ export function toggleView() {
 
 
 export async function chooseTarget() {
-	let i = 0;
+	
 	const result = await vscode.window.showQuickPick([
 		{label:"Global",target:vscode.ConfigurationTarget.Global},
 		{label:"Workspace",target:vscode.ConfigurationTarget.Workspace}
 	],
-		{placeHolder: 'Select a target...',		
-		onDidSelectItem: item => vscode.window.showInformationMessage(`Focus ${++i}: ${item}`)
+		{placeHolder: 'Select a target...',
 	});
 	if(result){
 		return result.target;
 	}
+
 }
 
 

@@ -6,13 +6,6 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "Python: Current File",
-			"type": "python",
-			"request": "launch",
-			"program": "${file}",
-			"console": "integratedTerminal"
-		},
-		{
 			"type": "extensionHost",
 			"request": "launch",
 			"name": "Launch Extension",
@@ -26,7 +19,7 @@
 			"preLaunchTask": "npm"
 		},
 		{
-			"name": "Run Extension",
+			"name": "Debug Extension",
 			"type": "extensionHost",
 			"request": "launch",
 			"runtimeExecutable": "${execPath}",
@@ -44,8 +37,9 @@
 			"request": "launch",
 			"runtimeExecutable": "${execPath}",
 			"args": [
+				"--disable-extensions",
 				"--extensionDevelopmentPath=${workspaceFolder}",
-				"--extensionTestsPath=${workspaceFolder}/out/test"
+				"--extensionTestsPath=${workspaceFolder}/out/test",
 			],
 			"outFiles": [
 				"${workspaceFolder}/out/test/**/*.js"

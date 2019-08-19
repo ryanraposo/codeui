@@ -9,14 +9,14 @@
 
   [![Version](https://img.shields.io/badge/version-0.1.0-red)]()
   [![License](https://img.shields.io/badge/license-MIT-blue.svg)]()
-  [![Repo](https://github.com/ryanraposo/codeui)]()
 
 </div>
 
 
 <p align="center" style="font-size: 150%"> Build, edit, & explore your color theme for VS Code.
-    <br>
 </p>
+
+---
 
 
 ## Table of Contents
@@ -32,7 +32,8 @@
 - [Additional Info](#additional-info)
   - [Release Notes](#release-notes)
   - [Get involved](#get-involved)
-  - [Acknowledgements <a name = "acknowledgement"></a>](#acknowledgements-a-name--acknowledgementa)
+  - [Contributors](#contributors)
+  - [Technical acknowledgements <a name = "acknowledgement"></a>](#technical-acknowledgements-a-name--acknowledgementa)
   
 # Features
 
@@ -91,7 +92,10 @@ Users and developers alike, write to raposo.ryan@gmail.com any time if you have 
 
 Thank you for supporting CodeUI!
 
-## Acknowledgements <a name = "acknowledgement"></a>
+## Contributors
+  - See [contributors](https://github.com/ryanraposo/codeui/network/contributors) page on GitHub
+
+## Technical acknowledgements <a name = "acknowledgement"></a>
 - copy-paste (npm)
 - tiny-color2 (npm)
 - Various extension development blogs

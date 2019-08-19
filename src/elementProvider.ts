@@ -1,3 +1,5 @@
+"use strict";
+
 import * as vscode from 'vscode';
 import * as fs from "fs";
 import * as path from "path";
@@ -5,6 +7,7 @@ import * as copypaste from 'copy-paste';
 import tinycolor from '@ctrl/tinycolor';
 import { CurrentTheme } from './theme';
 import { chooseTarget, showNotification } from './extension';
+import { getGlobalWorkbenchColorCustomizations, getWorkspaceWorkbenchColorCustomizations } from './configuration';
 
 
 interface ColorConfig {
@@ -107,21 +110,26 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }
 
 
-    loadColors(): any {
-
+    private getUserColors() {
         this.colors = {};
-        
-        let userColors : any = vscode.workspace.getConfiguration().get("codeui.favoriteColors");
-        if(userColors){
-            for(let key in userColors){
+        let userColors: any = vscode.workspace.getConfiguration().get("codeui.favoriteColors");
+        if (userColors) {
+            for (let key in userColors) {
                 let value = userColors[key];
-                if(isHexidecimal(value)){
+                if (isHexidecimal(value)) {
                     this.colors[value] = "$(star)  " + key;
-                }else{
+                }
+                else {
                     showNotification("user-defined color '" + key + ":" + value + " is not valid. Refer to the configuration tooltip");
                 }
             }
-        }        
+        }
+    }
+
+
+    loadColors(): any {
+
+        this.getUserColors();      
 
         let presetColorsText = fs.readFileSync(path.join(__filename, '..', '..', 'data', 'colors.json'),"utf8");        
         let presetColors = JSON.parse(presetColorsText);
@@ -435,19 +443,24 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
 
 
     async updateWorkbenchColors(customizations: WorkbenchCustomizations){
-
-        let workbenchColorCustomizations : any = vscode.workspace.getConfiguration().inspect("workbench.colorCustomizations");
-        let targetColorCustomizations : any = {};
-
+        
         const target = await chooseTarget();
+        let scopedCustomizations : any = {};
 
+        if(target === vscode.ConfigurationTarget.Global){
+            scopedCustomizations = getGlobalWorkbenchColorCustomizations();
+        }
+        if(target === vscode.ConfigurationTarget.Workspace){
+            scopedCustomizations = getWorkspaceWorkbenchColorCustomizations();
+        }        
+        
         for(let element in customizations){
             let value = customizations[element];
             if(value === undefined){
-                targetColorCustomizations[element] = undefined;
+                scopedCustomizations[element] = undefined;
             }else{
                 if(isHexidecimal(value)){
-                    targetColorCustomizations[element] = value;
+                    scopedCustomizations[element] = value;
                 }else{
                     showNotification(value + "is not a valid hex color!");
                     return; 
@@ -455,9 +468,11 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             }
         }
 
-        await vscode.workspace.getConfiguration().update("workbench.colorCustomizations", targetColorCustomizations, target);
+        await vscode.workspace.getConfiguration().update("workbench.colorCustomizations", scopedCustomizations, target);
             
     }
+
+    
 
     
 }
@@ -510,12 +525,6 @@ export class Element extends vscode.TreeItem {
             this.description = "-";            
         }
 
-        // debug
-        if(this.elementData["fullName"] === "terminal.foreground"){
-            console.log("term");                
-        }
-        // debug
-
         this.iconPath = this.generateIcon();
     }
 
@@ -539,15 +548,16 @@ export class Element extends vscode.TreeItem {
         if(baseColor){
             svgText = svgText.replace('fill:%COLOR1%;fill-opacity:0', ('fill:' + baseColor + ';fill-opacity:1'));
         }
+
         // Apply customization color (if any)
         if(this.colorConfig.settings){
-            if(this.colorConfig.settings.global){
+            if(this.colorConfig.settings.global && !this.colorConfig.settings.workspace){
                 customizationColor = this.colorConfig.settings.global;
-                svgText = svgText.replace('<path style="fill:%COLOR2%;stroke-width:0.83446652;fill-opacity:0', '<path style="fill:' + this.colorConfig.settings.global + ';stroke-width:0.83446652;fill-opacity:1');
+                svgText = svgText.replace('<path style="fill:%COLOR2%;stroke-width:0.83446652;fill-opacity:0', '<path style="fill:' + customizationColor + ';stroke-width:0.83446652;fill-opacity:1');
             }
             if(this.colorConfig.settings.workspace){
                 customizationColor = this.colorConfig.settings.workspace;
-                svgText = svgText.replace('<path style="fill:%COLOR2%;stroke-width:0.83446652;fill-opacity:0', '<path style="fill:' + this.colorConfig.settings.workspace + ';stroke-width:0.83446652;fill-opacity:1');
+                svgText = svgText.replace('<path style="fill:%COLOR2%;stroke-width:0.83446652;fill-opacity:0', '<path style="fill:' + customizationColor + ';stroke-width:0.83446652;fill-opacity:1');
             }
         }
         // Write new svg text to a temp, generated svg file
