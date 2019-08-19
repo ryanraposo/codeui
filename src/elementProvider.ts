@@ -7,7 +7,11 @@ import * as copypaste from 'copy-paste';
 import tinycolor from '@ctrl/tinycolor';
 import { CurrentTheme } from './theme';
 import { chooseTarget, showNotification } from './extension';
-import { getGlobalWorkbenchColorCustomizations, getWorkspaceWorkbenchColorCustomizations } from './configuration';
+
+import { getGlobalWorkbenchColorCustomizations, 
+            getWorkspaceWorkbenchColorCustomizations,  
+            IStringAnyDict
+ } from './configuration';
 
 
 interface ColorConfig {
@@ -425,10 +429,18 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }
 
 
-    clear(item : Element){
+    clear(item : Element | ElementTreeGroup){
 
-        let elementName : string = item.elementData["fullName"];
-        this.updateWorkbenchColors({[elementName]:undefined});
+        if(item instanceof Element){
+            let elementName : string = item.elementData["fullName"];
+            this.updateWorkbenchColors({[elementName]:undefined});
+        }else{
+            let customizations : IStringAnyDict = {};
+            for(let element of item.children){
+                customizations[element.elementData["fullName"]] = undefined;
+                this.updateWorkbenchColors(customizations);
+            }
+        }
 
     }
 
@@ -445,24 +457,28 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     async updateWorkbenchColors(customizations: WorkbenchCustomizations){
         
         const target = await chooseTarget();
-        let scopedCustomizations : any = {};
+        if(!target){
+            return;
+        }
+
+        let scopedCustomizations : IStringAnyDict = {};
 
         if(target === vscode.ConfigurationTarget.Global){
-            scopedCustomizations = getGlobalWorkbenchColorCustomizations();
+            scopedCustomizations = await getGlobalWorkbenchColorCustomizations();
         }
         if(target === vscode.ConfigurationTarget.Workspace){
-            scopedCustomizations = getWorkspaceWorkbenchColorCustomizations();
+            scopedCustomizations = await getWorkspaceWorkbenchColorCustomizations();
         }        
         
-        for(let element in customizations){
+        for(let element in customizations){ // for element : value in supplied array
             let value = customizations[element];
-            if(value === undefined){
-                scopedCustomizations[element] = undefined;
-            }else{
-                if(isHexidecimal(value)){
+            if(value === undefined){// handles calls from clear() eg. ["activityBar.foreground" : undefined, ...]
+                scopedCustomizations[element] = undefined; 
+            }else{  // handles calls from customize() eg. ["activityBar.forground" : "#ffffff", ...]
+                if(await isHexidecimal(value)){
                     scopedCustomizations[element] = value;
                 }else{
-                    showNotification(value + "is not a valid hex color!");
+                    await showNotification(value + "is not a valid hex color!");
                     return; 
                 }
             }
@@ -471,8 +487,6 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         await vscode.workspace.getConfiguration().update("workbench.colorCustomizations", scopedCustomizations, target);
             
     }
-
-    
 
     
 }

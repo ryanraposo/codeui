@@ -8,13 +8,10 @@ import * as assert from 'assert';
 import * as chai from 'chai';
 import {should} from 'chai';
 
+import { isIStringAnyDict, getGlobalWorkbenchColorCustomizations, getWorkspaceWorkbenchColorCustomizations } from '../configuration';
+
+
 chai.use(should);
-
-import { isIStringAnyDict, IStringAnyDict, getGlobalWorkbenchColorCustomizations, getWorkspaceWorkbenchColorCustomizations } from '../configuration';
-import { exists } from 'fs';
-import { start } from 'repl';
-import { ExecException } from 'child_process';
-
 
 
 function equalTest(fn: any, arg:any, argString:string, expected:any){
@@ -56,7 +53,7 @@ function noMembersTest(fn: any, arg:any, argString:string){
     describe(fn.name.toString(), () => {
         it(argString + ' as arg should return value with no members', () => {
             let result = fn(arg);
-            result.should.be.empty;
+            result.should.be.empty();
         });   
     });
 }
