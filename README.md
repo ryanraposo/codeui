@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=200px height=200px src="resources\marketplace\codeui-300.png" alt="Project logo"></a>
+ <img width=200px height=200px src="https://i.imgur.com/WKgSi72.png" alt="Project logo"></a>
 </p>
 
 <h2 align="center">CodeUI</h2>

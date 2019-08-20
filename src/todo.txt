@@ -1,3 +1,2 @@
 
 - need command to show CodeUI's interface (case: activity bar hidden)
-- need to be able to batch clear groups in palette view

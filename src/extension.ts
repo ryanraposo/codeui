@@ -7,9 +7,11 @@ import * as ep from './elementProvider';
 import { InfoProvider } from './infoProvider';
 
 var elementProvider : ep.ElementProvider;
+var infoProvider : InfoProvider;
 
 export async function activate(context: vscode.ExtensionContext) {	
-	const infoProvider = new InfoProvider();
+
+	infoProvider = new InfoProvider();
 	vscode.window.registerTreeDataProvider("elementInfo", infoProvider);
 	vscode.commands.registerCommand("showElementInfo", (element) => infoProvider.setElement(element));
 	
@@ -67,11 +69,11 @@ export function toggleView() {
 }
 
 
-export async function chooseTarget() {
+export async function chooseTarget(workspaceFolder: vscode.WorkspaceFolder) {
 	
 	const result = await vscode.window.showQuickPick([
 		{label:"Global",target:vscode.ConfigurationTarget.Global},
-		{label:"Workspace",target:vscode.ConfigurationTarget.Workspace}
+		{label:`Workspace (${workspaceFolder.name})`, target:vscode.ConfigurationTarget.Workspace}
 	],
 		{placeHolder: 'Select a target...',
 	});
@@ -89,6 +91,11 @@ export async function showNotification(message : string) {
 	}else{
 		return;
 	}
+}
+
+
+export function getInfoProvider() {
+	return infoProvider;
 }
 
 

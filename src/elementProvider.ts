@@ -6,12 +6,14 @@ import * as path from "path";
 import * as copypaste from 'copy-paste';
 import tinycolor from '@ctrl/tinycolor';
 import { CurrentTheme } from './theme';
-import { chooseTarget, showNotification } from './extension';
+import { chooseTarget, showNotification, getInfoProvider } from './extension';
 
 import { getGlobalWorkbenchColorCustomizations, 
             getWorkspaceWorkbenchColorCustomizations,  
-            IStringAnyDict
+            IStringAnyDict,
+            getWorkspaceRootFolder
  } from './configuration';
+import { InfoProvider } from './infoProvider';
 
 
 interface ColorConfig {
@@ -317,7 +319,8 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         let targetElements : Array<any> = [];
         let colorItems : Array<vscode.QuickPickItem> = [];
         let customizations : WorkbenchCustomizations = {};
-        let userColor : string | undefined;         
+        let userColor : string | undefined;  
+        
         
         // Get preset quickpickItems (colors)
         for(let key in this.colors){
@@ -325,9 +328,11 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             colorItems.push({label:value,description:key});
         }        
 
-        // Parse selected element(s)
+        // Parse selected element(s) & if element, pass to InfoProvider
+        const infoProvider = getInfoProvider();
         if(item instanceof(Element)){
             targetElements.push(item.elementData["fullName"]);
+            infoProvider.setElement(item);
         }
         if(item instanceof(ElementTreeGroup)){
             for(let child of item.children){
@@ -370,6 +375,10 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
 
     adjustBrightness(item : Element | ElementTreeGroup) {
 
+        if(item instanceof Element){
+            const infoProvider = getInfoProvider();
+            infoProvider.setElement(item);
+        }
 
         vscode.window.showQuickPick(["Darken (10%)", "Lighten (10%)"]).then((actionSelection : any) => {
             if(actionSelection){
@@ -432,6 +441,8 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     clear(item : Element | ElementTreeGroup){
 
         if(item instanceof Element){
+            const infoProvider = getInfoProvider();
+            infoProvider.setElement(item);
             let elementName : string = item.elementData["fullName"];
             this.updateWorkbenchColors({[elementName]:undefined});
         }else{
@@ -455,10 +466,17 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
 
 
     async updateWorkbenchColors(customizations: WorkbenchCustomizations){
-        
-        const target = await chooseTarget();
-        if(!target){
-            return;
+
+        let target : any;
+        const workspaceRootFolder = getWorkspaceRootFolder();
+
+        if(workspaceRootFolder){ // If in a workspace, give the option to target Workspace Settings
+            target = await chooseTarget(workspaceRootFolder);
+            if(!target){
+                return;
+            }
+        }else{
+            target = vscode.ConfigurationTarget.Global; // If no workspace, target Global Settings
         }
 
         let scopedCustomizations : IStringAnyDict = {};

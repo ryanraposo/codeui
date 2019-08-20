@@ -1,8 +1,6 @@
 "use strict";
 
 import * as vscode from "vscode";
-import { type } from "os";
-import { Interface } from "readline";
 
 export interface IStringAnyDict {
     [key:string]:any;
@@ -94,4 +92,14 @@ export function getWorkspaceWorkbenchColorCustomizations() : IStringAnyDict {
         } 
     }
 
+}
+
+
+export function getWorkspaceRootFolder() : vscode.WorkspaceFolder | undefined{
+
+    if(vscode.workspace.workspaceFolders){
+        return vscode.workspace.workspaceFolders[0];
+    } else {
+        return undefined;
+    }    
 }
