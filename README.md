@@ -20,13 +20,13 @@
 ## Table of Contents
 
 - [Features](#features)
-    - [Interface](#interface)
-    - [Colors](#colors)
-    - [Customization](#customization)
+  - [Interface](#interface)
+  - [Colors](#colors)
+  - [Customization](#customization)
 - [Getting Started <a name = "getting_started"></a>](#getting-started-a-name--getting_starteda)
   - [Installing](#installing)
   - [Usage](#usage)
-  - [Extension Settings](#extension-settings)
+  - [Extension Settings](#extension-settings);
 - [Additional Info](#additional-info)
   - [Release Notes](#release-notes)
   - [Get involved](#get-involved)
