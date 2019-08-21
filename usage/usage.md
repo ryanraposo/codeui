@@ -3,12 +3,23 @@
  <img width=300px height=339px src="../resources/readme/codeui-hover.png" alt="Project logo"></a>
 </p>
 
+<h2 align="center">CodeUI</h2>
+
+<div align="center">
+
+  ![Version](https://img.shields.io/badge/version-0.1.0-red)
+  ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+
+</div>
+
+<p align="center" style="font-size: 150%"> Build, edit, & explore your color theme for VS Code.
+</p>
+
 # Usage
 
 ## Table of Contents
 
 - [Usage](#usage)
-  - [Table of Contents](#table-of-contents)
   - [Element Information](#element-information)
     - [Visualizations & Effective Color](#sup1sup-visualizations--effective-color)
     - [Tooltip Descriptions](#sup2sup-tooltip-descriptions)
@@ -21,18 +32,22 @@
     - [Customize](#customize)
     - [Delete](#delete)
     - [Copy](#copy)
+  - [Colors](#colors)
+    - [Favorites](#favorites)
+    - [Presets](#presets)
+    - [Allowable Values](#allowable-values)
 
 # Element Information
 
-![fds](/resources/screenshots/info-numbered-v2.png)
+![Element Information](/resources/screenshots/info-numbered-v2.png)
 
 ## <sup>1</sup> Visualizations & Effective Color
 
-   The icons for each item represent color setting, as well as indicate the source of those settings. If an icon is partially covered, the prominent color represents a customization (global or workspace) and the color underneath, if any, the next runner up in this ascending priority scheme:
+   The icons for each item represent color setting, as well as indicate the source of those settings. If an icon is partially covered, the prominent color represents a customization (global or workspace) and the color underneath, if any, the next runner-up in this ascending priority scheme:
   
       Default -> Theme -> Customization (global) -> Customization (workspace)
 
-   Items which are inherting color will also display the corresponding hex color-code. This value is indicative of the elements **effective** color, just like the prominent icon color.  
+   In the *Elements* view, items which are inherting color will also display the corresponding hex color-code. This value is indicative of the item's **effective** color, just like the prominent icon color.  
 
 ## <sup>2</sup> Tooltip Descriptions
 
@@ -52,17 +67,17 @@
 
 ## Standard
 
-Allows browsing by element groups. These groups correspond to different parts of the editor, and form the beginning of the values one might add to User Settings.
+Allows browsing by element groups. These groups correspond to different parts of the editor, and their titles form the beginning of the values one might add to User Settings.
 
-For example, following value would be found under heading *Activity Bar*, as item *Foreground*:
+For example, the following value would be found under heading *Activity Bar*, as item *Foreground*:
 
 ```"activityBar.foreground"```
 
 ## Palette
 
- In this view, elements retain a long form of the name as items are grouped by color. The configuration above would be listed as *Activity Bar Foreground*, grouped with all elements who share it's effective color.
+ In this viewtype, elements retain a long form of the name as items are grouped by color. The configuration above would be listed as *Activity Bar Foreground*, grouped with all elements who share it's effective color.
 
- This viewtype enables you to make batch changes to elements and alter the palette of the editor as it appears.
+ This viewtype enables you to make batch changes to elements and alter the palette of the editor as it appears. Palette mode also helps in identifying visible elements whose names you aren't familiar with. Use it to see your theme at a glance.
 
 # Customization
 
@@ -73,7 +88,7 @@ CodeUI features four commands for customizing your editor:
 - Adjust brightness..
 - Customize..
 - Delete customization..
-- Copy *
+- Copy*
 
 In **Standard** mode (below), these commands are accessible via buttons for each individual element:
 
@@ -89,24 +104,24 @@ In **Palette** mode, the inline commands can be applied to both elements *and* p
 
 - Select an adjustment. (*eg Darken 10%*). Be aware that transparency (alpha) values in the color's hex code may exaggerate/diminish the effects of lightening & darkening.
 
-- If a workspace is open, choose a customization scope (global/workspace). Otherwise, global will be assumed.
+- If a workspace is open, choose a customization scope (global/workspace). If no workspace is open, global scope will be assumed.
 
 - Brightness adjustment is applied.
 
 ## Customize
 
-- Select a customization method. You can either **[Enter a value...]** or **[Choose a preset...]**:
-  - **Enter a value...** Input a valid hex color. See more in [colors.]()
+- Select a customization method. You can either **Enter a value** or **Choose a preset**:
+  - **Enter a value...** Input a valid hex color. See more in [colors.](#colors)
 
-  - **Choose a preset...** Select a pre-defined color from a pre-loaded list of over 2k values, or a favorite color added to User Settings. (configuration: ```"codeui.favoriteColors"```)
+  - **Choose a preset...** Select a pre-defined color from a pre-loaded list of over 2k values, or a favorite color added to User Settings -> ```"codeui.favoriteColors"```
 
-- If a workspace is open, choose a customization scope (global/workspace). Otherwise, global will be assumed.
+- If a workspace is open, choose a customization scope (global/workspace). If no workspace is open, global scope will be assumed.
 
 - Customization is applied.
 
 ## Delete
 
-- If a workspace is open, choose a customization scope (global/workspace). Otherwise, global will be assumed.
+- If a workspace is open, choose a customization scope (global/workspace). If no workspace is open, global scope will be assumed.
 
 - Customizations are deleted.
 
@@ -118,7 +133,7 @@ In **Palette** mode, the inline commands can be applied to both elements *and* p
 
 ![Preset colors](../resources/screenshots/preset-colors.png)
 
-## <sup>1</sup> Favorite colors
+## <sup>1</sup> Favorites
 
 Use configuration ``codeui.favoriteColors`` to define a list of custom colors, using the format: 
 
@@ -130,12 +145,28 @@ Use configuration ``codeui.favoriteColors`` to define a list of custom colors, u
         "Salmon" : "#fa8072"
       },
 
-A name must be entered with each value. They will appear first during selection with a star to indicate that an item is user-defined.
+A name **must** be entered with each value. They will appear first during selection with a star to indicate an item is user-defined.
 
-## <sup>2</sup> Preset colors
+## <sup>2</sup> Presets
 
-A list of 2k+ colors are available for use.
+A list of 2k+ colors are provided for use. They (if any exist) will always appear below your favorites.
 
 ## Allowable values
 
-Only hexidecimal color values (RGBA allowed) are useable.
+Only hexidecimal color values can be used by both vscode and CodeUI. This extends to RGBA hex values.
+
+### *Acceptable values:*
+
+- #f2f2f2 ✔️
+- #6c6f934d ✔️
+- #000000 ✔️
+
+### *Unacceptable values:*
+
+- (22, 45, 90) ❌
+- purple ❌
+- (11, 22, 33, 0) ❌
+
+
+*If configuration ``codeui.enableNotifications`` is set to ``true`` (default), you will be notified about problematic values on entry.*
+

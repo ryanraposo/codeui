@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=200px height=200px src="https://i.imgur.com/WKgSi72.png" alt="Project logo"></a>
+ <img width=300px height=339px src="./resources/readme/codeui-hover.png" alt="Project logo"></a>
 </p>
 
 <h2 align="center">CodeUI</h2>
@@ -68,7 +68,7 @@ code --install-extension codeui-0.1.0.vsix
 
 ## Usage
 
-Refer to usage documentation [here.](./usage/usage.md)
+Refer to usage documentation [here. ](./usage/usage.md)
 
 ## Extension Settings
 
