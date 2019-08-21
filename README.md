@@ -12,12 +12,10 @@
 
 </div>
 
-
 <p align="center" style="font-size: 150%"> Build, edit, & explore your color theme for VS Code.
 </p>
 
 ---
-
 
 ## Table of Contents
 
@@ -38,11 +36,13 @@
 # Features
 
 ### Interface
+
 Browse & customize the elements of VS Code's interface with descriptions and realtime visual representations of your color settings
 
 ![Screenshot](resources/readme/demo-main-668-582.png)
 
 ### Colors
+
 Enter custom values or choose from a set of over 2k preset colors. Easily store your favorites via ```codeui.favoriteColors``` in user settings
 
 ![Favorite](resources/readme/favorite.gif)

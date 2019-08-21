@@ -21,7 +21,7 @@
         content:
         - split screenshot w/both views & and toggle button highlighted
 
-### Customization
+### ~~Customization~~
 
         topics:
             - 'customize'
