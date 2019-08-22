@@ -23,10 +23,12 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
         }
     }
 
+
     getTreeItem(element : vscode.TreeItem) : vscode.TreeItem {
         return element;
     }
 
+    
     getChildren(infoItem?: InfoItem) : vscode.TreeItem[] {
 
         let children : vscode.TreeItem[] = [];
@@ -49,8 +51,8 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
             if(infoItem.label === "Element"){ // If element section...
                 let elementInfo : InfoItem[] = [];
                 if(this.selectedElement){
-                    elementInfo.push(new InfoItem({ label: "Default", description: definitionToString(this.selectedElement.colorConfig.default), collapsibleState: vscode.TreeItemCollapsibleState.None }));
-                    elementInfo.push(new InfoItem({ label: "Theme", description: definitionToString(this.selectedElement.colorConfig.theme), collapsibleState: vscode.TreeItemCollapsibleState.None }));
+                    elementInfo.push(new InfoItem({ label: "Default", description: definitionToLowerCaseDescription(this.selectedElement.colorConfig.default), collapsibleState: vscode.TreeItemCollapsibleState.None }));
+                    elementInfo.push(new InfoItem({ label: "Theme", description: definitionToLowerCaseDescription(this.selectedElement.colorConfig.theme), collapsibleState: vscode.TreeItemCollapsibleState.None }));
                     elementInfo.push(new InfoItem({ label: "Settings", description:"", collapsibleState: vscode.TreeItemCollapsibleState.Expanded}));
                     infoItem.iconPath = this.selectedElement.iconPath;
                 }else{
@@ -64,8 +66,8 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
             }
             if(infoItem.label === "Settings"){
                 let settingsItems : InfoItem[] = [];
-                settingsItems.push(new InfoItem({label: "Global", description: definitionToString(this.selectedElement.colorConfig.settings.global), collapsibleState: vscode.TreeItemCollapsibleState.None}));
-                settingsItems.push(new InfoItem({label: "Workspace", description: definitionToString(this.selectedElement.colorConfig.settings.workspace), collapsibleState: vscode.TreeItemCollapsibleState.None}));
+                settingsItems.push(new InfoItem({label: "Global", description: definitionToLowerCaseDescription(this.selectedElement.colorConfig.settings.global), collapsibleState: vscode.TreeItemCollapsibleState.None}));
+                settingsItems.push(new InfoItem({label: "Workspace", description: definitionToLowerCaseDescription(this.selectedElement.colorConfig.settings.workspace), collapsibleState: vscode.TreeItemCollapsibleState.None}));
                 children = settingsItems;
             }
         }
@@ -101,9 +103,9 @@ class InfoItem extends vscode.TreeItem{
 }
 
 
-function definitionToString(value : any) : string {
-    if(value){
-        return value;
+function definitionToLowerCaseDescription(value : any) : string {
+    if(value && typeof value === 'string'){
+            return value.toLowerCase();
     }else{
         return "-";
     }

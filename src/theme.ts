@@ -5,7 +5,7 @@ import * as fs from 'fs';
 
 export class CurrentTheme {
 
-    workbenchCustomizations : any = [];
+    workbenchCustomizations : any;
     themePath : string | undefined;
     themeObject : any;
 
@@ -18,13 +18,13 @@ export class CurrentTheme {
         this.themeObject = this.getThemeObject();
         if(this.themeObject){
             this.workbenchCustomizations = this.getWorkbenchCustomizations(this.themeObject);
-            this.themeName = this.getThemeName();
-            this.themeType = this.getThemeType();
+            this.themeName = this.getThemeName(this.themeObject);
+            this.themeType = this.getThemeType(this.themeObject);
         }
     }
 
 
-    getThemeObject(): any {
+    public getThemeObject(): any {
         let text : string = '';
         let jsonObject : any;
         let themePath = this.getThemePath();
@@ -36,42 +36,28 @@ export class CurrentTheme {
                 return jsonObject;
             }
             catch{
-                // console.log("CODEUI: No current theme.");
+                return undefined;
             }
         }
     }
 
-    getWorkbenchCustomizations(themeObject : any) : any {
-
-        if(themeObject){
-            let workbenchCustomizations : any = [];
-
-            for(let key in themeObject['colors']){
-                let customization : string;
-                if(themeObject['colors'][key] !== null){
-                    customization = themeObject['colors'][key];
-                    workbenchCustomizations[key] = customization.toLowerCase();
-                }else{
-                    workbenchCustomizations[key] = null;
-                }
-            }
-            return workbenchCustomizations;
-        }
-
+    
+    private getWorkbenchCustomizations(themeObject : any) : any {
+        return themeObject['colors'];
     }
 
 
-    getThemeName(): any {
+    private getThemeName(themeObject : any): any {
         return this.themeObject["name"];
     }
 
 
-    getThemeType(): any {
+    private getThemeType(themeObject: any): any {
         return this.themeObject["type"];
     }
 
 
-    getThemePath(): string | undefined {
+    private getThemePath(): string | undefined {
 
         // Get colorTheme name from settings
         let configTheme : any = vscode.workspace.getConfiguration().get("workbench.colorTheme");

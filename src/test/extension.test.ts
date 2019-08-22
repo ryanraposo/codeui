@@ -32,7 +32,7 @@ function equalAnyOfTest(fn: any, arg:any, argString:string, expected:Array<any>)
                 expected.should.contain.members([result]);
             }
             catch(e){
-                console.log(e.name);                
+       
             }
         });   
     });

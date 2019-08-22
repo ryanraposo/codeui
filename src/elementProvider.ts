@@ -13,7 +13,9 @@ import { getGlobalWorkbenchColorCustomizations,
             IStringAnyDict,
             getWorkspaceRootFolder
  } from './configuration';
+
 import { InfoProvider } from './infoProvider';
+import { isRegExp } from 'util';
 
 
 interface ColorConfig {
@@ -27,13 +29,13 @@ interface ColorConfig {
 }
 
 
-interface WorkbenchCustomizations{[key:string]:any;}
-
-
 export enum ViewType {
     Standard = 0,
     Palette = 1
 }
+
+
+interface WorkbenchCustomizations{[key:string]:any;}
 
 
 export class ElementProvider implements vscode.TreeDataProvider<any>{
@@ -133,7 +135,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }
 
 
-    loadColors(): any {
+    private loadColors(): any {
 
         this.getUserColors();      
 
@@ -149,7 +151,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }
 
 
-    loadElementData() : any {
+    private loadElementData() : any {
         let fileText : string = fs.readFileSync(path.join(__filename, '..', '..', 'data', 'vscodeElementsArray.json'),"utf8");
         let allElementsObject = JSON.parse(fileText);
         for(let key in allElementsObject){
@@ -159,7 +161,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }
 
 
-    loadColorConfigs() : any {
+    private loadColorConfigs() : any {
 
         let elementNames : string[] = [];
         for(let key in this.elementData){
@@ -253,7 +255,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }
 
 
-    getStandardViewGroups(): ElementTreeGroup[] {
+    public getStandardViewGroups(): ElementTreeGroup[] {
 
         let elementGroupNames = [];
         let elementTreeGroups : any = [];
@@ -271,7 +273,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }
 
 
-    getPaletteViewGroups(): ElementTreeGroup[] {
+    public getPaletteViewGroups(): ElementTreeGroup[] {
 
         let elementColors = [];
         let elementTreeGroups = [];
@@ -314,7 +316,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }
 
 
-    customize(item : Element | ElementTreeGroup) {
+    public customize(item : Element | ElementTreeGroup) {
         
         let targetElements : Array<any> = [];
         let colorItems : Array<vscode.QuickPickItem> = [];
@@ -373,7 +375,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }
 
 
-    adjustBrightness(item : Element | ElementTreeGroup) {
+    public adjustBrightness(item : Element | ElementTreeGroup) {
 
         if(item instanceof Element){
             const infoProvider = getInfoProvider();
@@ -438,7 +440,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }
 
 
-    clear(item : Element | ElementTreeGroup){
+    public clear(item : Element | ElementTreeGroup){
 
         if(item instanceof Element){
             const infoProvider = getInfoProvider();
@@ -456,7 +458,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }
 
 
-    copy(item : Element): void {        
+    public copy(item : Element): void {        
         if(item.description){
             copypaste.copy(item.description);
         }
@@ -551,8 +553,9 @@ export class Element extends vscode.TreeItem {
     private update(): void {
 
         this.colorConfig = this.dataProvider.colorConfigs[this.elementData["fullName"]];
-        if(getEffectiveColor(this.colorConfig)){
-            this.description = getEffectiveColor(this.colorConfig);
+        let effectiveColor = getEffectiveColor(this.colorConfig);
+        if(effectiveColor){
+            this.description = effectiveColor.toLowerCase();
         }else{
             this.description = "-";            
         }
@@ -561,45 +564,56 @@ export class Element extends vscode.TreeItem {
     }
 
 
-
     private generateIcon(): string {
 
         let iconPath : string = "";
         let svgText : string = "";
+        
         let baseColor : string = "";
-        let customizationColor : string = "";
+        let topColor : string = "";
+        
+        const colorConfig = this.colorConfig;
+
+        //Decides the base color & top color, with only customizations appearing as topcoats
+        
+        if(colorConfig.settings.global && colorConfig.settings.workspace){
+            baseColor = colorConfig.settings.global;
+            topColor = colorConfig.settings.workspace;
+        }else{
+            for(let item of [colorConfig.default, colorConfig.theme]){
+                if(item){
+                    baseColor = item;
+                }
+            }
+            for(let item of [colorConfig.settings.global, colorConfig.settings.workspace]){
+                if(item){
+                    topColor = item;
+                }
+            }
+        }        
+        
         // Load template svg text
         svgText = fs.readFileSync(path.join(__filename, '..', '..', 'resources', 'swatches', 'swatch.svg'), 'utf8');
-        // Get & apply base color (if any)
-        if(this.colorConfig.default){
-            baseColor = this.colorConfig.default;
-        }
-        if(this.colorConfig.theme){
-            baseColor = this.colorConfig.theme;
-        }
+
+        //Insert base color to svg text, change corresponding opacity to 1 from 0
         if(baseColor){
+            
             svgText = svgText.replace('fill:%COLOR1%;fill-opacity:0', ('fill:' + baseColor + ';fill-opacity:1'));
         }
 
-        // Apply customization color (if any)
-        if(this.colorConfig.settings){
-            if(this.colorConfig.settings.global && !this.colorConfig.settings.workspace){
-                customizationColor = this.colorConfig.settings.global;
-                svgText = svgText.replace('<path style="fill:%COLOR2%;stroke-width:0.83446652;fill-opacity:0', '<path style="fill:' + customizationColor + ';stroke-width:0.83446652;fill-opacity:1');
-            }
-            if(this.colorConfig.settings.workspace){
-                customizationColor = this.colorConfig.settings.workspace;
-                svgText = svgText.replace('<path style="fill:%COLOR2%;stroke-width:0.83446652;fill-opacity:0', '<path style="fill:' + customizationColor + ';stroke-width:0.83446652;fill-opacity:1');
-            }
+        //Insert top color to svg text,, change corresponding opacity to 1 from 0
+        if(topColor){
+            svgText = svgText.replace('<path style="fill:%COLOR2%;stroke-width:0.83446652;fill-opacity:0', '<path style="fill:' + topColor + ';stroke-width:0.83446652;fill-opacity:1');
+
         }
+
         // Write new svg text to a temp, generated svg file
-        iconPath = path.join(__filename, '..', '..', 'resources', 'swatches', 'generated', 'generated_' + baseColor + "-" + customizationColor + '.svg');
+        iconPath = path.join(__filename, '..', '..', 'resources', 'swatches', 'generated', 'generated_' + baseColor + "-" + topColor + '.svg');
         fs.writeFileSync(iconPath,svgText);
         // Return the path
-        return iconPath;
+        return iconPath; 
 
     }
-
 
     contextValue = "element";
 

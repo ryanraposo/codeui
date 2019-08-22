@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=300px height=339px src="./resources/readme/codeui-hover.png" alt="Project logo"></a>
+ <img width=300px height=339px src="https://i.imgur.com/1HFfxQj.png" alt="Project logo"></a>
 </p>
 
 <h2 align="center">CodeUI</h2>
@@ -26,7 +26,7 @@
 - [Getting Started <a name = "getting_started"></a>](#getting-started-a-name--getting_starteda)
   - [Installing](#installing)
   - [Usage](#usage)
-  - [Extension Settings](#extension-settings);
+  - [Extension Settings](#extension-settings)
 - [Additional Info](#additional-info)
   - [Release Notes](#release-notes)
   - [Get involved](#get-involved)
@@ -78,11 +78,12 @@ Refer to usage documentation [here. ](./usage/usage.md)
 
 # Additional Info
 
-## Release Notes 
-    (0.1.0) Initial release of CodeUI
+## Release Notes
 
-        - View & customize the colors of VS Code's interface
-        - workbench.colorCustomizations only
+    [0.1.0] Initial release
+
+      - View & customize the colors of VS Code's interface
+      - workbench.colorCustomizations only
 
 
 ## Get involved
@@ -93,7 +94,7 @@ Users and developers alike, write to raposo.ryan@gmail.com any time if you have 
 Thank you for supporting CodeUI!
 
 ## Contributors
-  - See [contributors](https://github.com/ryanraposo/codeui/network/contributors) page on GitHub
+  - See [contributors](https://github.com/ryanraposo/codeui/graphs/contributors) page on GitHub
 
 ## Technical acknowledgements <a name = "acknowledgement"></a>
 - copy-paste (npm)

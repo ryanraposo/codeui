@@ -9,6 +9,7 @@ dc.bat
 .vscodeignore
 CONTRIBUTING-template.md
 resources/swatches/generated/*.svg
+package-lock.json
 
 #Filetypes
 *.vsix
