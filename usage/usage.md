@@ -43,11 +43,11 @@
 
 ## <sup>1</sup> Visualizations & Effective Color
 
-   The icons for each item represent color setting, as well as indicate the source of those settings. If an icon is partially covered, the prominent color represents a customization (global or workspace) and the color underneath, if any, the next runner-up in this ascending priority scheme:
+   The icons for each item represent color setting, as well as indicate the source of those settings. If an icon is partially covered, the 'top-coat' always represents a customization (global or workspace) from User Settings. The color underneath, if any, is the next runner-up in this ascending priority scheme:
   
       Default -> Theme -> Customization (global) -> Customization (workspace)
 
-   In the *Elements* view, items which are inherting color will also display the corresponding hex color-code. This value is indicative of the item's **effective** color, just like the prominent icon color.  
+   In the *Elements* view, items which are inherting color will also display the corresponding hex value. This value is indicative of the item's **effective** color, just like the prominent icon color.  
 
 ## <sup>2</sup> Tooltip Descriptions
 
@@ -77,7 +77,7 @@ For example, the following value would be found under heading *Activity Bar*, as
 
  In this viewtype, elements retain a long form of the name, as items are grouped by color. The configuration above would be listed as *Activity Bar Foreground*, grouped with all elements who share it's effective color.
 
- This viewtype enables you to make batch changes to elements and alter the palette of the editor as it appears. Palette mode also helps in identifying visible elements whose names you aren't familiar with. Use it to see your theme at a glance.
+ In this viewtype, elements retain a long form of the name as items are grouped by color. The configuration above would be listed as *Activity Bar Foreground*, grouped with all elements who share it's effective color.
 
 # Customization
 
@@ -106,24 +106,24 @@ In **Palette** mode, the inline commands can be applied to both elements *and* p
 
 - If a workspace is open, choose a customization scope (global/workspace). If no workspace is open, global scope will be assumed.
 
-- Brightness adjustment is applied.
+- Brightness adjustment(s) applied.
 
 ## Customize
 
 - Select a customization method. You can either **Enter a value** or **Choose a preset**:
-  - **Enter a value...** Input a valid hex color. See more in [colors.](#colors)
+  - **Enter a value...** Input a valid hex color. See more in [colors.](#allowable-values)
 
   - **Choose a preset...** Select a pre-defined color from a pre-loaded list of over 2k values, or a favorite color added to User Settings -> ```"codeui.favoriteColors"```
 
 - If a workspace is open, choose a customization scope (global/workspace). If no workspace is open, global scope will be assumed.
 
-- Customization is applied.
+- Customization(s) applied.
 
 ## Delete
 
-- If a workspace is open, choose a customization scope (global/workspace). If no workspace is open, global scope will be assumed.
+- If a workspace is open, choose a customization scope (global or workspace). If no workspace is open, global scope will be assumed.
 
-- Customizations are deleted.
+- Customization(s) deleted.
 
 ## Copy
 
