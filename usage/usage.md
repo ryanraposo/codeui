@@ -111,7 +111,7 @@ In **Palette** mode, the inline commands can be applied to both elements *and* p
 ## Customize
 
 - Select a customization method. You can either **Enter a value** or **Choose a preset**:
-  - **Enter a value...** Input a valid hex color. See more in [colors.](#colors)
+  - **Enter a value...** Input a valid hex color. See more in [colors.](#allowable-values)
 
   - **Choose a preset...** Select a pre-defined color from a pre-loaded list of over 2k values, or a favorite color added to User Settings -> ```"codeui.favoriteColors"```
 
