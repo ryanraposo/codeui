@@ -53,6 +53,14 @@ function getWorkbenchColorCustomizations() {
 }
 
 
+export function getEffectiveColorTheme(): any {
+
+    const configuration = getConfiguration();
+    const colorTheme : any = configuration.get("workbench.colorTheme");
+    return colorTheme;
+}
+
+
 export function getGlobalWorkbenchColorCustomizations() : IStringAnyDict {
 
     const workbenchColorCustomizations = getWorkbenchColorCustomizations();
@@ -103,3 +111,5 @@ export function getWorkspaceRootFolder() : vscode.WorkspaceFolder | undefined{
         return undefined;
     }    
 }
+
+
