@@ -20,22 +20,26 @@
 ## Table of Contents
 
 - [Usage](#usage)
-  - [Element Information](#element-information)
-    - [Visualizations & Effective Color](#sup1sup-visualizations--effective-color)
-    - [Tooltip Descriptions](#sup2sup-tooltip-descriptions)
-    - [Info View](#sup3sup-info-view)
-  - [Viewtypes](#viewtypes)
-    - [Standard](#standard)
-    - [Palette](#palette)
-  - [Customization](#customization)
-    - [Adjust brightness](#adjust-brightness)
-    - [Customize](#customize)
-    - [Delete](#delete)
-    - [Copy](#copy)
-  - [Colors](#colors)
-    - [Favorites](#favorites)
-    - [Presets](#presets)
-    - [Allowable Values](#allowable-values)
+  - [Table of Contents](#table-of-contents)
+- [Element Information](#element-information)
+  - [<sup>1</sup> Visualizations & Effective Color](#sup1sup-visualizations--effective-color)
+  - [<sup>2</sup> Tooltip Descriptions](#sup2sup-tooltip-descriptions)
+  - [<sup>3</sup> Info View](#sup3sup-info-view)
+- [Viewtypes](#viewtypes)
+  - [Standard](#standard)
+  - [Palette](#palette)
+- [Customization](#customization)
+  - [Commands](#commands)
+  - [Adjust brightness](#adjust-brightness)
+  - [Customize](#customize)
+  - [Delete](#delete)
+  - [Copy](#copy)
+- [Colors](#colors)
+  - [<sup>1,3</sup> Favorites](#sup13sup-favorites)
+  - [<sup>2</sup> Presets](#sup2sup-presets)
+  - [Allowable values](#allowable-values)
+    - [*Acceptable values:*](#acceptable-values)
+    - [*Unacceptable values:*](#unacceptable-values)
 
 # Element Information
 
@@ -133,7 +137,7 @@ In **Palette** mode, the inline commands can be applied to both elements *and* p
 
 ![Preset colors](../resources/screenshots/preset-colors.png)
 
-## <sup>1</sup> Favorites
+## <sup>1,3</sup> Favorites
 
 Use configuration ``codeui.favoriteColors`` to define a list of custom colors, using the format: 
 
@@ -145,7 +149,7 @@ Use configuration ``codeui.favoriteColors`` to define a list of custom colors, u
         "Salmon" : "#fa8072"
       },
 
-A name **must** be entered with each value. They will appear first during selection with a star to indicate an item is user-defined.
+A name **must** be entered with each value. They will appear first during selection, with a star to indicate an item is user-defined.
 
 ## <sup>2</sup> Presets
 

@@ -44,7 +44,7 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
             if(this.selectedElement){
                 sections.push(new InfoItem({ label: "Element", description: this.selectedElement.elementData["titleName"], collapsibleState: vscode.TreeItemCollapsibleState.Expanded }));
             }else{
-                sections.push(new InfoItem({ label: "Element", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.Expanded }));
+                sections.push(new InfoItem({ label: "Element", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.Collapsed }));
             }
             children = sections;
         }else{
@@ -58,7 +58,7 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
                 }else{
                     elementInfo.push(new InfoItem({ label: "Default", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.None }));
                     elementInfo.push(new InfoItem({ label: "Theme", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.None }));
-                    elementInfo.push(new InfoItem({ label: "Customization", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.None }));
+                    elementInfo.push(new InfoItem({ label: "Settings", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.None }));
                     infoItem.iconPath = undefined;
 
                 }

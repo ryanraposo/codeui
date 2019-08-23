@@ -20,18 +20,18 @@
 ## Table of Contents
 
 - [Features](#features)
-  - [Interface](#interface)
-  - [Colors](#colors)
-  - [Customization](#customization)
+    - [Interface](#interface)
+    - [Colors](#colors)
+    - [Customization](#customization)
 - [Getting Started <a name = "getting_started"></a>](#getting-started-a-name--getting_starteda)
   - [Installing](#installing)
   - [Usage](#usage)
   - [Extension Settings](#extension-settings)
 - [Additional Info](#additional-info)
   - [Release Notes](#release-notes)
-  - [Get involved](#get-involved)
+  - [Get Involved](#get-involved)
   - [Contributors](#contributors)
-  - [Technical acknowledgements <a name = "acknowledgement"></a>](#technical-acknowledgements-a-name--acknowledgementa)
+  - [Technical Acknowledgements <a name = "acknowledgement"></a>](#technical-acknowledgements-a-name--acknowledgementa)
   
 # Features
 
@@ -39,7 +39,7 @@
 
 Browse & customize the elements of VS Code's interface with descriptions and realtime visual representations of your color settings
 
-![Screenshot](resources/readme/demo-main-668-582.png)
+![Screenshot](resources/readme/main-gradient.png)
 
 ### Colors
 
@@ -86,7 +86,7 @@ Refer to usage documentation [here. ](./usage/usage.md)
       - workbench.colorCustomizations only
 
 
-## Get involved
+## Get Involved
 Help make CodeUI the standard theming tool for vscode! Whether it's new features, optimizations, documentation or general knowledge - I would very much appreciate your contributions & insights. You can join the project on [Github](https://github.com/ryanraposo/codeui).
 
 Users and developers alike, write to raposo.ryan@gmail.com any time if you have an idea, tip, or comment of any sort. Customizing the UI is a huge part of vscode's charm, and your feedback will help make it as fun & accessible as possible.
@@ -96,7 +96,7 @@ Thank you for supporting CodeUI!
 ## Contributors
   - See [contributors](https://github.com/ryanraposo/codeui/graphs/contributors) page on GitHub
 
-## Technical acknowledgements <a name = "acknowledgement"></a>
+## Technical Acknowledgements <a name = "acknowledgement"></a>
 - copy-paste (npm)
 - tiny-color2 (npm)
 - Various extension development blogs
