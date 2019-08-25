@@ -39,19 +39,19 @@
 
 Browse & customize the elements of VS Code's interface with descriptions and realtime visual representations of your color settings
 
-![Screenshot](resources/readme/main-gradient.png)
+![Screenshot](./resources/readme/main-gradient.png)
 
 ### Colors
 
 Enter custom values or choose from a set of over 2k preset colors. Easily store your favorites via ```codeui.favoriteColors``` in user settings
 
-![Favorite](resources/readme/favorite.gif)
+![Favorite](./resources/readme/favorite.gif)
 
 ### Customization
 
 Darken, lighten, copy & paste values across items. Use Standard or Palette view to sort by element groups or target specific colors- wherever they appear
 
-![Brightness](resources/readme/brightness.gif)
+![Brightness](./resources/readme/brightness.gif)
 
 # Getting Started <a name = "getting_started"></a>
 

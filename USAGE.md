@@ -63,7 +63,7 @@
 
 # Viewtypes
 
-![Viewtypes](../resources/screenshots/viewtypes.png)
+![Viewtypes](./resources/screenshots/viewtypes.png)
 
 *<sup>1</sup> Toggle views with the command button at the top right of the *Elements* view.*
 
@@ -96,11 +96,11 @@ In **Standard** mode (below), these commands are accessible via buttons for each
 
 *\*Copy is located in the context (right-click) menu.*
 
-![Customization - Standard](../resources/screenshots/customization-standard.png)
+![Customization - Standard](./resources/screenshots/customization-standard.png)
 
 In **Palette** mode, the inline commands can be applied to both elements *and* palette groups:
 
-![Customization - Palette](../resources/screenshots/customization-palette.png)
+![Customization - Palette](./resources/screenshots/customization-palette.png)
 
 ## Adjust brightness
 
@@ -133,7 +133,7 @@ In **Palette** mode, the inline commands can be applied to both elements *and* p
 
 # Colors
 
-![Preset colors](../resources/screenshots/preset-colors.png)
+![Preset colors](./resources/screenshots/preset-colors.png)
 
 ## <sup>1</sup> Favorites
 
