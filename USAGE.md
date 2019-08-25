@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=300px height=339px src="../resources/readme/codeui-hover.png" alt="Project logo"></a>
+ <img width=300px height=339px src="./resources/readme/codeui-hover.png" alt="Project logo"></a>
 </p>
 
 <h2 align="center">CodeUI</h2>
