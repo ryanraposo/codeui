@@ -40,21 +40,17 @@ export function isIStringAnyDict(obj:any) : obj is IStringAnyDict {
 
 
 function getConfiguration() {
-
     return vscode.workspace.getConfiguration();
 }
 
 
 function getWorkbenchColorCustomizations() {
-
     const configuration = getConfiguration();
     return configuration.inspect("workbench.colorCustomizations");
-
 }
 
 
-export function getEffectiveColorTheme(): any {
-
+export function getEffectiveColorThemeName(): any {
     const configuration = getConfiguration();
     const colorTheme : any = configuration.get("workbench.colorTheme");
     return colorTheme;
@@ -110,6 +106,7 @@ export function getWorkspaceRootFolder() : vscode.WorkspaceFolder | undefined{
     } else {
         return undefined;
     }    
+    
 }
 
 

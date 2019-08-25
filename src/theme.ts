@@ -1,78 +1,32 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
-import { getEffectiveColorTheme } from "./configuration";
+import * as configuration from './configuration';
+import * as jsonc from "jsonc-parser";
 
 
-export class CurrentTheme {
+export function getCurrentColorTheme() : ColorTheme {
 
-    name : any;
-    author : any;
-    type : any;
-    workbenchCustomizations : any;
-
-
-    constructor(){
-
-        const userSettingsThemeName = getEffectiveColorTheme();
-
-        const themePath = this.getThemePath(userSettingsThemeName);
-        const themeObject = this.getThemeObject(themePath);
-
-        const name = this.getName(themeObject);
-        const type = this.getType(themeObject);
-        const author = this.getAuthor(themeObject);
-        const workbenchCustomizations = this.getWorkbenchColorCustomizations(themeObject);
-
-        this.name = name;
-        this.type = type;
-        this.author = author;
-        this.workbenchCustomizations = workbenchCustomizations;
-        
-    }
-
-
-    private getThemeObject(themePath : any): any {
-        let text : string = '';
-
-        if(themePath){
-            text = fs.readFileSync(themePath, 'utf8');
-            text = text.replace(/\\n/g, "\\n")  
-               .replace(/\\'/g, "\\'")
-               .replace(/\\"/g, '\\"')
-               .replace(/\\&/g, "\\&")
-               .replace(/\\r/g, "\\r")
-               .replace(/\\t/g, "\\t")
-               .replace(/\\b/g, "\\b")
-               .replace(/\\f/g, "\\f");
-            text = text.replace(/[\u0000-\u0019]+/g,""); 
-            const jsonObject = JSON.parse(text);
-            return jsonObject;
-        }
-    }
-
+    const effectiveColorThemeName = configuration.getEffectiveColorThemeName();
     
-    private getWorkbenchColorCustomizations(themeObject : any) : any {
-        const workbenchCustomizations = themeObject["colors"]; 
-        return workbenchCustomizations;
-    }
+    const currentColorTheme = new ColorTheme(effectiveColorThemeName);
+    
+    return currentColorTheme;
+    
+}
 
 
-    private getName(themeObject : any) {
-        const name = themeObject["name"];
-        return name;
-    }
+export class ColorTheme {
 
+    private themePath : any;
+    private themeObject : any;
+    name : string;
 
-    private getType(themeObject: any) {
-        const type = themeObject["type"];
-        return type;
-    }
+    constructor(colorThemeName: string){
 
-
-    private getAuthor(themeObject : any) {
-        const author = themeObject["author"];
-        return author;
+        this.name = colorThemeName;
+        this.themePath = this.getThemePath(colorThemeName);
+        this.themeObject = this.getThemeObject(this.themePath);
     }
 
 
@@ -98,6 +52,56 @@ export class CurrentTheme {
             return undefined;
         }
 
+    }
+
+
+    private getThemeObject(themePath : any): any {
+        let text : string = '';
+
+        if(themePath){
+            text = fs.readFileSync(themePath, 'utf8');
+            // text = text.replace(/\\n/g, "\\n")  
+            //    .replace(/\\'/g, "\\'")
+            //    .replace(/\\"/g, '\\"')
+            //    .replace(/\\&/g, "\\&")
+            //    .replace(/\\r/g, "\\r")
+            //    .replace(/\\t/g, "\\t")
+            //    .replace(/\\b/g, "\\b")
+            //    .replace(/\\f/g, "\\f");
+            // text = text.replace(/[\u0000-\u0019]+/g,""); 
+            // text = JSON.stringify(text);
+            let jsonObject = jsonc.parse(text);
+            return jsonObject;
+        }
+    }
+
+    
+    get workbenchColorCustomizations() : any {
+        if(!this.themeObject){
+            return undefined;
+        }
+        const workbenchCustomizations = this.themeObject.colors; 
+        return workbenchCustomizations;
+    }
+
+
+    get type() {
+        try{
+            return this.themeObject["type"];
+        }
+        catch{
+            return "-";            
+        }
+    }
+
+
+    get author() {
+        try{
+            return this.themeObject["author"];
+        }
+        catch{
+            return "-";            
+        }
     }
 
 

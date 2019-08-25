@@ -5,17 +5,11 @@ import * as fs from "fs";
 import * as path from "path";
 import * as copypaste from 'copy-paste';
 import tinycolor from '@ctrl/tinycolor';
-import { CurrentTheme } from './theme';
+
 import { chooseTarget, showNotification, getInfoProvider } from './extension';
 
-import { getGlobalWorkbenchColorCustomizations, 
-            getWorkspaceWorkbenchColorCustomizations,  
-            IStringAnyDict,
-            getWorkspaceRootFolder
- } from './configuration';
-
-import { InfoProvider } from './infoProvider';
-import { isRegExp } from 'util';
+import * as theme from './theme';
+import * as configuration from './configuration';
 
 
 interface ColorConfig {
@@ -227,8 +221,8 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
 
         function getThemeConfigs(): Object {
 
-            let currentTheme = new CurrentTheme();
-            let workbenchCustomizations = currentTheme.workbenchCustomizations;
+            let currentTheme = theme.getCurrentColorTheme();
+            let workbenchCustomizations = currentTheme.workbenchColorCustomizations;
 
             if(workbenchCustomizations){
                 return workbenchCustomizations;
@@ -334,7 +328,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         const infoProvider = getInfoProvider();
         if(item instanceof(Element)){
             targetElements.push(item.elementData["fullName"]);
-            infoProvider.setElement(item);
+            infoProvider.updateSelectedElement(item);
         }
         if(item instanceof(ElementTreeGroup)){
             for(let child of item.children){
@@ -379,7 +373,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
 
         if(item instanceof Element){
             const infoProvider = getInfoProvider();
-            infoProvider.setElement(item);
+            infoProvider.updateSelectedElement(item);
         }
 
         vscode.window.showQuickPick(["Darken (10%)", "Lighten (10%)"]).then((actionSelection : any) => {
@@ -444,11 +438,11 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
 
         if(item instanceof Element){
             const infoProvider = getInfoProvider();
-            infoProvider.setElement(item);
+            infoProvider.updateSelectedElement(item);
             let elementName : string = item.elementData["fullName"];
             this.updateWorkbenchColors({[elementName]:undefined});
         }else{
-            let customizations : IStringAnyDict = {};
+            let customizations : configuration.IStringAnyDict = {};
             for(let element of item.children){
                 customizations[element.elementData["fullName"]] = undefined;
                 this.updateWorkbenchColors(customizations);
@@ -470,7 +464,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     async updateWorkbenchColors(customizations: WorkbenchCustomizations){
 
         let target : any;
-        const workspaceRootFolder = getWorkspaceRootFolder();
+        const workspaceRootFolder = configuration.getWorkspaceRootFolder();
 
         if(workspaceRootFolder){ // If in a workspace, give the option to target Workspace Settings
             target = await chooseTarget(workspaceRootFolder);
@@ -481,13 +475,13 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             target = vscode.ConfigurationTarget.Global; // If no workspace, target Global Settings
         }
 
-        let scopedCustomizations : IStringAnyDict = {};
+        let scopedCustomizations : configuration.IStringAnyDict = {};
 
         if(target === vscode.ConfigurationTarget.Global){
-            scopedCustomizations = await getGlobalWorkbenchColorCustomizations();
+            scopedCustomizations = await configuration.getGlobalWorkbenchColorCustomizations();
         }
         if(target === vscode.ConfigurationTarget.Workspace){
-            scopedCustomizations = await getWorkspaceWorkbenchColorCustomizations();
+            scopedCustomizations = await configuration.getWorkspaceWorkbenchColorCustomizations();
         }        
         
         for(let element in customizations){ // for element : value in supplied array
@@ -542,10 +536,7 @@ export class Element extends vscode.TreeItem {
             }
             this.dataProvider = dataProvider;
 
-            this.update();
-
-
-            
+            this.update();           
 
     }
 

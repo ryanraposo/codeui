@@ -56,7 +56,7 @@ Darken, lighten, copy & paste values across items. Use Standard or Palette view 
 # Getting Started <a name = "getting_started"></a>
 
 ## Installing
-The reccomended method for installing CodeUI is via the Extension Marketplace, accessed from within Visual Studio Code.
+The recommended method for installing CodeUI is via the Extension Marketplace, accessed from within Visual Studio Code.
 
 Alternatively, you can download the VSIX from the repo on [Github](https://github.com/ryanraposo/codeui) and install using the terminal with command: 
 
@@ -64,7 +64,7 @@ Alternatively, you can download the VSIX from the repo on [Github](https://githu
 code --install-extension codeui-0.1.0.vsix
 ```
 
-*Note: it may be neccessary to reload vscode if installing via the terminal.*
+*Note: it may be necessary to reload vscode if installing via the terminal.*
 
 ## Usage
 

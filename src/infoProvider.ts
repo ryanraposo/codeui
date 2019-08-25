@@ -1,21 +1,27 @@
 import * as vscode from 'vscode';
 import { Element } from './elementProvider';
-import { CurrentTheme } from './theme';
+
+import * as theme from "./theme";
+
 
 export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
 
     private _onDidChangeTreeData: vscode.EventEmitter<InfoItem | undefined> = new vscode.EventEmitter<InfoItem | undefined>();
     readonly onDidChangeTreeData: vscode.Event<InfoItem| undefined> = this._onDidChangeTreeData.event;
 
+    currentTheme : any;    
     selectedElement : any;
-    currentTheme : any;
+
+    elementHeading : InfoItem | undefined;
+    themeHeading : any;
+
 
     constructor(){
-        this.currentTheme = new CurrentTheme();
-    }
+        this.updateTheme();
+    }   
 
 
-    refresh(infoItem?: InfoItem){
+    refresh(infoItem?: any){
         if(infoItem){
             this._onDidChangeTreeData.fire(infoItem);
         }else{
@@ -31,44 +37,17 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
     
     getChildren(infoItem?: InfoItem) : vscode.TreeItem[] {
 
-        let children : vscode.TreeItem[] = [];
+        let children : Array<InfoItem> = [];
         
         if(!infoItem){ // If root...
-            let sections : InfoItem[] = [];
-            let themeConfiguration : any = vscode.workspace.getConfiguration().get("workbench.colorTheme");
-            if(themeConfiguration){
-                sections.push(new InfoItem({ label: "Theme", description: themeConfiguration, collapsibleState: vscode.TreeItemCollapsibleState.None}));
-            }else{
-                sections.push(new InfoItem({ label: "Theme", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.None }));
-            }
-            if(this.selectedElement){
-                sections.push(new InfoItem({ label: "Element", description: this.selectedElement.elementData["titleName"], collapsibleState: vscode.TreeItemCollapsibleState.Expanded }));
-            }else{
-                sections.push(new InfoItem({ label: "Element", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.Collapsed }));
-            }
-            children = sections;
+            children.push(this.getThemeItem());
+            children.push(this.getSelectedElementItem());
         }else{
-            if(infoItem.label === "Element"){ // If element section...
-                let elementInfo : InfoItem[] = [];
-                if(this.selectedElement){
-                    elementInfo.push(new InfoItem({ label: "Default", description: definitionToLowerCaseDescription(this.selectedElement.colorConfig.default), collapsibleState: vscode.TreeItemCollapsibleState.None }));
-                    elementInfo.push(new InfoItem({ label: "Theme", description: definitionToLowerCaseDescription(this.selectedElement.colorConfig.theme), collapsibleState: vscode.TreeItemCollapsibleState.None }));
-                    elementInfo.push(new InfoItem({ label: "Settings", description:"", collapsibleState: vscode.TreeItemCollapsibleState.Expanded}));
-                    infoItem.iconPath = this.selectedElement.iconPath;
-                }else{
-                    elementInfo.push(new InfoItem({ label: "Default", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.None }));
-                    elementInfo.push(new InfoItem({ label: "Theme", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.None }));
-                    elementInfo.push(new InfoItem({ label: "Settings", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.None }));
-                    infoItem.iconPath = undefined;
-
-                }
-                children = elementInfo;
+            if(infoItem.label ==="Theme"){ // If theme section...
+                children = this.getThemeChildren();
             }
-            if(infoItem.label === "Settings"){
-                let settingsItems : InfoItem[] = [];
-                settingsItems.push(new InfoItem({label: "Global", description: definitionToLowerCaseDescription(this.selectedElement.colorConfig.settings.global), collapsibleState: vscode.TreeItemCollapsibleState.None}));
-                settingsItems.push(new InfoItem({label: "Workspace", description: definitionToLowerCaseDescription(this.selectedElement.colorConfig.settings.workspace), collapsibleState: vscode.TreeItemCollapsibleState.None}));
-                children = settingsItems;
+            if(infoItem.label === "Element"){ // If element section...
+                children = this.getSelectedElementChildren();
             }
         }
 
@@ -76,19 +55,76 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
 
     }
 
-
-    setElement(element : Element) {
-        this.selectedElement = element;
+    // Selected Element
+    updateSelectedElement(element : Element) {
+        const selectedElement = element;
+        this.selectedElement = selectedElement;
         this.refresh();
     }
 
 
-    setTheme() {
-        this.currentTheme = new CurrentTheme();
+    getSelectedElementItem() : InfoItem {
+        if(!this.selectedElement){
+            return new InfoItem({ label: "Element", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.Expanded });
+        }
+        const selectedElementHeading = new InfoItem({ label: "Element", description: this.selectedElement.elementData["titleName"], collapsibleState: vscode.TreeItemCollapsibleState.Expanded });
+        return selectedElementHeading;
+    }
+
+
+    getSelectedElementChildren() : Array<InfoItem> {
+
+        if(!this.selectedElement){
+            return [];
+        }
+
+        let selectedElementChildren : Array<InfoItem> = [];
+
+        selectedElementChildren.push(new InfoItem({ label: "Default", description: definitionToLowerCaseDescription(this.selectedElement.colorConfig.default), collapsibleState: vscode.TreeItemCollapsibleState.None }));
+        selectedElementChildren.push(new InfoItem({ label: "Theme", description: definitionToLowerCaseDescription(this.selectedElement.colorConfig.theme), collapsibleState: vscode.TreeItemCollapsibleState.None }));
+        selectedElementChildren.push(new InfoItem({ label: "Customization (global)", description:definitionToLowerCaseDescription(this.selectedElement.colorConfig.settings.global), collapsibleState: vscode.TreeItemCollapsibleState.None}));
+        selectedElementChildren.push(new InfoItem({ label: "Customization (workspace)", description: definitionToLowerCaseDescription(this.selectedElement.colorConfig.settings.workspace), collapsibleState: vscode.TreeItemCollapsibleState.None}));
+
+        return selectedElementChildren;
+
+    }
+
+    //Current Theme
+    updateTheme() {
+        const currentTheme = theme.getCurrentColorTheme();
+        this.currentTheme = currentTheme;
         this.refresh();
     }
+
+
+    getThemeItem() : InfoItem {
+        if(!this.currentTheme){
+            return new InfoItem({ label: "Theme", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.None });
+        }
+        const themeHeading = new InfoItem({ label: "Theme", description: this.currentTheme.name, collapsibleState: vscode.TreeItemCollapsibleState.Expanded });
+        return themeHeading;
+    }
+
+
+    getThemeChildren() : Array<InfoItem> { //Update description of theme header and return array of it's children
+
+        if(!this.currentTheme){
+            return [];
+        }
+
+        let themeInfoChildren : Array<InfoItem> = [];
+
+        themeInfoChildren.push(new InfoItem({label: "Type", description: this.currentTheme.type, collapsibleState: vscode.TreeItemCollapsibleState.None}));
+        themeInfoChildren.push(new InfoItem({label: "Author", description: this.currentTheme.author, collapsibleState: vscode.TreeItemCollapsibleState.None}));
+
+        return themeInfoChildren;
+        
+
+    }
+
 
 }
+
 
 class InfoItem extends vscode.TreeItem{
 
@@ -98,14 +134,14 @@ class InfoItem extends vscode.TreeItem{
     constructor({ label, description, collapsibleState }: { label: string; description: string; collapsibleState: vscode.TreeItemCollapsibleState; }){
         super(label, collapsibleState);
         this.description = description;
-    }
+    }    
 
 }
 
 
 function definitionToLowerCaseDescription(value : any) : string {
     if(value && typeof value === 'string'){
-            return value.toLowerCase();
+        return value.toLowerCase();
     }else{
         return "-";
     }

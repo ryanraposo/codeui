@@ -6,14 +6,18 @@ import * as path from "path";
 import * as ep from './elementProvider';
 import { InfoProvider } from './infoProvider';
 
+import * as configuration from "./configuration";
+import * as theme from "./theme";
+
 var elementProvider : ep.ElementProvider;
 var infoProvider : InfoProvider;
 
 export async function activate(context: vscode.ExtensionContext) {	
+	
 
 	infoProvider = new InfoProvider();
 	vscode.window.registerTreeDataProvider("elementInfo", infoProvider);
-	vscode.commands.registerCommand("showElementInfo", (element) => infoProvider.setElement(element));
+	vscode.commands.registerCommand("showElementInfo", (element) => infoProvider.updateSelectedElement(element));
 	
 	vscode.commands.registerCommand("toggleView", () => toggleView());
 	
@@ -24,17 +28,14 @@ export async function activate(context: vscode.ExtensionContext) {
 	vscode.commands.registerCommand("clear", (element) => elementProvider.clear(element));
 	vscode.commands.registerCommand("copy", (element) => elementProvider.copy(element));
 
-	context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
-		if (e.affectsConfiguration('workbench.colorCustomizations') || e.affectsConfiguration("workbench.colorTheme")) {
-			elementProvider.refresh();
-			infoProvider.setElement(infoProvider.selectedElement);
-			infoProvider.refresh();
-		}
-		if(infoProvider.selectedElement){
-			infoProvider.setElement(infoProvider.selectedElement);
+	await context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
+		if(e.affectsConfiguration('workbench.colorTheme') || e.affectsConfiguration('workbench.colorCustomizations')){
+			elementProvider.refresh();			
+			infoProvider.updateTheme();
 			infoProvider.refresh();
 		}
 	}));
+
 }
 
 
