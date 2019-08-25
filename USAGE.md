@@ -22,9 +22,9 @@
 - [Usage](#usage)
   - [Table of Contents](#table-of-contents)
 - [Element Information](#element-information)
-  - [<sup>1</sup> Visualizations & Effective Color](#sup1sup-visualizations--effective-color)
-  - [<sup>2</sup> Tooltip Descriptions](#sup2sup-tooltip-descriptions)
-  - [<sup>3</sup> Info View](#sup3sup-info-view)
+  - [Visualizations & Effective Color](#sup1sup-visualizations--effective-color)
+  - [Tooltip Descriptions](#sup2sup-tooltip-descriptions)
+  - [Info View](#sup3sup-info-view)
 - [Viewtypes](#viewtypes)
   - [Standard](#standard)
   - [Palette](#palette)
@@ -35,11 +35,9 @@
   - [Delete](#delete)
   - [Copy](#copy)
 - [Colors](#colors)
-  - [<sup>1,3</sup> Favorites](#sup13sup-favorites)
-  - [<sup>2</sup> Presets](#sup2sup-presets)
+  - [Favorites](#sup1sup-favorites)
+  - [Presets](#sup2sup-presets)
   - [Allowable values](#allowable-values)
-    - [*Acceptable values:*](#acceptable-values)
-    - [*Unacceptable values:*](#unacceptable-values)
 
 # Element Information
 
@@ -137,7 +135,7 @@ In **Palette** mode, the inline commands can be applied to both elements *and* p
 
 ![Preset colors](../resources/screenshots/preset-colors.png)
 
-## <sup>1,3</sup> Favorites
+## <sup>1</sup> Favorites
 
 Use configuration ``codeui.favoriteColors`` to define a list of custom colors, using the format: 
 
@@ -153,7 +151,7 @@ A name **must** be entered with each value. They will appear first during select
 
 ## <sup>2</sup> Presets
 
-A list of 2k+ colors are provided for use. They (if any exist) will always appear below your favorites.
+A list of 2k+ colors are also provided for use. They will appear below any favorites you have stored. 
 
 ## Allowable values
 
