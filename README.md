@@ -68,7 +68,7 @@ code --install-extension codeui-0.1.0.vsix
 
 ## Usage
 
-Refer to usage documentation [here. ](./usage.md)
+Refer to usage documentation [here. ](./USAGE.md)
 
 ## Extension Settings
 
