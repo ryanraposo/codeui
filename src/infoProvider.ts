@@ -101,7 +101,7 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
         if(!this.currentTheme){
             return new InfoItem({ label: "Theme", description: "-", collapsibleState: vscode.TreeItemCollapsibleState.None });
         }
-        const themeHeading = new InfoItem({ label: "Theme", description: this.currentTheme.name, collapsibleState: vscode.TreeItemCollapsibleState.Expanded });
+        const themeHeading = new InfoItem({ label: "Theme", description: this.currentTheme.name, collapsibleState: vscode.TreeItemCollapsibleState.Collapsed });
         return themeHeading;
     }
 
