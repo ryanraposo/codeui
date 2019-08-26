@@ -5,7 +5,7 @@
 	"license": "SEE LICENSE IN LICENSE.md",
 	"description": "Build, edit, & explore your color theme for VS Code.",
 	"icon": "resources/marketplace/codeui-300.png",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"preview": true,
 	"galleryBanner": {
 		"color": "#18191e",
