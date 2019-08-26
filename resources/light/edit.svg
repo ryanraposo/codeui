@@ -15,7 +15,7 @@
    x="0px"
    id="Capa_1"
    version="1.1"
-   sodipodi:docname="edit_light.svg"
+   sodipodi:docname="edit.svg"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"><sodipodi:namedview
    pagecolor="#ffffff"
    bordercolor="#666666"
@@ -25,29 +25,29 @@
    guidetolerance="10"
    inkscape:pageopacity="0"
    inkscape:pageshadow="2"
-   inkscape:window-width="1920"
-   inkscape:window-height="1001"
+   inkscape:window-width="2608"
+   inkscape:window-height="1779"
    id="namedview22"
    showgrid="false"
    inkscape:zoom="8.4285714"
-   inkscape:cx="-43.957628"
+   inkscape:cx="-77.711865"
    inkscape:cy="14"
-   inkscape:window-x="-9"
-   inkscape:window-y="-9"
+   inkscape:window-x="115"
+   inkscape:window-y="-13"
    inkscape:window-maximized="1"
    inkscape:current-layer="Capa_1" /><metadata
    id="metadata41"><rdf:RDF><cc:Work
        rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title /></cc:Work></rdf:RDF></metadata><defs
    id="defs39" />
 <g
    transform="matrix(0.01976168,-0.00358054,-0.00359478,0.01987659,3.8566213,3.5527009)"
    id="g4"
-   style="fill:#f6f6f6;fill-opacity:1">
+   style="fill:#424242;fill-opacity:1">
 	<path
    id="path2"
    d="M 328.883,89.125 436.473,196.714 164.133,469.054 56.604,361.465 Z M 518.113,63.177 470.132,15.196 c -18.543,-18.543 -48.653,-18.543 -67.259,0 l -45.961,45.961 107.59,107.59 53.611,-53.611 c 14.382,-14.383 14.382,-37.577 0,-51.959 z M 0.3,512.69 c -1.958,8.812 5.998,16.708 14.811,14.565 L 135.002,498.186 27.473,390.597 Z"
-   style="fill:#f6f6f6;fill-opacity:1"
+   style="fill:#424242;fill-opacity:1"
    inkscape:connector-curvature="0" />
 </g>
 <g
