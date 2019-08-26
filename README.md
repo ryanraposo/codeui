@@ -3,7 +3,8 @@
  <img width=300px height=339px src="https://i.imgur.com/1HFfxQj.png" alt="Project logo"></a>
 </p>
 
-<h2 align="center">CodeUI</h2>
+<p align="center" style="font-size: 150%"> CodeUI
+</p>
 
 <div align="center">
 
