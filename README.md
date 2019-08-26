@@ -80,7 +80,7 @@ Refer to usage documentation [here. ](./USAGE.md)
 
 ## Release Notes
 
-    [0.1.1a] [Bugfix] Icon Contrast
+    [0.1.1b] [Bugfix] Icon Contrast
 
     - Fixed light-theme icon contrast for treeview command buttons
 
