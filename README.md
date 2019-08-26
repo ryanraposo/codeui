@@ -7,7 +7,7 @@
 
 <div align="center">
 
-  [![Version](https://img.shields.io/badge/version-0.1.0-red)]()
+  [![Version](https://img.shields.io/badge/version-0.1.1-red)]()
   [![License](https://img.shields.io/badge/license-MIT-blue.svg)]()
 
 </div>
@@ -37,7 +37,7 @@
 
 ### Interface
 
-Browse & customize the elements of VS Code's interface with descriptions and realtime visual representations of your color settings
+Browse & customize the elements of VS Code's interface with descriptions (tooltip) and realtime visual representations of your color settings
 
 ![Screenshot](./resources/readme/main-gradient.png)
 
