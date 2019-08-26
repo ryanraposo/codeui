@@ -7,7 +7,7 @@
 
 <div align="center">
 
-  [![Version](https://img.shields.io/badge/version-0.1.1-red)]()
+  [![Version](https://img.shields.io/badge/version-0.1.2-red)]()
   [![License](https://img.shields.io/badge/license-MIT-blue.svg)]()
 
 </div>
@@ -80,7 +80,13 @@ Refer to usage documentation [here. ](./USAGE.md)
 
 ## Release Notes
 
-    [0.1.1b] [Bugfix] Icon Contrast
+    [0.1.2] [Bugfix] Documentation
+
+    - changed release notes schema (readme.md)
+
+    - fixed duplicate section (usage.md)
+
+    [0.1.1] [Bugfix] Icon Contrast
 
     - Fixed light-theme icon contrast for treeview command buttons
 

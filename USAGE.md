@@ -79,7 +79,7 @@ For example, the following value would be found under heading *Activity Bar*, as
 
  In this viewtype, elements retain a long form of the name, as items are grouped by color. The configuration above would be listed as *Activity Bar Foreground*, grouped with all elements who share it's effective color.
 
- In this viewtype, elements retain a long form of the name as items are grouped by color. The configuration above would be listed as *Activity Bar Foreground*, grouped with all elements who share it's effective color.
+ This viewtype enables you to make batch changes to elements and alter the palette of the editor as it appears. Palette mode also helps in identifying visible elements whose names you aren't familiar with. Use it to see your theme at a glance.
 
 # Customization
 

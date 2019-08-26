@@ -1,2 +1,0 @@
-
-- need command to show CodeUI's interface (case: activity bar hidden)
