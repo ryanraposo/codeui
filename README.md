@@ -80,10 +80,7 @@ Refer to usage documentation [here. ](./USAGE.md)
 
 ## Release Notes
 
-    [0.1.0] Initial release
-
-      - View & customize the colors of VS Code's interface
-      - workbench.colorCustomizations only
+Refer to changelog [here. ](./CHANGELOG.md)
 
 
 ## Get Involved
