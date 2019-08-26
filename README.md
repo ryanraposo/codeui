@@ -37,7 +37,7 @@
 
 ### Interface
 
-Browse & customize the elements of VS Code's interface with descriptions (tooltip) and realtime visual representations of your color settings
+Browse & customize the elements of VS Code's interface with descriptions and realtime visual representations of your color settings
 
 ![Screenshot](./resources/readme/main-gradient.png)
 
