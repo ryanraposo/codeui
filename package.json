@@ -4,7 +4,7 @@
 	"publisher": "ryanraposo",
 	"license": "SEE LICENSE IN LICENSE.md",
 	"description": "Build, edit, & explore your color theme for VS Code.",
-	"icon": "resources/marketplace/codeui-300.png",
+	"icon": "resources/marketplace/codeui-128.png",
 	"version": "0.1.1",
 	"preview": true,
 	"galleryBanner": {

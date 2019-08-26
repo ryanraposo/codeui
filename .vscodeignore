@@ -8,6 +8,7 @@ CONTRIBUTING-template.md
 CONTRIBUTING.md
 CHANGELOG.md
 todo.md
+dc.bat
 
 #Default
 .vscode/**
