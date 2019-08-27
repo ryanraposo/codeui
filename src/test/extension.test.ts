@@ -58,9 +58,6 @@ function noMembersTest(fn: any, arg:any, argString:string){
     });
 }
 
-function addThree(arg:number){
-    return arg + 3;
-}
 
 equalTest(isIStringAnyDict, undefined, "undefined", false);
 equalTest(isIStringAnyDict, {}, "{}", true);
@@ -69,6 +66,8 @@ equalTest(isIStringAnyDict, "a", "'a'", false);
 equalTest(isIStringAnyDict, 3, "3", false);
 
 typeTest(getGlobalWorkbenchColorCustomizations, null, "null", 'object');
+
+
 typeTest(getWorkspaceWorkbenchColorCustomizations, null, "null", 'object');
 
 

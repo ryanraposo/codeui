@@ -1,10 +1,13 @@
 "use strict";
 
+
 import * as vscode from "vscode";
+
 
 export interface IStringAnyDict {
     [key:string]:any;
 }
+
 
 export function isIStringAnyDict(obj:any) : obj is IStringAnyDict {
 
