@@ -77,7 +77,7 @@ Refer to usage documentation [here. ](./USAGE.md)
 
  - ```codeui.favoriteColors``` : User-defined colors for use by CodeUI
 
-  - ```codeui.targetingMode``` : Controls target of customizations applied by CodeUI
+ - ```codeui.targetingMode``` : Controls target of customizations applied by CodeUI
 
 # Additional Info
 
