@@ -364,7 +364,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                     vscode.window.showInputBox({placeHolder:"eg. #f2f2f2"}).then((selectedColor) => {
                         if(selectedColor){
                             userColor = selectedColor;
-                            apply(this); // Write the customization to settings
+                            apply(); // Write the customization to settings
                         }
                     });
                 }
@@ -372,7 +372,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                     vscode.window.showQuickPick(colorItems,{canPickMany:false}).then((selectedColor) => {
                         if(selectedColor){
                             userColor = selectedColor.description;
-                            apply(this); // Write the customization to settings
+                            apply(); // Write the customization to settings
                         }
                     });
                 }
@@ -380,11 +380,11 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         });
 
 
-        function apply(provider : any) {
+        function apply() {
             for(let element of targetElements){
                 customizations[element] = userColor;
             }
-            provider.updateWorkbenchColors(customizations);
+            ElementProvider.updateWorkbenchColors(customizations);
         }
 
     }
