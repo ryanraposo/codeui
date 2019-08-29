@@ -463,7 +463,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             let elementName : string = item.elementData["fullName"];
             this.updateWorkbenchColors({[elementName]:undefined});
         }else{
-            let customizations : configuration.IStringAnyDict = {};
+            let customizations : any = {};
             for(let element of item.children){
                 customizations[element.elementData["fullName"]] = undefined;
                 this.updateWorkbenchColors(customizations);
@@ -508,10 +508,10 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         
         for(let element in customizations){ // for key(element name) in supplied array
             let value = customizations[element]; // value = color value
-            if(value === undefined){// handles calls from clear() eg. ["activityBar.foreground" : undefined, ...]
-                scopedCustomizations[currentThemeProp][element] = undefined;
-            }else{  // handles calls from customize() eg. ["activityBar.forground" : "#ffffff", ...]
-                if(await isHexidecimal(value)){
+            // if(value === undefined){// handles calls from clear() eg. ["activityBar.foreground" : undefined, ...]
+            //     scopedCustomizations[currentThemeProp][element] = undefined;
+            // }else{  // handles calls from customize() eg. ["activityBar.forground" : "#ffffff", ...]
+                if(await isHexidecimal(value) || value === undefined){
                     const targetingMode = configuration.getTargetingMode();
                     if(targetingMode === 'themeSpecific'){
                         if(scopedCustomizations[currentThemeProp]){
@@ -528,7 +528,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                     return; 
                 }
             }
-        }
+        
 
         await vscode.workspace.getConfiguration().update("workbench.colorCustomizations", scopedCustomizations, target);
             

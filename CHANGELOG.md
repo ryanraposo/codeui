@@ -1,5 +1,7 @@
-# Change Log
-All notable changes to CodeUI extension will be documented in this file.
+##    [0.2.0] [Feature] Targeting Mode
+
+    - added Targeting Mode. Allows toggling between 'themeSpecific' and 'general' contexts for all customization commands.
+
 
 ##    [0.1.2] [Bugfix] Documentation
 
