@@ -405,21 +405,21 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             return;
         }
         if(actionSelection === lighten10) {
-            lighten(item, this);
+            lighten(item);
         }else if(actionSelection === darken10) {
-            darken(item, this);
+            darken(item);
         }else if(actionSelection === lightenCustom) {
             const lightenCustomValueNumber = await showPercentInput();
             if(!lightenCustomValueNumber) {
                 return;
             }
-            lighten(item, this, lightenCustomValueNumber);
+            lighten(item, lightenCustomValueNumber);
         }else if(actionSelection === darkenCustom) {
             const darkenCustomValueNumber = await showPercentInput();
             if(!darkenCustomValueNumber) {
                 return;
             }
-            darken(item, this, darkenCustomValueNumber);
+            darken(item, darkenCustomValueNumber);
         }
 
         async function showPercentInput() : Promise<number | undefined> {
@@ -438,7 +438,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             }
         }
 
-        function darken(item : Element | ElementTreeGroup, provider : any, value = 5) {
+        function darken(item : Element | ElementTreeGroup, value = 5) {
 
             let customizations : WorkbenchCustomizations = {};
     
@@ -455,11 +455,11 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                 }
             }
             
-            provider.updateWorkbenchColors(customizations);
+            ElementProvider.updateWorkbenchColors(customizations);
         }
     
     
-        function lighten(item : Element | ElementTreeGroup, provider : any, value = 5) {
+        function lighten(item : Element | ElementTreeGroup, value = 5) {
     
             let customizations : WorkbenchCustomizations = {};
     
@@ -476,7 +476,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                 }
             }
             
-            provider.updateWorkbenchColors(customizations);
+            ElementProvider.updateWorkbenchColors(customizations);
             
         }
 
@@ -490,12 +490,12 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             const infoProvider = getInfoProvider();
             infoProvider.updateSelectedElement(item);
             let elementName : string = item.elementData["fullName"];
-            this.updateWorkbenchColors({[elementName]:undefined});
+            ElementProvider.updateWorkbenchColors({[elementName]:undefined});
         }else{
             let customizations : any = {};
             for(let element of item.children){
                 customizations[element.elementData["fullName"]] = undefined;
-                this.updateWorkbenchColors(customizations);
+                ElementProvider.updateWorkbenchColors(customizations);
             }
         }
 
@@ -511,7 +511,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }    
 
 
-    async updateWorkbenchColors(customizations: WorkbenchCustomizations){
+    static async updateWorkbenchColors(customizations: WorkbenchCustomizations){
 
         let target : any;
         const workspaceRootFolder = configuration.getWorkspaceRootFolder();
