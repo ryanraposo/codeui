@@ -364,7 +364,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                     vscode.window.showInputBox({placeHolder:"eg. #f2f2f2"}).then((selectedColor) => {
                         if(selectedColor){
                             userColor = selectedColor;
-                            apply(this); // Write the customization to settings
+                            apply(); // Write the customization to settings
                         }
                     });
                 }
@@ -372,7 +372,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                     vscode.window.showQuickPick(colorItems,{canPickMany:false}).then((selectedColor) => {
                         if(selectedColor){
                             userColor = selectedColor.description;
-                            apply(this); // Write the customization to settings
+                            apply(); // Write the customization to settings
                         }
                     });
                 }
@@ -380,11 +380,11 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         });
 
 
-        function apply(provider : any) {
+        function apply() {
             for(let element of targetElements){
                 customizations[element] = userColor;
             }
-            provider.updateWorkbenchColors(customizations);
+            ElementProvider.updateWorkbenchColors(customizations);
         }
 
     }
@@ -405,29 +405,28 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             return;
         }
         if(actionSelection === lighten10) {
-            lighten(item, this);
+            lighten(item);
         }else if(actionSelection === darken10) {
-            darken(item, this);
+            darken(item);
         }else if(actionSelection === lightenCustom) {
             const lightenCustomValueNumber = await showPercentInput();
             if(!lightenCustomValueNumber) {
                 return;
             }
-            lighten(item, this, lightenCustomValueNumber);
+            lighten(item, lightenCustomValueNumber);
         }else if(actionSelection === darkenCustom) {
             const darkenCustomValueNumber = await showPercentInput();
             if(!darkenCustomValueNumber) {
                 return;
             }
-            darken(item, this, darkenCustomValueNumber);
+            darken(item, darkenCustomValueNumber);
         }
 
         async function showPercentInput() : Promise<number | undefined> {
             const percentString = await vscode.window.showInputBox({
                 prompt: 'Enter a number (Percent)',
                 validateInput(input : string) {
-                    input = removePercentSign(input);
-                    const percentNumber = Number(input);
+                    const percentNumber = parseFloat(input);
                     if(!isNaN(percentNumber) && isFinite(percentNumber)) {
                         return '';
                     }
@@ -435,15 +434,11 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                 }
             });
             if(percentString) {
-                return Number(removePercentSign(percentString));
+                return parseFloat(percentString);
             }
         }
 
-        function removePercentSign(str: string): string {
-            return str.endsWith('%') ? str.slice(0, -1) : str;
-        }
-
-        function darken(item : Element | ElementTreeGroup, provider : any, value = 5) {
+        function darken(item : Element | ElementTreeGroup, value = 5) {
 
             let customizations : WorkbenchCustomizations = {};
     
@@ -460,11 +455,11 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                 }
             }
             
-            provider.updateWorkbenchColors(customizations);
+            ElementProvider.updateWorkbenchColors(customizations);
         }
     
     
-        function lighten(item : Element | ElementTreeGroup, provider : any, value = 5) {
+        function lighten(item : Element | ElementTreeGroup, value = 5) {
     
             let customizations : WorkbenchCustomizations = {};
     
@@ -481,7 +476,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                 }
             }
             
-            provider.updateWorkbenchColors(customizations);
+            ElementProvider.updateWorkbenchColors(customizations);
             
         }
 
@@ -495,12 +490,12 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             const infoProvider = getInfoProvider();
             infoProvider.updateSelectedElement(item);
             let elementName : string = item.elementData["fullName"];
-            this.updateWorkbenchColors({[elementName]:undefined});
+            ElementProvider.updateWorkbenchColors({[elementName]:undefined});
         }else{
             let customizations : any = {};
             for(let element of item.children){
                 customizations[element.elementData["fullName"]] = undefined;
-                this.updateWorkbenchColors(customizations);
+                ElementProvider.updateWorkbenchColors(customizations);
             }
         }
 
@@ -516,7 +511,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }    
 
 
-    async updateWorkbenchColors(customizations: WorkbenchCustomizations){
+    static async updateWorkbenchColors(customizations: WorkbenchCustomizations){
 
         let target : any;
         const workspaceRootFolder = configuration.getWorkspaceRootFolder();
