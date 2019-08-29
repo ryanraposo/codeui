@@ -390,38 +390,64 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     }
 
 
-    public adjustBrightness(item : Element | ElementTreeGroup) {
-
+    public async adjustBrightness(item : Element | ElementTreeGroup) {
         if(item instanceof Element){
             const infoProvider = getInfoProvider();
             infoProvider.updateSelectedElement(item);
         }
 
-        vscode.window.showQuickPick(["Darken (10%)", "Lighten (10%)"]).then((actionSelection : any) => {
-            if(actionSelection){
-                if(actionSelection === "Darken (10%)"){
-                    darken(item, this);
-                }
-                if(actionSelection === "Lighten (10%)"){
-                        lighten(item, this);
-                    }
+        const darken10 = "Darken (10%)";
+        const lighten10 = "Lighten (10%)";
+        const darkenCustom = "Darken (Custom value)";
+        const lightenCustom = "Lighten (Custom value)";
+        const actionSelection = await vscode.window.showQuickPick([darken10, lighten10, darkenCustom, lightenCustom]);
+        if(!actionSelection) {
+            return;
+        }
+        if(actionSelection === lighten10) {
+            lighten(item, this);
+        }else if(actionSelection === darken10) {
+            darken(item, this);
+        }else if(actionSelection === lightenCustom) {
+            const lightenCustomValueNumber = Number(await showNumberInput());
+            if(!lightenCustomValueNumber) {
+                return;
             }
-        });
+            lighten(item, this, lightenCustomValueNumber);
+        }else if(actionSelection === darkenCustom) {
+            const darkenCustomValueNumber = Number(await showNumberInput());
+            if(!darkenCustomValueNumber) {
+                return;
+            }
+            darken(item, this, darkenCustomValueNumber);
+        }
 
+        async function showNumberInput(): Promise<string | undefined> {
+            return await vscode.window.showInputBox({
+                prompt: 'Enter a number:',
+                validateInput(n: any) {
+                    const nAsNumber = Number(n);
+                    if(!isNaN(nAsNumber) && isFinite(nAsNumber)) {
+                        return '';
+                    }
+                    return 'Value is not a valid number.';
+                }
+            });
+        }
 
-        function darken(item : Element | ElementTreeGroup, provider : any) {
+        function darken(item : Element | ElementTreeGroup, provider : any, value = 5) {
 
             let customizations : WorkbenchCustomizations = {};
     
             if(item instanceof Element){
-                let darkenedValue = "#" + tinycolor(getEffectiveColor(item.colorConfig)).darken(5).toHex();
+                let darkenedValue = "#" + tinycolor(getEffectiveColor(item.colorConfig)).darken(value).toHex();
                 customizations[item.elementData['fullName']] = darkenedValue;
             }
             
             if(item instanceof ElementTreeGroup){
                 for(let key in item.children){
                     let value = item.children[key];
-                    let darkenedValue = "#" + tinycolor(getEffectiveColor(value.colorConfig)).darken(5).toHex();
+                    let darkenedValue = "#" + tinycolor(getEffectiveColor(value.colorConfig)).darken(value).toHex();
                     customizations[value.elementData['fullName']] = darkenedValue;    
                 }
             }
@@ -430,19 +456,19 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         }
     
     
-        function lighten(item : Element | ElementTreeGroup, provider : any) {
+        function lighten(item : Element | ElementTreeGroup, provider : any, value = 5) {
     
             let customizations : WorkbenchCustomizations = {};
     
             if(item instanceof Element){
-                let lightenedValue = "#" + tinycolor(getEffectiveColor(item.colorConfig)).lighten(5).toHex();
+                let lightenedValue = "#" + tinycolor(getEffectiveColor(item.colorConfig)).lighten(value).toHex();
                 customizations[item.elementData['fullName']] = lightenedValue;
             }
             
             if(item instanceof ElementTreeGroup){
                 for(let key in item.children){
                     let value = item.children[key];
-                    let lightenedValue = "#" + tinycolor(getEffectiveColor(value.colorConfig)).lighten(5).toHex();
+                    let lightenedValue = "#" + tinycolor(getEffectiveColor(value.colorConfig)).lighten(value).toHex();
                     customizations[value.elementData['fullName']] = lightenedValue;    
                 }
             }
