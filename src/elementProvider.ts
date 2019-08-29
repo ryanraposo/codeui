@@ -6,7 +6,7 @@ import * as path from "path";
 import * as copypaste from 'copy-paste';
 import tinycolor from '@ctrl/tinycolor';
 
-import { chooseTarget, showNotification, getInfoProvider } from './extension';
+import { chooseScope, showNotification, getInfoProvider } from './extension';
 
 import * as theme from './theme';
 import * as configuration from './configuration';
@@ -174,9 +174,11 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
 
             let colorConfigurations : any = {};
 
+            const currentThemeName : string = configuration.getEffectiveColorThemeName();
+
             for(let key in elementNames){
                 let element : string = elementNames[key];
-                let colorConfig : ColorConfig = {
+                let elementColorConfig : ColorConfig = {
                     default : undefined,
                     theme : undefined,
                     settings : {
@@ -185,23 +187,39 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                     }
                 };
 
-                colorConfig.default = defaultConfigs[element];
+                elementColorConfig.default = defaultConfigs[element];
 
                 if(themeConfigs){
-                    colorConfig.theme = themeConfigs[element];
+                    elementColorConfig.theme = themeConfigs[element];
                 }
 
                 if(settingsConfigs){
                     if(settingsConfigs.globalValue){
-                        colorConfig.settings.global = settingsConfigs.globalValue[element];
+                        elementColorConfig.settings.global = settingsConfigs.globalValue[element];
+                        // resolve theme-specific value 
+                        if(settingsConfigs.globalValue["[" + currentThemeName + "]"]){
+                            const themeSpecificCustomizations = settingsConfigs.globalValue["[" + currentThemeName + "]"];
+                            if(themeSpecificCustomizations[element]){
+                                elementColorConfig.settings.global = themeSpecificCustomizations[element];
+                            }
+                        }
+                        // resolve theme-specific value 
                     }
                     if(settingsConfigs.workspaceValue){
-                        colorConfig.settings.workspace = settingsConfigs.workspaceValue[element];
+                        elementColorConfig.settings.workspace = settingsConfigs.workspaceValue[element];
+                        // resolve theme-specific value 
+                        if(settingsConfigs.workspaceValue["[" + currentThemeName + "]"]){
+                            const themeSpecificCustomizations = settingsConfigs.workspaceValue["[" + currentThemeName + "]"];
+                            if(themeSpecificCustomizations[element]){
+                                elementColorConfig.settings.workspace = themeSpecificCustomizations[element];
+                            }
+                        }
+                        // resolve theme-specific value 
                     }
                 }
 
 
-                colorConfigurations[element] = colorConfig;
+                colorConfigurations[element] = elementColorConfig;
                 
             }
 
@@ -277,6 +295,9 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         for(let key in this.elementItems){
             let value = this.elementItems[key].colorConfig;
             let effectiveColor = getEffectiveColor(value);
+            if(effectiveColor){
+                effectiveColor = effectiveColor.toLowerCase();
+            }
             if(elementColors.indexOf(effectiveColor,) < 0){
                 elementColors.push(effectiveColor);
                 let label = effectiveColor;
@@ -465,9 +486,10 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
 
         let target : any;
         const workspaceRootFolder = configuration.getWorkspaceRootFolder();
+        const currentThemeProp = "[" + configuration.getEffectiveColorThemeName() + "]";
 
         if(workspaceRootFolder){ // If in a workspace, give the option to target Workspace Settings
-            target = await chooseTarget(workspaceRootFolder);
+            target = await chooseScope(workspaceRootFolder);
             if(!target){
                 return;
             }
@@ -475,7 +497,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             target = vscode.ConfigurationTarget.Global; // If no workspace, target Global Settings
         }
 
-        let scopedCustomizations : configuration.IStringAnyDict = {};
+        let scopedCustomizations : any = {};
 
         if(target === vscode.ConfigurationTarget.Global){
             scopedCustomizations = await configuration.getGlobalWorkbenchColorCustomizations();
@@ -484,13 +506,23 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             scopedCustomizations = await configuration.getWorkspaceWorkbenchColorCustomizations();
         }        
         
-        for(let element in customizations){ // for element : value in supplied array
-            let value = customizations[element];
+        for(let element in customizations){ // for key(element name) in supplied array
+            let value = customizations[element]; // value = color value
             if(value === undefined){// handles calls from clear() eg. ["activityBar.foreground" : undefined, ...]
-                scopedCustomizations[element] = undefined; 
+                scopedCustomizations[currentThemeProp][element] = undefined;
             }else{  // handles calls from customize() eg. ["activityBar.forground" : "#ffffff", ...]
                 if(await isHexidecimal(value)){
-                    scopedCustomizations[element] = value;
+                    const targetingMode = configuration.getTargetingMode();
+                    if(targetingMode === 'themeSpecific'){
+                        if(scopedCustomizations[currentThemeProp]){
+                            scopedCustomizations[currentThemeProp][element] = value;
+                        } else {
+                            scopedCustomizations[currentThemeProp] = {};
+                            scopedCustomizations[currentThemeProp][element] = value;
+                        }
+                    } else {
+                        scopedCustomizations[element] = value;
+                    }
                 }else{
                     await showNotification(value + "is not a valid hex color!");
                     return; 

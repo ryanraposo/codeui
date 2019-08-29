@@ -28,13 +28,6 @@
 		"*"
 	],
 	"main": "./out/extension.js",
-	"badges": [
-		{
-			"description": "version",
-			"url": "https://img.shields.io/badge/codeui-0.1-red",
-			"href": ""
-		}
-	],
 	"contributes": {
 		"configuration": {
 			"title": "CodeUI",
@@ -42,7 +35,7 @@
 				"codeui.showNotifications": {
 					"type": "boolean",
 					"default": true,
-					"description": "Show various notifications about CodeUI's activity."
+					"description": "Default is true. Controls the display of various notifications by CodeUI."
 				},
 				"codeui.favoriteColors": {
 					"type": "object",
@@ -51,6 +44,13 @@
 					},
 					"default": {},
 					"description": "User-defined colors for use by CodeUI (eg. \"Clay\" : \"#F28585\")"
+				},
+				"codeui.targetingMode": {
+					"type" : "string",
+					"enum": ["themeSpecific", "general"],
+					"default": "themeSpecific",
+					"description": "Default is themeSpecific. Controls target of customizations applied by CodeUI.",
+					"scope": "application"
 				}
 			}
 		},
@@ -58,6 +58,10 @@
 			{
 				"command": "testCommand",
 				"title": "CodeUI: Test Command"
+			},
+			{
+				"command": "toggleTargetingMode",
+				"title": "CodeUI: Toggle targeting mode"
 			},
 			{
 				"command": "toggleView",

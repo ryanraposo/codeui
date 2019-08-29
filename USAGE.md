@@ -30,6 +30,7 @@
   - [Palette](#palette)
 - [Customization](#customization)
   - [Commands](#commands)
+  - [Targeting Mode](#targeting-mode)
   - [Adjust brightness](#adjust-brightness)
   - [Customize](#customize)
   - [Delete](#delete)
@@ -82,6 +83,22 @@ For example, the following value would be found under heading *Activity Bar*, as
  This viewtype enables you to make batch changes to elements and alter the palette of the editor as it appears. Palette mode also helps in identifying visible elements whose names you aren't familiar with. Use it to see your theme at a glance.
 
 # Customization
+
+## Targeting Mode
+
+Use configuration ``'codeui.targetingMode'`` to specify the subject of commands issued using CodeUI's interface. Acceptable values are ``'general'`` or ``'themeSpecific'``.
+
+By default, customization is ``'themeSpecific'`` as shown below:
+
+    workbench.colorCustomizations: {
+      "[Default Dark+]" : {
+        "activityBar.foreground" : "#cccccc"
+      }
+    }
+
+The extension also contributes a toggle button, found on the status bar. It will indicate your current target and allow switching modes with a click:
+
+![Targeting Mode](./resources/screenshots/targeting-mode.png)
 
 ## Commands
 

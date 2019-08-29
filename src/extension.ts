@@ -7,19 +7,22 @@ import * as ep from './elementProvider';
 import { InfoProvider } from './infoProvider';
 
 import * as configuration from "./configuration";
-import * as theme from "./theme";
 
 var elementProvider : ep.ElementProvider;
 var infoProvider : InfoProvider;
 
-export async function activate(context: vscode.ExtensionContext) {	
-	
+var targetingModeStatusBarItem : vscode.StatusBarItem;
 
+export async function activate(context: vscode.ExtensionContext) {	
+
+	initializeTargetingModeStatusBarItem();
+	
 	infoProvider = new InfoProvider();
 	vscode.window.registerTreeDataProvider("elementInfo", infoProvider);
 	vscode.commands.registerCommand("showElementInfo", (element) => infoProvider.updateSelectedElement(element));
 	
 	vscode.commands.registerCommand("toggleView", () => toggleView());
+	vscode.commands.registerCommand("toggleTargetingMode", () => toggleTargetingMode());
 	
 	elementProvider = new ep.ElementProvider(ep.ViewType.Standard);
 	vscode.window.registerTreeDataProvider("elementsView", elementProvider);
@@ -33,6 +36,9 @@ export async function activate(context: vscode.ExtensionContext) {
 			elementProvider.refresh();			
 			infoProvider.updateTheme();
 			infoProvider.refresh();
+		}
+		if(e.affectsConfiguration('codeui.targetingMode')){
+			updateTargetingModeStatusBarItem();
 		}
 	}));
 
@@ -70,7 +76,7 @@ export function toggleView() {
 }
 
 
-export async function chooseTarget(workspaceFolder: vscode.WorkspaceFolder) {
+export async function chooseScope(workspaceFolder: vscode.WorkspaceFolder) {
 	
 	const result = await vscode.window.showQuickPick([
 		{label:"Global",target:vscode.ConfigurationTarget.Global},
@@ -97,6 +103,46 @@ export async function showNotification(message : string) {
 
 export function getInfoProvider() {
 	return infoProvider;
+}
+
+
+function initializeTargetingModeStatusBarItem() {
+
+	targetingModeStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
+	targetingModeStatusBarItem.tooltip = "Targeting mode for customizations applied by CodeUI.";
+	targetingModeStatusBarItem.command = "toggleTargetingMode";
+	targetingModeStatusBarItem.text = '[CodeUI]:';
+
+	updateTargetingModeStatusBarItem();
+	
+	targetingModeStatusBarItem.show();
+	
+}
+
+
+function updateTargetingModeStatusBarItem() {
+
+	const targetingMode = configuration.getTargetingMode();
+
+	if(targetingMode === 'themeSpecific'){
+		targetingModeStatusBarItem.text = '[CodeUI]: Theme-specific';
+	} else {
+		targetingModeStatusBarItem.text = '[CodeUI]: General';
+	}
+
+}
+
+
+function toggleTargetingMode() {
+
+	const targetingMode = configuration.getTargetingMode();
+
+	if(targetingMode === 'themeSpecific'){
+		configuration.setTargetingMode('general');
+	} else {
+		configuration.setTargetingMode('themeSpecific');
+	}
+	
 }
 
 

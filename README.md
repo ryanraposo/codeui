@@ -8,7 +8,7 @@
 
 <div align="center">
 
-  [![Version](https://img.shields.io/badge/version-0.1.2-red)]()
+  [![Version](https://img.shields.io/badge/version-0.2.0-red)]()
   [![License](https://img.shields.io/badge/license-MIT-blue.svg)]()
 
 </div>
@@ -62,7 +62,7 @@ The recommended method for installing CodeUI is via the Extension Marketplace, a
 Alternatively, you can download the VSIX from the repo on [Github](https://github.com/ryanraposo/codeui) and install using the terminal with command: 
 
 ```
-code --install-extension codeui-0.1.0.vsix
+code --install-extension codeui-0.2.0.vsix
 ```
 
 *Note: it may be necessary to reload vscode if installing via the terminal.*
@@ -77,22 +77,9 @@ Refer to usage documentation [here. ](./USAGE.md)
 
  - ```codeui.favoriteColors``` : User-defined colors for use by CodeUI
 
+  - ```codeui.targetingMode``` : Controls target of customizations applied by CodeUI
+
 # Additional Info
-
-## Release Notes
-
-    [0.1.2] [Bugfix] Documentation
-
-    - changed release notes schema (readme.md)
-
-    - fixed duplicate section (usage.md)
-
-    [0.1.1] [Bugfix] Icon Contrast
-
-    - Fixed light-theme icon contrast for treeview command buttons
-
-Refer to changelog [here. ](./CHANGELOG.md)
-
 
 ## Get Involved
 Help make CodeUI the standard theming tool for vscode! Whether it's new features, optimizations, documentation or general knowledge - I would very much appreciate your contributions & insights. You can join the project on [Github](https://github.com/ryanraposo/codeui).
