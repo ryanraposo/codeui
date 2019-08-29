@@ -409,30 +409,38 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         }else if(actionSelection === darken10) {
             darken(item, this);
         }else if(actionSelection === lightenCustom) {
-            const lightenCustomValueNumber = await showNumberInput();
+            const lightenCustomValueNumber = await showPercentInput();
             if(!lightenCustomValueNumber) {
                 return;
             }
             lighten(item, this, lightenCustomValueNumber);
         }else if(actionSelection === darkenCustom) {
-            const darkenCustomValueNumber = await showNumberInput();
+            const darkenCustomValueNumber = await showPercentInput();
             if(!darkenCustomValueNumber) {
                 return;
             }
             darken(item, this, darkenCustomValueNumber);
         }
 
-        async function showNumberInput() : Promise<number> {
-            return Number(await vscode.window.showInputBox({
-                prompt: 'Enter a number:',
-                validateInput(n : string) {
-                    const nAsNumber = Number(n);
-                    if(!isNaN(nAsNumber) && isFinite(nAsNumber)) {
+        async function showPercentInput() : Promise<number | undefined> {
+            const percentString = await vscode.window.showInputBox({
+                prompt: 'Enter a number (Percent)',
+                validateInput(input : string) {
+                    input = removePercentSign(input);
+                    const percentNumber = Number(input);
+                    if(!isNaN(percentNumber) && isFinite(percentNumber)) {
                         return '';
                     }
                     return 'Value is not a valid number.';
                 }
-            }));
+            });
+            if(percentString) {
+                return Number(removePercentSign(percentString));
+            }
+        }
+
+        function removePercentSign(str: string): string {
+            return str.endsWith('%') ? str.slice(0, -1) : str;
         }
 
         function darken(item : Element | ElementTreeGroup, provider : any, value = 5) {
