@@ -82,8 +82,8 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
 
         selectedElementChildren.push(new InfoItem({ label: "Default", description: definitionToLowerCaseDescription(this.selectedElement.colorConfig.default), collapsibleState: vscode.TreeItemCollapsibleState.None }));
         selectedElementChildren.push(new InfoItem({ label: "Theme", description: definitionToLowerCaseDescription(this.selectedElement.colorConfig.theme), collapsibleState: vscode.TreeItemCollapsibleState.None }));
-        selectedElementChildren.push(new InfoItem({ label: "Customization (global)", description:definitionToLowerCaseDescription(this.selectedElement.colorConfig.settings.global), collapsibleState: vscode.TreeItemCollapsibleState.None}));
-        selectedElementChildren.push(new InfoItem({ label: "Customization (workspace)", description: definitionToLowerCaseDescription(this.selectedElement.colorConfig.settings.workspace), collapsibleState: vscode.TreeItemCollapsibleState.None}));
+        selectedElementChildren.push(new InfoItem({ label: "Settings (global)", description:definitionToLowerCaseDescription(this.selectedElement.colorConfig.settings.global), collapsibleState: vscode.TreeItemCollapsibleState.None}));
+        selectedElementChildren.push(new InfoItem({ label: "Settings (workspace)", description: definitionToLowerCaseDescription(this.selectedElement.colorConfig.settings.workspace), collapsibleState: vscode.TreeItemCollapsibleState.None}));
 
         return selectedElementChildren;
 
