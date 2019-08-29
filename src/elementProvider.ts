@@ -422,10 +422,10 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             darken(item, this, darkenCustomValueNumber);
         }
 
-        async function showNumberInput(): Promise<number> {
+        async function showNumberInput() : Promise<number> {
             return Number(await vscode.window.showInputBox({
                 prompt: 'Enter a number:',
-                validateInput(n: any) {
+                validateInput(n : string) {
                     const nAsNumber = Number(n);
                     if(!isNaN(nAsNumber) && isFinite(nAsNumber)) {
                         return '';
