@@ -409,21 +409,21 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         }else if(actionSelection === darken10) {
             darken(item, this);
         }else if(actionSelection === lightenCustom) {
-            const lightenCustomValueNumber = Number(await showNumberInput());
+            const lightenCustomValueNumber = await showNumberInput();
             if(!lightenCustomValueNumber) {
                 return;
             }
             lighten(item, this, lightenCustomValueNumber);
         }else if(actionSelection === darkenCustom) {
-            const darkenCustomValueNumber = Number(await showNumberInput());
+            const darkenCustomValueNumber = await showNumberInput();
             if(!darkenCustomValueNumber) {
                 return;
             }
             darken(item, this, darkenCustomValueNumber);
         }
 
-        async function showNumberInput(): Promise<string | undefined> {
-            return await vscode.window.showInputBox({
+        async function showNumberInput(): Promise<number> {
+            return Number(await vscode.window.showInputBox({
                 prompt: 'Enter a number:',
                 validateInput(n: any) {
                     const nAsNumber = Number(n);
@@ -432,7 +432,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                     }
                     return 'Value is not a valid number.';
                 }
-            });
+            }));
         }
 
         function darken(item : Element | ElementTreeGroup, provider : any, value = 5) {
