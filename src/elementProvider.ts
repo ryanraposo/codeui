@@ -426,8 +426,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             const percentString = await vscode.window.showInputBox({
                 prompt: 'Enter a number (Percent)',
                 validateInput(input : string) {
-                    input = removePercentSign(input);
-                    const percentNumber = Number(input);
+                    const percentNumber = parseFloat(input);
                     if(!isNaN(percentNumber) && isFinite(percentNumber)) {
                         return '';
                     }
@@ -435,12 +434,8 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                 }
             });
             if(percentString) {
-                return Number(removePercentSign(percentString));
+                return parseFloat(percentString);
             }
-        }
-
-        function removePercentSign(str: string): string {
-            return str.endsWith('%') ? str.slice(0, -1) : str;
         }
 
         function darken(item : Element | ElementTreeGroup, provider : any, value = 5) {
