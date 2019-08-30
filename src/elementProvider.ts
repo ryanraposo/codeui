@@ -10,7 +10,6 @@ import { chooseScope, showNotification, getInfoProvider } from './extension';
 
 import * as theme from './theme';
 import * as configuration from './configuration';
-import { resolve } from 'url';
 
 
 interface ColorConfig {
