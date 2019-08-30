@@ -10,6 +10,7 @@ import { chooseScope, showNotification, getInfoProvider } from './extension';
 
 import * as theme from './theme';
 import * as configuration from './configuration';
+import { resolve } from 'url';
 
 
 interface ColorConfig {
@@ -513,19 +514,9 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
 
     static async updateWorkbenchColors(customizations: WorkbenchCustomizations){
 
-        let target : any;
-        const workspaceRootFolder = configuration.getWorkspaceRootFolder();
         const currentThemeProp = "[" + configuration.getEffectiveColorThemeName() + "]";
-
-        if(workspaceRootFolder){ // If in a workspace, give the option to target Workspace Settings
-            target = await chooseScope(workspaceRootFolder);
-            if(!target){
-                return;
-            }
-        }else{
-            target = vscode.ConfigurationTarget.Global; // If no workspace, target Global Settings
-        }
-
+        
+        const target = await resolveTarget();
         let scopedCustomizations : any = {};
 
         if(target === vscode.ConfigurationTarget.Global){
@@ -537,9 +528,6 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
         
         for(let element in customizations){ // for key(element name) in supplied array
             let value = customizations[element]; // value = color value
-            // if(value === undefined){// handles calls from clear() eg. ["activityBar.foreground" : undefined, ...]
-            //     scopedCustomizations[currentThemeProp][element] = undefined;
-            // }else{  // handles calls from customize() eg. ["activityBar.forground" : "#ffffff", ...]
                 if(await isHexidecimal(value) || value === undefined){
                     const targetingMode = configuration.getTargetingMode();
                     if(targetingMode === 'themeSpecific'){
@@ -556,13 +544,11 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                     await showNotification(value + "is not a valid hex color!");
                     return; 
                 }
-            }
-        
+            }        
 
         await vscode.workspace.getConfiguration().update("workbench.colorCustomizations", scopedCustomizations, target);
             
     }
-
     
 }
 
@@ -741,6 +727,33 @@ function getEffectiveColor(colorConfig:ColorConfig) : string | undefined {
     }
 
     return effective;
+
+}
+
+
+function resolveTarget() : any {
+
+    const workspaceRootFolder = configuration.getWorkspaceRootFolder();
+    const preferredScope = configuration.getPreferredScope();
+
+    let target : any;
+    
+    if(workspaceRootFolder){
+        if(preferredScope === "alwaysAsk"){
+            target = chooseScope(workspaceRootFolder); 
+            if(!target){
+                return;
+            }
+        } else if(preferredScope === "global"){
+            target = vscode.ConfigurationTarget.Global;
+        } else if(preferredScope === "workspace"){
+            target = target = vscode.ConfigurationTarget.Workspace;
+        }
+    }else if(!workspaceRootFolder){
+        target = vscode.ConfigurationTarget.Global;
+    }
+
+    return target;
 
 }
 

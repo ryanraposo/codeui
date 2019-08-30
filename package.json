@@ -35,7 +35,7 @@
 				"codeui.showNotifications": {
 					"type": "boolean",
 					"default": true,
-					"description": "Default is true. Controls the display of various notifications by CodeUI."
+					"description": "Controls the display of various notifications by CodeUI. Default is true."
 				},
 				"codeui.favoriteColors": {
 					"type": "object",
@@ -52,8 +52,14 @@
 						"general"
 					],
 					"default": "themeSpecific",
-					"description": "Default is themeSpecific. Controls target of customizations applied by CodeUI.",
+					"description": "Controls context of customizations applied by CodeUI. Default is 'themeSpecific'",
 					"scope": "application"
+				},
+				"codeui.preferredScope" : {
+					"description": "Controls scoping behaviour when a workspace/folder is open. Default is 'alwaysAsk'",
+					"type": "string",
+					"enum": ["alwaysAsk", "global", "workspace"],
+					"default": "alwaysAsk"
 				}
 			}
 		},

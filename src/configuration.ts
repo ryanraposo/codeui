@@ -113,11 +113,11 @@ export function getWorkspaceRootFolder() : vscode.WorkspaceFolder | undefined{
 }
 
 
-export function getTargetingMode() : any {
+export function getTargetingMode() : string {
 
     const configuration = getConfiguration();
 
-    const themeSpecificCustomizations = configuration.get("codeui.targetingMode");
+    const themeSpecificCustomizations = <string> configuration.get("codeui.targetingMode");
 
     return themeSpecificCustomizations;
     
@@ -132,6 +132,17 @@ export function setTargetingMode(targetingMode : string) : void {
 
     console.log('test');
     
+    
+}
+
+
+export function getPreferredScope() : string {
+
+    const configuration = getConfiguration();
+
+    const preferredScope = <string> configuration.get("codeui.preferredScope");
+
+    return preferredScope;
     
 }
 
