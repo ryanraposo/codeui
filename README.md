@@ -91,7 +91,8 @@ Thank you for supporting CodeUI!
 ## Contributors
   - See [contributors](https://github.com/ryanraposo/codeui/graphs/contributors) page on GitHub
 
-## Technical Acknowledgements <a name = "acknowledgement"></a>
+## Acknowledgements <a name = "acknowledgement"></a>
 - copy-paste (npm)
 - tiny-color2 (npm)
 - Various extension development blogs
+- Dedicated to the community at r/vscode.
