@@ -39,8 +39,11 @@
 				},
 				"codeui.favoriteColors": {
 					"type": "object",
-					"properties": {
-						"name": "hex_value"
+					"patternProperties": {
+						".+": {
+							"format": "color",
+							"type": "string"
+						}
 					},
 					"default": {},
 					"description": "User-defined colors for use by CodeUI (eg. \"Clay\" : \"#F28585\")"
@@ -55,10 +58,14 @@
 					"description": "Controls context of customizations applied by CodeUI. Default is 'themeSpecific'",
 					"scope": "application"
 				},
-				"codeui.preferredScope" : {
+				"codeui.preferredScope": {
 					"description": "Controls scoping behaviour when a workspace/folder is open. Default is 'alwaysAsk'",
 					"type": "string",
-					"enum": ["alwaysAsk", "global", "workspace"],
+					"enum": [
+						"alwaysAsk",
+						"global",
+						"workspace"
+					],
 					"default": "alwaysAsk"
 				}
 			}
