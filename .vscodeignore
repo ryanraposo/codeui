@@ -6,6 +6,7 @@ resources/master
 # Files
 CONTRIBUTING-template.md
 CONTRIBUTING.md
+CODING_GUIDELINES.md
 todo.md
 dc.bat
 
