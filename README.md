@@ -33,7 +33,7 @@
   - [Get Involved](#get-involved)
   - [Contributors](#contributors)
   - [Technical Acknowledgements <a name = "acknowledgement"></a>](#technical-acknowledgements-a-name--acknowledgementa)
-  
+
 # Features
 
 ### Interface
@@ -59,7 +59,7 @@ Darken, lighten, copy & paste values across items. Use Standard or Palette view 
 ## Installing
 The recommended method for installing CodeUI is via the Extension Marketplace, accessed from within Visual Studio Code.
 
-Alternatively, you can download the VSIX from the repo on [Github](https://github.com/ryanraposo/codeui) and install using the terminal with command: 
+Alternatively, you can download the VSIX from the repo on [Github](https://github.com/ryanraposo/codeui) and install using the terminal with command:
 
 ```
 code --install-extension codeui-0.2.0.vsix
@@ -73,7 +73,7 @@ Refer to usage documentation [here. ](./USAGE.md)
 
 ## Extension Settings
 
- - ```codeui.showNotifications``` : Toggle various notifications about CodeUI's activity 
+ - ```codeui.showNotifications``` : Toggle various notifications about CodeUI's activity
 
  - ```codeui.favoriteColors``` : User-defined colors for use by CodeUI
 
@@ -92,7 +92,6 @@ Thank you for supporting CodeUI!
   - See [contributors](https://github.com/ryanraposo/codeui/graphs/contributors) page on GitHub
 
 ## Acknowledgements <a name = "acknowledgement"></a>
-- copy-paste (npm)
 - tiny-color2 (npm)
 - Various extension development blogs
 - Dedicated to the community at r/vscode.
