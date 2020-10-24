@@ -13,17 +13,21 @@ var infoProvider : InfoProvider;
 
 var targetingModeStatusBarItem : vscode.StatusBarItem;
 
-export async function activate(context: vscode.ExtensionContext) {	
+export const GlobalVariables = {
+	context: undefined as any as vscode.ExtensionContext
+}
 
+export async function activate(context: vscode.ExtensionContext) {
+	GlobalVariables.context = context;
 	initializeTargetingModeStatusBarItem();
-	
+
 	infoProvider = new InfoProvider();
 	vscode.window.registerTreeDataProvider("elementInfo", infoProvider);
 	vscode.commands.registerCommand("showElementInfo", (element) => infoProvider.updateSelectedElement(element));
-	
+
 	vscode.commands.registerCommand("toggleView", () => toggleView());
 	vscode.commands.registerCommand("toggleTargetingMode", () => toggleTargetingMode());
-	
+
 	elementProvider = new ep.ElementProvider(ep.ViewType.Standard);
 	vscode.window.registerTreeDataProvider("elementsView", elementProvider);
 	vscode.commands.registerCommand("customize", (element) => elementProvider.customize(element));
@@ -33,7 +37,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	await context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
 		if(e.affectsConfiguration('workbench.colorTheme') || e.affectsConfiguration('workbench.colorCustomizations')){
-			elementProvider.refresh();			
+			elementProvider.refresh();
 			infoProvider.updateTheme();
 			infoProvider.refresh();
 		}
@@ -46,11 +50,11 @@ export async function activate(context: vscode.ExtensionContext) {
 
 
 export function deactivate() {
-	const directory = path.join(__filename, "..", "..", "resources", "swatches", "generated");
+	const directory = GlobalVariables.context.asAbsolutePath(path.join("resources", "swatches", "generated"));
 	fs.readdir(directory, (err, files) => {
 		if (err){
 			throw err;
-		}	  
+		}
 		for (const file of files) {
 			if(file !== '.index'){
 				fs.unlink(path.join(directory, file), err => {
@@ -77,7 +81,7 @@ export function toggleView() {
 
 
 export async function chooseScope(workspaceFolder: vscode.WorkspaceFolder) {
-	
+
 	const result = await vscode.window.showQuickPick([
 		{label:"Global",target:vscode.ConfigurationTarget.Global},
 		{label:`Workspace (${workspaceFolder.name})`, target:vscode.ConfigurationTarget.Workspace}
@@ -114,9 +118,9 @@ function initializeTargetingModeStatusBarItem() {
 	targetingModeStatusBarItem.text = '[CodeUI]:';
 
 	updateTargetingModeStatusBarItem();
-	
+
 	targetingModeStatusBarItem.show();
-	
+
 }
 
 
@@ -142,7 +146,7 @@ function toggleTargetingMode() {
 	} else {
 		configuration.setTargetingMode('themeSpecific');
 	}
-	
+
 }
 
 

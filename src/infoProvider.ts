@@ -9,7 +9,7 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
     private _onDidChangeTreeData: vscode.EventEmitter<InfoItem | undefined> = new vscode.EventEmitter<InfoItem | undefined>();
     readonly onDidChangeTreeData: vscode.Event<InfoItem| undefined> = this._onDidChangeTreeData.event;
 
-    currentTheme : any;    
+    currentTheme : any;
     selectedElement : any;
 
     elementHeading : InfoItem | undefined;
@@ -18,14 +18,14 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
 
     constructor(){
         this.updateTheme();
-    }   
+    }
 
 
     refresh(infoItem?: any){
         if(infoItem){
             this._onDidChangeTreeData.fire(infoItem);
         }else{
-            this._onDidChangeTreeData.fire();
+            this._onDidChangeTreeData.fire(undefined);
         }
     }
 
@@ -34,11 +34,11 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
         return element;
     }
 
-    
+
     getChildren(infoItem?: InfoItem) : vscode.TreeItem[] {
 
         let children : Array<InfoItem> = [];
-        
+
         if(!infoItem){ // If root...
             children.push(this.getThemeItem());
             children.push(this.getSelectedElementItem());
@@ -118,7 +118,7 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
         themeInfoChildren.push(new InfoItem({label: "Author", description: this.currentTheme.author, collapsibleState: vscode.TreeItemCollapsibleState.None}));
 
         return themeInfoChildren;
-        
+
 
     }
 
@@ -128,13 +128,13 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
 
 class InfoItem extends vscode.TreeItem{
 
-    iconPath : any;
-    description : any;
+    iconPath?: any;
+    description?: any;
 
     constructor({ label, description, collapsibleState }: { label: string; description: string; collapsibleState: vscode.TreeItemCollapsibleState; }){
         super(label, collapsibleState);
         this.description = description;
-    }    
+    }
 
 }
 
