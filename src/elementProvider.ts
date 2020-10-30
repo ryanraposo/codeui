@@ -3,7 +3,6 @@
 import * as vscode from 'vscode';
 import * as fs from "fs";
 import * as path from "path";
-import * as copypaste from 'copy-paste';
 import tinycolor from '@ctrl/tinycolor';
 
 import { chooseScope, showNotification, getInfoProvider } from './extension';
@@ -503,11 +502,10 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
 
 
     public copy(item : Element): void {        
-        if(item.description){
-            copypaste.copy(item.description);
+        if(typeof item.description === 'string'){
+            vscode.env.clipboard.writeText(item.description);
+            showNotification("copied " + item.description);
         }
-
-        showNotification("copied " + item.description);
     }    
 
 

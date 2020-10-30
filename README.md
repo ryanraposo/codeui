@@ -92,7 +92,6 @@ Thank you for supporting CodeUI!
   - See [contributors](https://github.com/ryanraposo/codeui/graphs/contributors) page on GitHub
 
 ## Acknowledgements <a name = "acknowledgement"></a>
-- copy-paste (npm)
 - tiny-color2 (npm)
 - Various extension development blogs
 - Dedicated to the community at r/vscode.
