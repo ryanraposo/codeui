@@ -25,7 +25,8 @@
 		"customize"
 	],
 	"activationEvents": [
-		"*"
+		"onView:elementInfo",
+		"onView:elementsView"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
