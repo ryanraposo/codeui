@@ -12,7 +12,7 @@
 
 </div>
 
-<p align="center" style="font-size: 150%"> Build, edit, & explore your color theme for VS Code.
+<p align="center" style="font-size: 150%"> Customize your color theme for VS Code.
 </p>
 
 # Usage
