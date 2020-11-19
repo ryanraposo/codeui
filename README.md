@@ -8,7 +8,7 @@
 
 <div align="center">
 
-  [![Version](https://img.shields.io/badge/version-0.2.0-red)]()
+  [![Version](https://img.shields.io/badge/version-0.3.0-red)]()
   [![License](https://img.shields.io/badge/license-MIT-blue.svg)]()
 
 </div>
