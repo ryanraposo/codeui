@@ -4,10 +4,10 @@ import { Element } from './elementProvider';
 import * as theme from "./theme";
 
 
-export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
+export class InfoProvider implements vscode.TreeDataProvider<any> {
 
-    private _onDidChangeTreeData: vscode.EventEmitter<InfoItem | undefined> = new vscode.EventEmitter<InfoItem | undefined>();
-    readonly onDidChangeTreeData: vscode.Event<InfoItem| undefined> = this._onDidChangeTreeData.event;
+    private _onDidChangeTreeData: vscode.EventEmitter<any> = new vscode.EventEmitter<any>();
+    readonly onDidChangeTreeData: vscode.Event<any> = this._onDidChangeTreeData.event;
 
     currentTheme : any;    
     selectedElement : any;
@@ -25,7 +25,7 @@ export class InfoProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
         if(infoItem){
             this._onDidChangeTreeData.fire(infoItem);
         }else{
-            this._onDidChangeTreeData.fire();
+            this._onDidChangeTreeData.fire(null);
         }
     }
 

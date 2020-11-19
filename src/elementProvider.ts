@@ -72,7 +72,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             for(let key in this.elementItems){
                 this.elementItems[key].update();
             }
-            this._onDidChangeTreeData.fire();
+            this._onDidChangeTreeData.fire(null);
         }
 
     }

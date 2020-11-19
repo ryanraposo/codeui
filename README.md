@@ -8,7 +8,7 @@
 
 <div align="center">
 
-  [![Version](https://img.shields.io/badge/version-0.2.0-red)]()
+  [![Version](https://img.shields.io/badge/version-0.3.0-red)]()
   [![License](https://img.shields.io/badge/license-MIT-blue.svg)]()
 
 </div>
@@ -59,7 +59,7 @@ Darken, lighten, copy & paste values across items. Use Standard or Palette view 
 ## Installing
 The recommended method for installing CodeUI is via the Extension Marketplace, accessed from within Visual Studio Code.
 
-Alternatively, you can download the VSIX from the repo on [Github](https://github.com/ryanraposo/codeui) and install using the terminal with command: 
+Alternatively, you can download the VSIX from [releases](https://github.com/ryanraposo/codeui/releases) and install using the terminal with command: 
 
 ```
 code --install-extension codeui-0.2.0.vsix
@@ -79,12 +79,14 @@ Refer to usage documentation [here. ](./USAGE.md)
 
  - ```codeui.targetingMode``` : Controls target of customizations applied by CodeUI
 
+ - ```codeui.preferredScope``` : Controls default scoping behaviour when a workspace/folder is open
+
 # Additional Info
 
 ## Get Involved
 Help make CodeUI the standard theming tool for vscode! Whether it's new features, optimizations, documentation or general knowledge - I would very much appreciate your contributions & insights. You can join the project on [Github](https://github.com/ryanraposo/codeui).
 
-Users and developers alike, write to raposo.ryan@gmail.com any time if you have an idea, tip, or comment of any sort. Customizing the UI is a huge part of vscode's charm, and your feedback will help make it as fun & accessible as possible.
+Customizing the UI is a huge part of vscode's charm, and your feedback will help make it as fun & accessible as possible.
 
 Thank you for supporting CodeUI!
 
@@ -92,6 +94,4 @@ Thank you for supporting CodeUI!
   - See [contributors](https://github.com/ryanraposo/codeui/graphs/contributors) page on GitHub
 
 ## Acknowledgements <a name = "acknowledgement"></a>
-- tiny-color2 (npm)
-- Various extension development blogs
-- Dedicated to the community at r/vscode.
+- This extension is dedicated to the community at r/vscode.

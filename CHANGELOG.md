@@ -1,20 +1,33 @@
-##    [0.2.0] [Feature] Targeting Mode
+##    [0.3.0]
 
-    - added Targeting Mode. Allows toggling between 'themeSpecific' and 'general' contexts for all customization commands.
+- Added support for custom-value brightness adjustments (@usernamehw).
 
+- Added support for built-in color picker when editing 'codeui.favoriteColors' in settings. (@usernamehw)
 
-##    [0.1.2] [Bugfix] Documentation
+- Added configuration 'codeui.preferredScope'. Controls scoping behaviour when a workspace/folder is open.
 
-    - changed release notes schema (readme.md)
+- Changed startup behaviour. CodeUI will now activate when accessed, not when VS Code is launched. (@usernamehw)
 
-    - fixed duplicate section (usage.md)
+- Changed extension description.
 
-##    [0.1.1] [Bugfix] Icon Contrast
+- Fixed several element listings with unexpected names.
 
-    - Fixed light-theme icon contrast for treeview command buttons
+##    [0.2.0]
 
-##    [0.1.0] Initial release
+- Added Targeting Mode. Allows toggling between 'themeSpecific' and 'general' contexts for all customization commands.
 
-    - View & customize the colors of VS Code's interface
+##    [0.1.2]
 
-    - Global workbench customization only
+- Changed release notes schema (readme.md)
+
+- Fixed duplicate section (usage.md)
+
+##    [0.1.1]
+
+- Fixed light-theme icon contrast for treeview command buttons
+
+##    [0.1.0]
+
+- View & customize the colors of VS Code's interface
+
+- Global workbench customization only
