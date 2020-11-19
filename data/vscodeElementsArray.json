@@ -295,8 +295,8 @@
     },
     {
         "fullName": "progressBar.background",
-        "titleName": "Progress Bar Bar Background",
-        "groupedName": "Bar Background",
+        "titleName": "Progress Bar Background",
+        "groupedName": "Background",
         "info": "Background color of the progress bar shown for long running operations",
         "group": "Progress Bar"
     },
@@ -421,106 +421,106 @@
     },
     {
         "fullName": "activityBar.background",
-        "titleName": "Activity Bar Bar Background",
-        "groupedName": "Bar Background",
+        "titleName": "Activity Bar Background",
+        "groupedName": "Background",
         "info": "Activity Bar background color",
         "group": "Activity Bar"
     },
     {
         "fullName": "activityBar.dropBackground",
-        "titleName": "Activity Bar Bar Drop Background",
-        "groupedName": "Bar Drop Background",
+        "titleName": "Activity Bar Drop Background",
+        "groupedName": "Drop Background",
         "info": "Drag and drop feedback color for the Activity Bar items",
         "group": "Activity Bar"
     },
     {
         "fullName": "activityBar.foreground",
-        "titleName": "Activity Bar Bar Foreground",
-        "groupedName": "Bar Foreground",
+        "titleName": "Activity Bar Foreground",
+        "groupedName": "Foreground",
         "info": "Activity bar foreground color (for example used for the icons)",
         "group": "Activity Bar"
     },
     {
         "fullName": "activityBar.inactiveForeground",
-        "titleName": "Activity Bar Bar Inactive Foreground",
-        "groupedName": "Bar Inactive Foreground",
+        "titleName": "Activity Bar Inactive Foreground",
+        "groupedName": "Inactive Foreground",
         "info": "Activity bar item foreground color when it is inactive",
         "group": "Activity Bar"
     },
     {
         "fullName": "activityBar.border",
-        "titleName": "Activity Bar Bar Border",
-        "groupedName": "Bar Border",
+        "titleName": "Activity Bar Border",
+        "groupedName": "Border",
         "info": "Activity Bar border color with the Side Bar",
         "group": "Activity Bar"
     },
     {
         "fullName": "activityBarBadge.background",
-        "titleName": "Activity Bar Barbadge Background",
-        "groupedName": "Barbadge Background",
+        "titleName": "Activity Bar Badge Background",
+        "groupedName": "Badge Background",
         "info": "Activity notification badge background color",
         "group": "Activity Bar"
     },
     {
         "fullName": "activityBarBadge.foreground",
-        "titleName": "Activity Bar Barbadge Foreground",
-        "groupedName": "Barbadge Foreground",
+        "titleName": "Activity Bar Badge Foreground",
+        "groupedName": "Badge Foreground",
         "info": "Activity notification badge foreground color",
         "group": "Activity Bar"
     },
     {
         "fullName": "sideBar.background",
-        "titleName": "Side Bar Bar Background",
-        "groupedName": "Bar Background",
+        "titleName": "Side Bar Background",
+        "groupedName": "Background",
         "info": "Side Bar background color",
         "group": "Side Bar"
     },
     {
         "fullName": "sideBar.foreground",
-        "titleName": "Side Bar Bar Foreground",
-        "groupedName": "Bar Foreground",
+        "titleName": "Side Bar Foreground",
+        "groupedName": "Foreground",
         "info": "Side Bar foreground color. The Side Bar is the container for views like Explorer and Search",
         "group": "Side Bar"
     },
     {
         "fullName": "sideBar.border",
-        "titleName": "Side Bar Bar Border",
-        "groupedName": "Bar Border",
+        "titleName": "Side Bar Border",
+        "groupedName": "Border",
         "info": "Side Bar border color on the side separating the editor",
         "group": "Side Bar"
     },
     {
         "fullName": "sideBar.dropBackground",
-        "titleName": "Side Bar Bar Drop Background",
-        "groupedName": "Bar Drop Background",
+        "titleName": "Side Bar Drop Background",
+        "groupedName": "Drop Background",
         "info": "Drag and drop feedback color for",
         "group": "Side Bar"
     },
     {
         "fullName": "sideBarTitle.foreground",
-        "titleName": "Side Bar Bar Title Foreground",
-        "groupedName": "Bar Title Foreground",
+        "titleName": "Side Bar Title Foreground",
+        "groupedName": "Title Foreground",
         "info": "Side Bar title foreground color",
         "group": "Side Bar"
     },
     {
         "fullName": "sideBarSectionHeader.background",
-        "titleName": "Side Bar Bar Section Header Background",
-        "groupedName": "Bar Section Header Background",
+        "titleName": "Side Bar Section Header Background",
+        "groupedName": "Section Header Background",
         "info": "Side Bar section header background color",
         "group": "Side Bar"
     },
     {
         "fullName": "sideBarSectionHeader.foreground",
-        "titleName": "Side Bar Bar Section Header Foreground",
-        "groupedName": "Bar Section Header Foreground",
+        "titleName": "Side Bar Section Header Foreground",
+        "groupedName": "Section Header Foreground",
         "info": "Side Bar section header foreground color",
         "group": "Side Bar"
     },
     {
         "fullName": "sideBarSectionHeader.border",
-        "titleName": "Side Bar Bar Section Header Border",
-        "groupedName": "Bar Section Header Border",
+        "titleName": "Side Bar Section Header Border",
+        "groupedName": "Section Header Border",
         "info": "Side bar section header border color",
         "group": "Side Bar"
     },
@@ -912,14 +912,14 @@
     {
         "fullName": "editorError.foreground",
         "titleName": "Editor Error Foreground",
-        "groupedName": "Error Foreground",
+        "groupedName": "Foreground",
         "info": "Foreground color of error squiggles in the editor",
         "group": "Editor"
     },
     {
         "fullName": "editorError.border",
         "titleName": "Editor Error Border",
-        "groupedName": "Error Border",
+        "groupedName": "Border",
         "info": "Border color of error boxes in the editor",
         "group": "Editor"
     },
@@ -1373,99 +1373,99 @@
     },
     {
         "fullName": "peekView.border",
-        "titleName": "Peek View View Border",
-        "groupedName": "View Border",
+        "titleName": "Peek View Border",
+        "groupedName": "Border",
         "info": "Color of the peek view borders and arrow",
         "group": "Peek View"
     },
     {
         "fullName": "peekViewEditor.background",
-        "titleName": "Peek View View Editor Background",
-        "groupedName": "View Editor Background",
+        "titleName": "Peek View Editor Background",
+        "groupedName": "Editor Background",
         "info": "Background color of the peek view editor",
         "group": "Peek View"
     },
     {
         "fullName": "peekViewEditorGutter.background",
-        "titleName": "Peek View View Editor Gutter Background",
-        "groupedName": "View Editor Gutter Background",
+        "titleName": "Peek View Editor Gutter Background",
+        "groupedName": "Editor Gutter Background",
         "info": "Background color of the gutter in the peek view editor",
         "group": "Peek View"
     },
     {
         "fullName": "peekViewEditor.matchHighlightBackground",
-        "titleName": "Peek View View Editor Match Highlight Background",
-        "groupedName": "View Editor Match Highlight Background",
+        "titleName": "Peek View Editor Match Highlight Background",
+        "groupedName": "Editor Match Highlight Background",
         "info": "Match highlight color in the peek view editor",
         "group": "Peek View"
     },
     {
         "fullName": "peekViewEditor.matchHighlightBorder",
-        "titleName": "Peek View View Editor Match Highlight Border",
-        "groupedName": "View Editor Match Highlight Border",
+        "titleName": "Peek View Editor Match Highlight Border",
+        "groupedName": "Editor Match Highlight Border",
         "info": "Match highlight border color in the peek view editor",
         "group": "Peek View"
     },
     {
         "fullName": "peekViewResult.background",
-        "titleName": "Peek View View Result Background",
-        "groupedName": "View Result Background",
+        "titleName": "Peek View Result Background",
+        "groupedName": "Result Background",
         "info": "Background color of the peek view result list",
         "group": "Peek View"
     },
     {
         "fullName": "peekViewResult.fileForeground",
-        "titleName": "Peek View View Result File Foreground",
-        "groupedName": "View Result File Foreground",
+        "titleName": "Peek View Result File Foreground",
+        "groupedName": "Result File Foreground",
         "info": "Foreground color for file nodes in the peek view result list",
         "group": "Peek View"
     },
     {
         "fullName": "peekViewResult.lineForeground",
-        "titleName": "Peek View View Result Line Foreground",
-        "groupedName": "View Result Line Foreground",
+        "titleName": "Peek View Result Line Foreground",
+        "groupedName": "Result Line Foreground",
         "info": "Foreground color for line nodes in the peek view result list",
         "group": "Peek View"
     },
     {
         "fullName": "peekViewResult.matchHighlightBackground",
-        "titleName": "Peek View View Result Match Highlight Background",
-        "groupedName": "View Result Match Highlight Background",
+        "titleName": "Peek View Result Match Highlight Background",
+        "groupedName": "Result Match Highlight Background",
         "info": "Match highlight color in the peek view result list",
         "group": "Peek View"
     },
     {
         "fullName": "peekViewResult.selectionBackground",
-        "titleName": "Peek View View Result Selection Background",
-        "groupedName": "View Result Selection Background",
+        "titleName": "Peek View Result Selection Background",
+        "groupedName": "Result Selection Background",
         "info": "Background color of the selected entry in the peek view result list",
         "group": "Peek View"
     },
     {
         "fullName": "peekViewResult.selectionForeground",
-        "titleName": "Peek View View Result Selection Foreground",
-        "groupedName": "View Result Selection Foreground",
+        "titleName": "Peek View Result Selection Foreground",
+        "groupedName": "Result Selection Foreground",
         "info": "Foreground color of the selected entry in the peek view result list",
         "group": "Peek View"
     },
     {
         "fullName": "peekViewTitle.background",
-        "titleName": "Peek View View Title Background",
-        "groupedName": "View Title Background",
+        "titleName": "Peek View Title Background",
+        "groupedName": "Title Background",
         "info": "Background color of the peek view title area",
         "group": "Peek View"
     },
     {
         "fullName": "peekViewTitleDescription.foreground",
-        "titleName": "Peek View View Title Description Foreground",
-        "groupedName": "View Title Description Foreground",
+        "titleName": "Peek View Title Description Foreground",
+        "groupedName": "Title Description Foreground",
         "info": "Color of the peek view title info",
         "group": "Peek View"
     },
     {
         "fullName": "peekViewTitleLabel.foreground",
-        "titleName": "Peek View View Title Label Foreground",
-        "groupedName": "View Title Label Foreground",
+        "titleName": "Peek View Title Label Foreground",
+        "groupedName": "Title Label Foreground",
         "info": "Color of the peek view title",
         "group": "Peek View"
     },
@@ -1562,134 +1562,134 @@
     },
     {
         "fullName": "statusBar.background",
-        "titleName": "Status Bar Bar Background",
-        "groupedName": "Bar Background",
+        "titleName": "Status Bar Background",
+        "groupedName": "Background",
         "info": "Standard Status Bar background color",
         "group": "Status Bar"
     },
     {
         "fullName": "statusBar.foreground",
-        "titleName": "Status Bar Bar Foreground",
-        "groupedName": "Bar Foreground",
+        "titleName": "Status Bar Foreground",
+        "groupedName": "Foreground",
         "info": "Status Bar foreground color",
         "group": "Status Bar"
     },
     {
         "fullName": "statusBar.border",
-        "titleName": "Status Bar Bar Border",
-        "groupedName": "Bar Border",
+        "titleName": "Status Bar Border",
+        "groupedName": "Border",
         "info": "Status Bar border color separating the Status Bar and editor",
         "group": "Status Bar"
     },
     {
         "fullName": "statusBar.debuggingBackground",
-        "titleName": "Status Bar Bar Debugging Background",
-        "groupedName": "Bar Debugging Background",
+        "titleName": "Status Bar Debugging Background",
+        "groupedName": "Debugging Background",
         "info": "Status Bar background color when a program is being debugged",
         "group": "Status Bar"
     },
     {
         "fullName": "statusBar.debuggingForeground",
-        "titleName": "Status Bar Bar Debugging Foreground",
-        "groupedName": "Bar Debugging Foreground",
+        "titleName": "Status Bar Debugging Foreground",
+        "groupedName": "Debugging Foreground",
         "info": "Status Bar foreground color when a program is being debugged",
         "group": "Status Bar"
     },
     {
         "fullName": "statusBar.debuggingBorder",
-        "titleName": "Status Bar Bar Debugging Border",
-        "groupedName": "Bar Debugging Border",
+        "titleName": "Status Bar Debugging Border",
+        "groupedName": "Debugging Border",
         "info": "Status Bar border color separating the Status Bar and editor when a program is being debugged",
         "group": "Status Bar"
     },
     {
         "fullName": "statusBar.noFolderForeground",
-        "titleName": "Status Bar Bar No  Folderforeground",
-        "groupedName": "Bar No  Folderforeground",
+        "titleName": "Status Bar No  Folderforeground",
+        "groupedName": "No  Folderforeground",
         "info": "Status Bar foreground color when no folder is opened",
         "group": "Status Bar"
     },
     {
         "fullName": "statusBar.noFolderBackground",
-        "titleName": "Status Bar Bar No Folder Background",
-        "groupedName": "Bar No Folder Background",
+        "titleName": "Status Bar No Folder Background",
+        "groupedName": "No Folder Background",
         "info": "Status Bar background color when no folder is opened",
         "group": "Status Bar"
     },
     {
         "fullName": "statusBar.noFolderBorder",
-        "titleName": "Status Bar Bar No Folder Border",
-        "groupedName": "Bar No Folder Border",
+        "titleName": "Status Bar No Folder Border",
+        "groupedName": "No Folder Border",
         "info": "Status Bar border color separating the Status Bar and editor when no folder is opened",
         "group": "Status Bar"
     },
     {
         "fullName": "statusBarItem.activeBackground",
-        "titleName": "Status Bar Bar Item Active Background",
-        "groupedName": "Bar Item Active Background",
+        "titleName": "Status Bar Item Active Background",
+        "groupedName": "Item Active Background",
         "info": "Status Bar item background color when clicking",
         "group": "Status Bar"
     },
     {
         "fullName": "statusBarItem.hoverBackground",
-        "titleName": "Status Bar Bar Item Hover Background",
-        "groupedName": "Bar Item Hover Background",
+        "titleName": "Status Bar Item Hover Background",
+        "groupedName": "Item Hover Background",
         "info": "Status Bar item background color when hovering",
         "group": "Status Bar"
     },
     {
         "fullName": "statusBarItem.prominentForeground",
-        "titleName": "Status Bar Bar Item Prominent Foreground",
-        "groupedName": "Bar Item Prominent Foreground",
+        "titleName": "Status Bar Item Prominent Foreground",
+        "groupedName": "Item Prominent Foreground",
         "info": "Status Bar prominent items foreground color",
         "group": "Status Bar"
     },
     {
         "fullName": "statusBarItem.prominentBackground",
-        "titleName": "Status Bar Bar Item Prominent Background",
-        "groupedName": "Bar Item Prominent Background",
+        "titleName": "Status Bar Item Prominent Background",
+        "groupedName": "Item Prominent Background",
         "info": "Status Bar prominent items background color",
         "group": "Status Bar"
     },
     {
         "fullName": "statusBarItem.prominentHoverBackground",
-        "titleName": "Status Bar Bar Item Prominent Hover Background",
-        "groupedName": "Bar Item Prominent Hover Background",
+        "titleName": "Status Bar Item Prominent Hover Background",
+        "groupedName": "Item Prominent Hover Background",
         "info": "Status Bar prominent items background color when hovering",
         "group": "Status Bar"
     },
     {
         "fullName": "titleBar.activeBackground",
-        "titleName": "Title Bar Bar Active Background",
-        "groupedName": "Bar Active Background",
+        "titleName": "Title Bar Active Background",
+        "groupedName": "Active Background",
         "info": "Title Bar background when the window is active",
         "group": "Title Bar"
     },
     {
         "fullName": "titleBar.activeForeground",
-        "titleName": "Title Bar Bar Active Foreground",
-        "groupedName": "Bar Active Foreground",
+        "titleName": "Title Bar Active Foreground",
+        "groupedName": "Active Foreground",
         "info": "Title Bar foreground when the window is active",
         "group": "Title Bar"
     },
     {
         "fullName": "titleBar.inactiveBackground",
-        "titleName": "Title Bar Bar Inactive Background",
-        "groupedName": "Bar Inactive Background",
+        "titleName": "Title Bar Inactive Background",
+        "groupedName": "Inactive Background",
         "info": "Title Bar background when the window is inactive",
         "group": "Title Bar"
     },
     {
         "fullName": "titleBar.inactiveForeground",
-        "titleName": "Title Bar Bar Inactive Foreground",
-        "groupedName": "Bar Inactive Foreground",
+        "titleName": "Title Bar Inactive Foreground",
+        "groupedName": "Inactive Foreground",
         "info": "Title Bar foreground when the window is inactive",
         "group": "Title Bar"
     },
     {
         "fullName": "titleBar.border",
-        "titleName": "Title Bar Bar Border",
-        "groupedName": "Bar Border",
+        "titleName": "Title Bar Border",
+        "groupedName": "Border",
         "info": "Title bar border color",
         "group": "Title Bar"
     },
@@ -2003,29 +2003,29 @@
     },
     {
         "fullName": "welcomePage.background",
-        "titleName": "Welcome Page Page Background",
-        "groupedName": "Page Background",
+        "titleName": "Welcome Page Background",
+        "groupedName": "Background",
         "info": "Background color for the Welcome page",
         "group": "Welcome Page"
     },
     {
         "fullName": "welcomePage.buttonBackground",
-        "titleName": "Welcome Page Page Button Background",
-        "groupedName": "Page Button Background",
+        "titleName": "Welcome Page Button Background",
+        "groupedName": "Button Background",
         "info": "Background color for the buttons on the Welcome page",
         "group": "Welcome Page"
     },
     {
         "fullName": "welcomePage.buttonHoverBackground",
-        "titleName": "Welcome Page Page Button Hover Background",
-        "groupedName": "Page Button Hover Background",
+        "titleName": "Welcome Page Button Hover Background",
+        "groupedName": "Button Hover Background",
         "info": "Hover background color for the buttons on the Welcome page",
         "group": "Welcome Page"
     },
     {
         "fullName": "walkThrough.embeddedEditorBackground",
-        "titleName": "Walkthrough Walkthrough Embedded Editor Background",
-        "groupedName": "Walkthrough Embedded Editor Background",
+        "titleName": "Walkthrough Embedded Editor Background",
+        "groupedName": "Embedded Editor Background",
         "info": "Background color for the embedded editors on the Interactive Playground",
         "group": "Walkthrough"
     },
