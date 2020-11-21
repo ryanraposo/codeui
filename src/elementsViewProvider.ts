@@ -5,7 +5,7 @@ import * as fs from "fs";
 import * as path from "path";
 import tinycolor from '@ctrl/tinycolor';
 
-import { chooseScope, showNotification, getInfoProvider } from './extension';
+import { chooseScope, showNotification, getInfoViewProvider } from './extension';
 
 import * as theme from './theme';
 import * as configuration from './configuration';
@@ -31,7 +31,7 @@ export enum ViewType {
 interface WorkbenchCustomizations{[key:string]:any;}
 
 
-export class ElementProvider implements vscode.TreeDataProvider<any>{
+export default class ElementsViewProvider implements vscode.TreeDataProvider<any>{
 
     private _onDidChangeTreeData: vscode.EventEmitter<any> = new vscode.EventEmitter<any>();
     readonly onDidChangeTreeData: vscode.Event<any> = this._onDidChangeTreeData.event;
@@ -344,11 +344,11 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             colorItems.push({label:value,description:key});
         }        
 
-        // Parse selected element(s) & if element, pass to InfoProvider
-        const infoProvider = getInfoProvider();
+        // Parse selected element(s) & if element, pass to InfoViewProvider
+        const infoViewProvider = getInfoViewProvider();
         if(item instanceof(Element)){
             targetElements.push(item.elementData["fullName"]);
-            infoProvider.updateSelectedElement(item);
+            infoViewProvider.updateSelectedElement(item);
         }
         if(item instanceof(ElementTreeGroup)){
             for(let child of item.children){
@@ -383,7 +383,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
             for(let element of targetElements){
                 customizations[element] = userColor;
             }
-            ElementProvider.updateWorkbenchColors(customizations);
+            ElementsViewProvider.updateWorkbenchColors(customizations);
         }
 
     }
@@ -391,8 +391,8 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
 
     public async adjustBrightness(item : Element | ElementTreeGroup) {
         if(item instanceof Element){
-            const infoProvider = getInfoProvider();
-            infoProvider.updateSelectedElement(item);
+            const infoViewProvider = getInfoViewProvider();
+            infoViewProvider.updateSelectedElement(item);
         }
 
         const darken10 = "Darken (10%)";
@@ -454,7 +454,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                 }
             }
             
-            ElementProvider.updateWorkbenchColors(customizations);
+            ElementsViewProvider.updateWorkbenchColors(customizations);
         }
     
     
@@ -475,7 +475,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
                 }
             }
             
-            ElementProvider.updateWorkbenchColors(customizations);
+            ElementsViewProvider.updateWorkbenchColors(customizations);
             
         }
 
@@ -486,15 +486,15 @@ export class ElementProvider implements vscode.TreeDataProvider<any>{
     public clear(item : Element | ElementTreeGroup){
 
         if(item instanceof Element){
-            const infoProvider = getInfoProvider();
-            infoProvider.updateSelectedElement(item);
+            const infoViewProvider = getInfoViewProvider();
+            infoViewProvider.updateSelectedElement(item);
             let elementName : string = item.elementData["fullName"];
-            ElementProvider.updateWorkbenchColors({[elementName]:undefined});
+            ElementsViewProvider.updateWorkbenchColors({[elementName]:undefined});
         }else{
             let customizations : any = {};
             for(let element of item.children){
                 customizations[element.elementData["fullName"]] = undefined;
-                ElementProvider.updateWorkbenchColors(customizations);
+                ElementsViewProvider.updateWorkbenchColors(customizations);
             }
         }
 
