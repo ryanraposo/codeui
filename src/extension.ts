@@ -1,41 +1,41 @@
 "use strict";
+
 import * as vscode from "vscode";
 import * as fs from "fs";
 import * as path from "path";
+import * as ep from './elementProvider';
+import { InfoProvider } from './infoProvider';
 
 import * as configuration from "./configuration";
-import { ViewType } from "./elementsViewProvider";
 
-import ElementsViewProvider from './elementsViewProvider';
-import InfoViewProvider from './infoViewProvider';
+var elementProvider : ep.ElementProvider;
+var infoProvider : InfoProvider;
 
-var elementsViewProvider : ElementsViewProvider;
-var infoViewProvider : InfoViewProvider;
 var targetingModeStatusBarItem : vscode.StatusBarItem;
 
 export async function activate(context: vscode.ExtensionContext) {	
 
 	initializeTargetingModeStatusBarItem();
 	
-	infoViewProvider = new InfoViewProvider();
-	vscode.window.registerTreeDataProvider("elementInfo", infoViewProvider);
-	vscode.commands.registerCommand("showElementInfo", (element) => infoViewProvider.updateSelectedElement(element));
+	infoProvider = new InfoProvider();
+	vscode.window.registerTreeDataProvider("elementInfo", infoProvider);
+	vscode.commands.registerCommand("showElementInfo", (element) => infoProvider.updateSelectedElement(element));
 	
 	vscode.commands.registerCommand("toggleView", () => toggleView());
 	vscode.commands.registerCommand("toggleTargetingMode", () => toggleTargetingMode());
 	
-	elementsViewProvider = new ElementsViewProvider(ViewType.Standard);
-	vscode.window.registerTreeDataProvider("elementsView", elementsViewProvider);
-	vscode.commands.registerCommand("customize", (element) => elementsViewProvider.customize(element));
-	vscode.commands.registerCommand("adjustBrightness", (element) => elementsViewProvider.adjustBrightness(element));
-	vscode.commands.registerCommand("clear", (element) => elementsViewProvider.clear(element));
-	vscode.commands.registerCommand("copy", (element) => elementsViewProvider.copy(element));
+	elementProvider = new ep.ElementProvider(ep.ViewType.Standard);
+	vscode.window.registerTreeDataProvider("elementsView", elementProvider);
+	vscode.commands.registerCommand("customize", (element) => elementProvider.customize(element));
+	vscode.commands.registerCommand("adjustBrightness", (element) => elementProvider.adjustBrightness(element));
+	vscode.commands.registerCommand("clear", (element) => elementProvider.clear(element));
+	vscode.commands.registerCommand("copy", (element) => elementProvider.copy(element));
 
 	await context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
 		if(e.affectsConfiguration('workbench.colorTheme') || e.affectsConfiguration('workbench.colorCustomizations')){
-			elementsViewProvider.refresh();			
-			infoViewProvider.updateTheme();
-			infoViewProvider.refresh();
+			elementProvider.refresh();			
+			infoProvider.updateTheme();
+			infoProvider.refresh();
 		}
 		if(e.affectsConfiguration('codeui.targetingMode')){
 			updateTargetingModeStatusBarItem();
@@ -65,13 +65,13 @@ export function deactivate() {
 
 
 export function toggleView() {
-	if(elementsViewProvider.viewType === ViewType.Standard){
-		elementsViewProvider = new ElementsViewProvider(ViewType.Palette);
-		vscode.window.registerTreeDataProvider('elementsView', elementsViewProvider);
+	if(elementProvider.viewType === ep.ViewType.Standard){
+		elementProvider = new ep.ElementProvider(ep.ViewType.Palette);
+		vscode.window.registerTreeDataProvider('elementsView', elementProvider);
 	}
 	else{
-		elementsViewProvider = new ElementsViewProvider(ViewType.Standard);
-		vscode.window.registerTreeDataProvider('elementsView', elementsViewProvider);
+		elementProvider = new ep.ElementProvider(ep.ViewType.Standard);
+		vscode.window.registerTreeDataProvider('elementsView', elementProvider);
 	}
 }
 
@@ -101,8 +101,8 @@ export async function showNotification(message : string) {
 }
 
 
-export function getInfoViewProvider() {
-	return infoViewProvider;
+export function getInfoProvider() {
+	return infoProvider;
 }
 
 

@@ -1,10 +1,10 @@
 import * as vscode from 'vscode';
-import { Element } from './elementsViewProvider';
+import { Element } from './elementProvider';
 
 import * as theme from "./theme";
 
 
-export default class InfoViewProvider implements vscode.TreeDataProvider<any> {
+export class InfoProvider implements vscode.TreeDataProvider<any> {
 
     private _onDidChangeTreeData: vscode.EventEmitter<any> = new vscode.EventEmitter<any>();
     readonly onDidChangeTreeData: vscode.Event<any> = this._onDidChangeTreeData.event;

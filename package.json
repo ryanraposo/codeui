@@ -124,16 +124,16 @@
 		"viewsContainers": {
 			"activitybar": [
 				{
-					"id": "mainViewContainer",
+					"id": "elementTreeView",
 					"title": "CodeUI",
 					"icon": "resources/activityBar/wireframe-swatch-thicc.svg"
 				}
 			]
 		},
 		"views": {
-			"mainViewContainer": [
+			"elementTreeView": [
 				{
-					"id": "infoView",
+					"id": "elementInfo",
 					"name": "Info"
 				},
 				{
