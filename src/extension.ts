@@ -4,7 +4,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import * as config from './configuration';
-import { ElementProvider, ViewType } from './elements';
+import { ElementProvider, ViewMode } from './elements';
 import { InfoProvider } from './info';
 
 let elementProvider: ElementProvider;
@@ -16,7 +16,7 @@ export function activate(context: vscode.ExtensionContext) {
 	initializeTargetingModeStatusBarItem();
 
 	infoProvider = new InfoProvider();
-	vscode.window.registerTreeDataProvider('elementInfo', infoProvider);
+	vscode.window.registerTreeDataProvider('codeui.views.info', infoProvider);
 	vscode.commands.registerCommand('showElementInfo', (element) =>
 		infoProvider.updateSelectedElement(element)
 	);
@@ -24,8 +24,8 @@ export function activate(context: vscode.ExtensionContext) {
 	vscode.commands.registerCommand('toggleView', () => toggleView());
 	vscode.commands.registerCommand('toggleTargetingMode', () => toggleTargetingMode());
 
-	elementProvider = new ElementProvider(ViewType.standard);
-	vscode.window.registerTreeDataProvider('elementsView', elementProvider);
+	elementProvider = new ElementProvider(ViewMode.standard);
+	vscode.window.registerTreeDataProvider('codeui.views.elements', elementProvider);
 	vscode.commands.registerCommand('customize', (element) =>
 		elementProvider.customize(element)
 	);
@@ -78,11 +78,11 @@ export function deactivate() {
 }
 
 export function toggleView() {
-	if (elementProvider.viewType === ViewType.standard) {
-		elementProvider = new ElementProvider(ViewType.palette);
+	if (elementProvider.viewMode === ViewMode.standard) {
+		elementProvider = new ElementProvider(ViewMode.palette);
 		vscode.window.registerTreeDataProvider('elementsView', elementProvider);
 	} else {
-		elementProvider = new ElementProvider(ViewType.standard);
+		elementProvider = new ElementProvider(ViewMode.standard);
 		vscode.window.registerTreeDataProvider('elementsView', elementProvider);
 	}
 }

@@ -29,8 +29,8 @@
 		"customize"
 	],
 	"activationEvents": [
-		"onView:elementInfo",
-		"onView:elementsView"
+		"onView:codeui.views.elements",
+		"onView:codeui.views.info"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -77,10 +77,6 @@
 		},
 		"commands": [
 			{
-				"command": "testCommand",
-				"title": "CodeUI: Test Command"
-			},
-			{
 				"command": "toggleTargetingMode",
 				"title": "CodeUI: Toggle targeting mode"
 			},
@@ -124,20 +120,20 @@
 		"viewsContainers": {
 			"activitybar": [
 				{
-					"id": "elementTreeView",
+					"id": "codeui",
 					"title": "CodeUI",
 					"icon": "resources/activityBar/wireframe-swatch-thicc.svg"
 				}
 			]
 		},
 		"views": {
-			"elementTreeView": [
+			"codeui": [
 				{
-					"id": "elementInfo",
+					"id": "codeui.views.info",
 					"name": "Info"
 				},
 				{
-					"id": "elementsView",
+					"id": "codeui.views.elements",
 					"name": "Elements"
 				}
 			]
@@ -146,29 +142,29 @@
 			"view/title": [
 				{
 					"command": "toggleView",
-					"when": "view == elementsView",
+					"when": "view == codeui.views.elements",
 					"group": "navigation"
 				}
 			],
 			"view/item/context": [
 				{
 					"command": "clear",
-					"when": "viewItem != standardGroup && view == elementsView",
+					"when": "viewItem != standardGroup && view == codeui.views.elements",
 					"group": "inline"
 				},
 				{
 					"command": "customize",
-					"when": "viewItem != standardGroup && view == elementsView",
+					"when": "viewItem != standardGroup && view == codeui.views.elements",
 					"group": "inline"
 				},
 				{
 					"command": "adjustBrightness",
-					"when": "viewItem != standardGroup && view == elementsView",
+					"when": "viewItem != standardGroup && view == codeui.views.elements",
 					"group": "inline"
 				},
 				{
 					"command": "copy",
-					"when": "viewItem != standardGroup && view == elementsView"
+					"when": "viewItem != standardGroup && view == codeui.views.elements"
 				}
 			]
 		}

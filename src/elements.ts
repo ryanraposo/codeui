@@ -19,7 +19,7 @@ interface ColorConfig {
 	};
 }
 
-export enum ViewType {
+export enum ViewMode {
 	standard = 0,
 	palette = 1,
 }
@@ -32,15 +32,15 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 	private _onDidChangeTreeData: vscode.EventEmitter<any> = new vscode.EventEmitter<any>();
 	readonly onDidChangeTreeData: vscode.Event<any> = this._onDidChangeTreeData.event;
 
-	viewType: ViewType;
+	viewMode: ViewMode;
 
 	colors: any;
 	elementData: any = [];
 	colorConfigs: any;
 	elementItems: any = [];
 
-	constructor(viewType: ViewType) {
-		this.viewType = viewType;
+	constructor(viewMode: ViewMode) {
+		this.viewMode = viewMode;
 		this.loadElementData();
 		this.loadColors();
 		this.loadColorConfigs();
@@ -50,7 +50,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 			const treeItem = new Element(
 				elementData,
 				vscode.TreeItemCollapsibleState.None,
-				this.viewType,
+				this.viewMode,
 				this
 			);
 			this.elementItems[elementData.fullName] = treeItem;
@@ -78,7 +78,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 	getChildren(elementTreeGroup?: any): any {
 		const children: any = [];
 
-		if (this.viewType === ViewType.standard) {
+		if (this.viewMode === ViewMode.standard) {
 			if (elementTreeGroup) {
 				for (const key in this.elementItems) {
 					const value = this.elementItems[key];
@@ -92,7 +92,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 			}
 		}
 
-		if (this.viewType === ViewType.palette) {
+		if (this.viewMode === ViewMode.palette) {
 			if (elementTreeGroup) {
 				return elementTreeGroup.children;
 			} else {
@@ -198,23 +198,28 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 
 				if (settingsConfigs) {
 					if (settingsConfigs.globalValue) {
-						elementColorConfig.settings.global = settingsConfigs.globalValue[element];
+						elementColorConfig.settings.global =
+							settingsConfigs.globalValue[element];
 						// resolve theme-specific value
 						if (settingsConfigs.globalValue['[' + currentThemeName + ']']) {
 							const themeSpecificCustomizations =
 								settingsConfigs.globalValue['[' + currentThemeName + ']'];
 							if (themeSpecificCustomizations[element]) {
-								elementColorConfig.settings.global = themeSpecificCustomizations[element];
+								elementColorConfig.settings.global =
+									themeSpecificCustomizations[element];
 							}
 						}
 						// resolve theme-specific value
 					}
 					if (settingsConfigs.workspaceValue) {
-						elementColorConfig.settings.workspace = settingsConfigs.workspaceValue[element];
+						elementColorConfig.settings.workspace =
+							settingsConfigs.workspaceValue[element];
 						// resolve theme-specific value
 						if (settingsConfigs.workspaceValue['[' + currentThemeName + ']']) {
 							const themeSpecificCustomizations =
-								settingsConfigs.workspaceValue['[' + currentThemeName + ']'];
+								settingsConfigs.workspaceValue[
+									'[' + currentThemeName + ']'
+								];
 							if (themeSpecificCustomizations[element]) {
 								elementColorConfig.settings.workspace =
 									themeSpecificCustomizations[element];
@@ -279,7 +284,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 						vscode.TreeItemCollapsibleState.Collapsed,
 						undefined,
 						'',
-						ViewType.standard
+						ViewMode.standard
 					)
 				);
 			}
@@ -311,7 +316,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 					vscode.TreeItemCollapsibleState.Collapsed,
 					effectiveColor,
 					'',
-					ViewType.palette
+					ViewMode.palette
 				);
 				elementTreeGroup.addChild(this.elementItems[key]);
 				elementTreeGroups.push(elementTreeGroup);
@@ -453,7 +458,8 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 
 			if (item instanceof Element) {
 				const darkenedValue =
-					'#' + tinycolor(getEffectiveColor(item.colorConfig)).darken(value).toHex();
+					'#' +
+					tinycolor(getEffectiveColor(item.colorConfig)).darken(value).toHex();
 				customizations[item.elementData.fullName] = darkenedValue;
 			}
 
@@ -461,7 +467,10 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 				for (const key in item.children) {
 					const value = item.children[key];
 					const darkenedValue =
-						'#' + tinycolor(getEffectiveColor(value.colorConfig)).darken(value).toHex();
+						'#' +
+						tinycolor(getEffectiveColor(value.colorConfig))
+							.darken(value)
+							.toHex();
 					customizations[value.elementData.fullName] = darkenedValue;
 				}
 			}
@@ -474,7 +483,8 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 
 			if (item instanceof Element) {
 				const lightenedValue =
-					'#' + tinycolor(getEffectiveColor(item.colorConfig)).lighten(value).toHex();
+					'#' +
+					tinycolor(getEffectiveColor(item.colorConfig)).lighten(value).toHex();
 				customizations[item.elementData.fullName] = lightenedValue;
 			}
 
@@ -482,7 +492,10 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 				for (const key in item.children) {
 					const value = item.children[key];
 					const lightenedValue =
-						'#' + tinycolor(getEffectiveColor(value.colorConfig)).lighten(value).toHex();
+						'#' +
+						tinycolor(getEffectiveColor(value.colorConfig))
+							.lighten(value)
+							.toHex();
 					customizations[value.elementData.fullName] = lightenedValue;
 				}
 			}
@@ -554,7 +567,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 }
 
 export class Element extends vscode.TreeItem {
-	viewType: any;
+	viewMode: any;
 	elementData: any;
 	colorConfig: any;
 	dataProvider: any;
@@ -562,7 +575,7 @@ export class Element extends vscode.TreeItem {
 	constructor(
 		elementData: any,
 		collapsibleState: vscode.TreeItemCollapsibleState,
-		viewType: ViewType,
+		viewMode: ViewMode,
 		dataProvider: vscode.TreeDataProvider<any>
 	) {
 		super('', collapsibleState);
@@ -575,11 +588,11 @@ export class Element extends vscode.TreeItem {
 			arguments: [this],
 		};
 
-		if (viewType === ViewType.standard) {
+		if (viewMode === ViewMode.standard) {
 			this.label = this.elementData.groupedName;
 		}
 
-		if (viewType === ViewType.palette) {
+		if (viewMode === ViewMode.palette) {
 			this.label = this.elementData.titleName;
 		}
 		this.dataProvider = dataProvider;
@@ -619,7 +632,10 @@ export class Element extends vscode.TreeItem {
 					baseColor = item;
 				}
 			}
-			for (const item of [colorConfig.settings.global, colorConfig.settings.workspace]) {
+			for (const item of [
+				colorConfig.settings.global,
+				colorConfig.settings.workspace,
+			]) {
 				if (item) {
 					topColor = item;
 				}
@@ -676,7 +692,7 @@ export class ElementTreeGroup extends vscode.TreeItem {
 		collapsibleState: vscode.TreeItemCollapsibleState,
 		color: any,
 		tooltip: string,
-		viewType: ViewType
+		viewMode: ViewMode
 	) {
 		super(label, collapsibleState);
 		this.label = label;
@@ -684,10 +700,10 @@ export class ElementTreeGroup extends vscode.TreeItem {
 		if (color) {
 			this.iconPath = this.getGeneratedIcon();
 		}
-		if (viewType === ViewType.palette) {
+		if (viewMode === ViewMode.palette) {
 			this.contextValue = 'paletteGroup';
 		}
-		if (viewType === ViewType.standard) {
+		if (viewMode === ViewMode.standard) {
 			this.contextValue = 'standardGroup';
 		}
 	}
