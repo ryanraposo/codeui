@@ -6,6 +6,7 @@ import * as path from 'path';
 import * as config from './configuration';
 import { ElementProvider, ViewMode } from './elements';
 import { InfoProvider } from './info';
+import { ColorProvider } from './color';
 
 let elementProvider: ElementProvider;
 let infoProvider: InfoProvider;
@@ -34,6 +35,11 @@ export function activate(context: vscode.ExtensionContext) {
 	);
 	vscode.commands.registerCommand('clear', (element) => elementProvider.clear(element));
 	vscode.commands.registerCommand('copy', (element) => elementProvider.copy(element));
+
+	const colorProvider = new ColorProvider(context.extensionUri);
+	context.subscriptions.push(
+		vscode.window.registerWebviewViewProvider('codeui.views.color', colorProvider)
+	);
 
 	context.subscriptions.push(
 		vscode.workspace.onDidChangeConfiguration((e) => {
