@@ -7,6 +7,7 @@ import { getConfig } from './configuration';
 import { ElementProvider, ViewMode } from './elements';
 import { InfoProvider } from './info';
 import { TargetingModeStatusBarItem } from './statusBar';
+import { ColorProvider } from './color';
 
 let elementProvider: ElementProvider;
 let infoProvider: InfoProvider;
@@ -33,6 +34,11 @@ export function activate(context: vscode.ExtensionContext) {
 	registerCommand('clear', (element) => elementProvider.clear(element));
 	registerCommand('copy', (element) => elementProvider.copy(element));
 	registerCommand('toggleViewMode', () => elementProvider.toggleViewMode());
+
+	const colorProvider = new ColorProvider(context.extensionUri);
+	context.subscriptions.push(
+		vscode.window.registerWebviewViewProvider('codeui.views.color', colorProvider)
+	);
 
 	context.subscriptions.push(
 		vscode.workspace.onDidChangeConfiguration((e) => {

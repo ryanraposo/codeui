@@ -30,7 +30,8 @@
 	],
 	"activationEvents": [
 		"onView:codeui.views.elements",
-		"onView:codeui.views.info"
+		"onView:codeui.views.info",
+		"onView:codeui.views.color"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -135,6 +136,11 @@
 				{
 					"id": "codeui.views.elements",
 					"name": "Elements"
+				},
+				{
+					"id": "codeui.views.color",
+					"name": "Color",
+					"type": "webview"
 				}
 			]
 		},
