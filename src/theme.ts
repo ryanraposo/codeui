@@ -1,15 +1,14 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
-import * as configuration from './configuration';
 import * as jsonc from 'jsonc-parser';
 
+import { getConfig } from './configuration';
+
 export function getCurrentColorTheme(): ColorTheme {
-	const effectiveColorThemeName = configuration.getEffectiveColorThemeName();
-
-	const currentColorTheme = new ColorTheme(effectiveColorThemeName);
-
-	return currentColorTheme;
+	const config = getConfig();
+	const themeName = <string>config.getColorThemeName();
+	return new ColorTheme(themeName);
 }
 
 export class ColorTheme {

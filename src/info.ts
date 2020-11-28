@@ -119,11 +119,9 @@ export class InfoProvider implements vscode.TreeDataProvider<any> {
 		return selectedElementChildren;
 	}
 
-	//Current Theme
 	updateTheme() {
 		const currentTheme = theme.getCurrentColorTheme();
 		this.currentTheme = currentTheme;
-		this.refresh();
 	}
 
 	getThemeItem(): InfoItem {

@@ -81,7 +81,7 @@
 				"title": "CodeUI: Toggle targeting mode"
 			},
 			{
-				"command": "toggleView",
+				"command": "toggleViewMode",
 				"title": "Toggle Standard/Palette view",
 				"icon": {
 					"light": "resources/light/view.svg",
@@ -141,7 +141,7 @@
 		"menus": {
 			"view/title": [
 				{
-					"command": "toggleView",
+					"command": "toggleViewMode",
 					"when": "view == codeui.views.elements",
 					"group": "navigation"
 				}

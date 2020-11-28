@@ -6,8 +6,8 @@ import * as path from 'path';
 import tinycolor from '@ctrl/tinycolor';
 
 import { chooseScope, showNotification, getInfoProvider } from './extension';
+import { getConfig } from './configuration';
 import * as theme from './theme';
-import * as configuration from './configuration';
 
 interface ColorConfig {
 	[index: number]: string;
@@ -27,6 +27,8 @@ export enum ViewMode {
 interface WorkbenchCustomizations {
 	[key: string]: any;
 }
+
+const config = getConfig();
 
 export class ElementProvider implements vscode.TreeDataProvider<any> {
 	private _onDidChangeTreeData: vscode.EventEmitter<any> = new vscode.EventEmitter<any>();
@@ -101,11 +103,14 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 		}
 	}
 
+	toggleViewMode() {
+		this.viewMode = this.viewMode === ViewMode.standard ? ViewMode.palette : ViewMode.standard;
+		this.refresh();
+	}
+
 	private getUserColors() {
 		this.colors = {};
-		const userColors: any = vscode.workspace
-			.getConfiguration()
-			.get('codeui.favoriteColors');
+		const userColors: any = vscode.workspace.getConfiguration().get('codeui.favoriteColors');
 		if (userColors) {
 			for (const key in userColors) {
 				const value = userColors[key];
@@ -117,7 +122,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 							key +
 							':' +
 							value +
-							' is not valid. Refer to the configuration tooltip'
+							' is not valid. Refer to the config tooltip'
 					);
 				}
 			}
@@ -176,8 +181,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 			settingsConfigs: any
 		): any {
 			const colorConfigurations: any = {};
-
-			const currentThemeName: string = configuration.getEffectiveColorThemeName();
+			const currentThemeName = config.getColorThemeName();
 
 			for (const key in elementNames) {
 				const element: string = elementNames[key];
@@ -198,8 +202,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 
 				if (settingsConfigs) {
 					if (settingsConfigs.globalValue) {
-						elementColorConfig.settings.global =
-							settingsConfigs.globalValue[element];
+						elementColorConfig.settings.global = settingsConfigs.globalValue[element];
 						// resolve theme-specific value
 						if (settingsConfigs.globalValue['[' + currentThemeName + ']']) {
 							const themeSpecificCustomizations =
@@ -217,9 +220,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 						// resolve theme-specific value
 						if (settingsConfigs.workspaceValue['[' + currentThemeName + ']']) {
 							const themeSpecificCustomizations =
-								settingsConfigs.workspaceValue[
-									'[' + currentThemeName + ']'
-								];
+								settingsConfigs.workspaceValue['[' + currentThemeName + ']'];
 							if (themeSpecificCustomizations[element]) {
 								elementColorConfig.settings.workspace =
 									themeSpecificCustomizations[element];
@@ -458,8 +459,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 
 			if (item instanceof Element) {
 				const darkenedValue =
-					'#' +
-					tinycolor(getEffectiveColor(item.colorConfig)).darken(value).toHex();
+					'#' + tinycolor(getEffectiveColor(item.colorConfig)).darken(value).toHex();
 				customizations[item.elementData.fullName] = darkenedValue;
 			}
 
@@ -467,10 +467,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 				for (const key in item.children) {
 					const value = item.children[key];
 					const darkenedValue =
-						'#' +
-						tinycolor(getEffectiveColor(value.colorConfig))
-							.darken(value)
-							.toHex();
+						'#' + tinycolor(getEffectiveColor(value.colorConfig)).darken(value).toHex();
 					customizations[value.elementData.fullName] = darkenedValue;
 				}
 			}
@@ -483,8 +480,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 
 			if (item instanceof Element) {
 				const lightenedValue =
-					'#' +
-					tinycolor(getEffectiveColor(item.colorConfig)).lighten(value).toHex();
+					'#' + tinycolor(getEffectiveColor(item.colorConfig)).lighten(value).toHex();
 				customizations[item.elementData.fullName] = lightenedValue;
 			}
 
@@ -493,9 +489,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 					const value = item.children[key];
 					const lightenedValue =
 						'#' +
-						tinycolor(getEffectiveColor(value.colorConfig))
-							.lighten(value)
-							.toHex();
+						tinycolor(getEffectiveColor(value.colorConfig)).lighten(value).toHex();
 					customizations[value.elementData.fullName] = lightenedValue;
 				}
 			}
@@ -527,23 +521,13 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 	}
 
 	static async updateWorkbenchColors(customizations: WorkbenchCustomizations) {
-		const currentThemeProp = '[' + configuration.getEffectiveColorThemeName() + ']';
-
-		const target = await resolveTarget();
-		let scopedCustomizations: any = {};
-
-		if (target === vscode.ConfigurationTarget.Global) {
-			scopedCustomizations = await configuration.getGlobalWorkbenchColorCustomizations();
-		}
-		if (target === vscode.ConfigurationTarget.Workspace) {
-			scopedCustomizations = await configuration.getWorkspaceWorkbenchColorCustomizations();
-		}
-
+		const currentThemeProp = '[' + config.getColorThemeName() + ']';
+		const scope = await resolveScope();
+		const scopedCustomizations: any = config.getWorkbenchColorCustomizations(scope);
 		for (const element in customizations) {
-			// for key(element name) in supplied array
-			const value = customizations[element]; // value = color value
+			const value = customizations[element];
 			if ((await isHexidecimal(value)) || value === undefined) {
-				const targetingMode = configuration.getTargetingMode();
+				const targetingMode = config.getTargetingMode();
 				if (targetingMode === 'themeSpecific') {
 					if (scopedCustomizations[currentThemeProp]) {
 						scopedCustomizations[currentThemeProp][element] = value;
@@ -559,10 +543,9 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 				return;
 			}
 		}
-
 		await vscode.workspace
 			.getConfiguration()
-			.update('workbench.colorCustomizations', scopedCustomizations, target);
+			.update('workbench.colorCustomizations', scopedCustomizations, scope);
 	}
 }
 
@@ -632,10 +615,7 @@ export class Element extends vscode.TreeItem {
 					baseColor = item;
 				}
 			}
-			for (const item of [
-				colorConfig.settings.global,
-				colorConfig.settings.workspace,
-			]) {
+			for (const item of [colorConfig.settings.global, colorConfig.settings.workspace]) {
 				if (item) {
 					topColor = item;
 				}
@@ -762,28 +742,27 @@ function getEffectiveColor(colorConfig: ColorConfig): string | undefined {
 	return effective;
 }
 
-function resolveTarget(): any {
-	const workspaceRootFolder = configuration.getWorkspaceRootFolder();
-	const preferredScope = configuration.getPreferredScope();
+function resolveScope(): any {
+	const workspaceRootFolder = config.getWorkspaceRootFolder();
+	const preferredScope = config.getPreferredScope();
 
-	let target: any;
+	let scope: any;
 
 	if (workspaceRootFolder) {
 		if (preferredScope === 'alwaysAsk') {
-			target = chooseScope(workspaceRootFolder);
-			if (!target) {
+			scope = chooseScope(workspaceRootFolder);
+			if (!scope) {
 				return;
 			}
 		} else if (preferredScope === 'global') {
-			target = vscode.ConfigurationTarget.Global;
+			scope = vscode.ConfigurationTarget.Global;
 		} else if (preferredScope === 'workspace') {
-			target = target = vscode.ConfigurationTarget.Workspace;
+			scope = scope = vscode.ConfigurationTarget.Workspace;
 		}
 	} else if (!workspaceRootFolder) {
-		target = vscode.ConfigurationTarget.Global;
+		scope = vscode.ConfigurationTarget.Global;
 	}
-
-	return target;
+	return scope;
 }
 
 function isHexidecimal(str: string) {
