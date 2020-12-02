@@ -3,22 +3,34 @@
 // @ts-nocheck
 
 (function () {
-	// TODO: webview state persist
-	// const vscode = acquireVsCodeApi();
-	// const oldState = vscode.getState() || { colors: [] };
+	const vscode = acquireVsCodeApi();
+
+	const initialColor = '#3fdaa4';
+
+	var currentState = vscode.getState() || { color: initialColor };
+
+	function updateSelectedColor(color) {
+		vscode.postMessage({ type: 'updateSelectedColor', value: color });
+	}
+
+	function saveState(state) {
+		vscode.setState({ color: state.color });
+		currentState = state;
+		updateSelectedColor(state.color);
+	}
 
 	var colorWheel = new ReinventedColorWheel({
 		appendTo: document.getElementById('color-wheel-container'),
 
-		hex: '#888888',
+		hex: currentState.selectedColor,
 		wheelDiameter: 200,
 		wheelThickness: 20,
 		handleDiameter: 16,
 		wheelReflectsSaturation: true,
 
 		onChange: function (color) {
-			// TODO: webview on change color
-			console.log('hsv:', color.hsv[0], color.hsv[1], color.hsv[2]);
+			saveState({ color: color.hex });
 		},
 	});
+	saveState({ color: colorWheel.hex });
 })();
