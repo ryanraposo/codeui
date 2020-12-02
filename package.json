@@ -116,7 +116,12 @@
 			{
 				"command": "copy",
 				"title": "Copy"
-			}
+			},
+			{
+				"command": "copySelectedColor",
+				"title": "Copy selected color",
+				"icon": "$(symbol-reference)"
+			}			
 		],
 		"viewsContainers": {
 			"activitybar": [
@@ -149,6 +154,11 @@
 				{
 					"command": "toggleViewMode",
 					"when": "view == codeui.views.elements",
+					"group": "navigation"
+				},
+				{
+					"command": "copySelectedColor",
+					"when": "view == codeui.views.color",
 					"group": "navigation"
 				}
 			],

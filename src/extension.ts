@@ -39,6 +39,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
 		vscode.window.registerWebviewViewProvider('codeui.views.color', colorProvider)
 	);
+	registerCommand('copySelectedColor', () => colorProvider.copySelectedColor());
 
 	context.subscriptions.push(
 		vscode.workspace.onDidChangeConfiguration((e) => {
