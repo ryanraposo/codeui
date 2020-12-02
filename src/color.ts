@@ -1,7 +1,10 @@
 import * as vscode from 'vscode';
 
+import { showNotification } from './extension';
+
 export class ColorProvider implements vscode.WebviewViewProvider {
 	private _view?: vscode.WebviewView;
+	private selectedColor: any;
 
 	constructor(private readonly _extensionUri: vscode.Uri) {}
 
@@ -16,8 +19,15 @@ export class ColorProvider implements vscode.WebviewViewProvider {
 		webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
 
 		webviewView.webview.onDidReceiveMessage((data) => {
-			// TODO: extension msg in
+			if (data.type == 'updateSelectedColor') {
+				this.selectedColor = data.value;
+			}
 		});
+	}
+
+	public copySelectedColor() {
+		vscode.env.clipboard.writeText(this.selectedColor);
+		showNotification('copied ' + this.selectedColor);
 	}
 
 	private _getHtmlForWebview(webview: vscode.Webview) {
@@ -26,12 +36,7 @@ export class ColorProvider implements vscode.WebviewViewProvider {
 		);
 
 		const colorWheel = webview.asWebviewUri(
-			vscode.Uri.joinPath(
-				this._extensionUri,
-				'media',
-				'lib',
-				'reinvented-color-wheel.min.js'
-			)
+			vscode.Uri.joinPath(this._extensionUri, 'media', 'lib', 'reinvented-color-wheel.min.js')
 		);
 		const styleColorWheel = webview.asWebviewUri(
 			vscode.Uri.joinPath(
