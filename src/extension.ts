@@ -13,6 +13,9 @@ let infoProvider: InfoProvider;
 
 const config = getConfig();
 
+/**
+ * Called when the extension is first activated.
+ */
 export function activate(context: vscode.ExtensionContext) {
 	const registerCommand = vscode.commands.registerCommand;
 

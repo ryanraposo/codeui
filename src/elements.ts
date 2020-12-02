@@ -28,8 +28,6 @@ interface WorkbenchCustomizations {
 	[key: string]: any;
 }
 
-const config = getConfig();
-
 export class ElementProvider implements vscode.TreeDataProvider<any> {
 	private _onDidChangeTreeData: vscode.EventEmitter<any> = new vscode.EventEmitter<any>();
 	readonly onDidChangeTreeData: vscode.Event<any> = this._onDidChangeTreeData.event;
@@ -181,6 +179,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 			settingsConfigs: any
 		): any {
 			const colorConfigurations: any = {};
+			const config = getConfig();
 			const currentThemeName = config.getColorThemeName();
 
 			for (const key in elementNames) {
@@ -521,6 +520,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 	}
 
 	static async updateWorkbenchColors(customizations: WorkbenchCustomizations) {
+		const config = getConfig();
 		const currentThemeProp = '[' + config.getColorThemeName() + ']';
 		const scope = await resolveScope();
 		const scopedCustomizations: any = config.getWorkbenchColorCustomizations(scope);
@@ -743,6 +743,7 @@ function getEffectiveColor(colorConfig: ColorConfig): string | undefined {
 }
 
 function resolveScope(): any {
+	const config = getConfig();
 	const workspaceRootFolder = config.getWorkspaceRootFolder();
 	const preferredScope = config.getPreferredScope();
 

@@ -47,10 +47,6 @@ class Config {
 	}
 }
 
-export interface IStringAnyDict {
-	[key: string]: any;
-}
-
 export function getConfig() {
 	return new Config();
 }
