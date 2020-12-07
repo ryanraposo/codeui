@@ -4,10 +4,13 @@ media
 resources/master
 
 # Files
+CODING_GUIDELINES.md
 CONTRIBUTING-template.md
 CONTRIBUTING.md
 todo.md
 dc.bat
+.prettierrc
+.eslintrc.js
 
 #Default
 .vscode/**
