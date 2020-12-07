@@ -1,3 +1,10 @@
+##    [0.3.1]
+
+- Fixed various low-level performance issues.
+
+- Fixed outdated links in README.
+
+
 ##    [0.3.0]
 
 - Added support for custom-value brightness adjustments (@usernamehw).
