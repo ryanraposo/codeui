@@ -6,8 +6,8 @@ import * as path from 'path';
 import { getConfig } from './configuration';
 import { ElementProvider, ViewMode } from './elements';
 import { InfoProvider } from './info';
-import { TargetingModeStatusBarItem } from './statusBar';
 import { ColorProvider } from './color';
+import { TargetingModeStatusBarItem } from './statusbar';
 
 let elementProvider: ElementProvider;
 let infoProvider: InfoProvider;
