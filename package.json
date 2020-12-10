@@ -155,11 +155,6 @@
 					"command": "toggleViewMode",
 					"when": "view == codeui.views.elements",
 					"group": "navigation"
-				},
-				{
-					"command": "copySelectedColor",
-					"when": "view == codeui.views.color",
-					"group": "navigation"
 				}
 			],
 			"view/item/context": [

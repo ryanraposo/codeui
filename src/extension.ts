@@ -7,7 +7,7 @@ import { getConfig } from './configuration';
 import { ElementProvider, ViewMode } from './elements';
 import { InfoProvider } from './info';
 import { ColorProvider } from './color';
-import { TargetingModeStatusBarItem } from './statusbar';
+import { TargetingModeStatusBarItem, ColorStatusBarItem } from './statusbar';
 
 let elementProvider: ElementProvider;
 let infoProvider: InfoProvider;
@@ -22,6 +22,9 @@ export function activate(context: vscode.ExtensionContext) {
 
 	const targetingModeStatusBarItem = new TargetingModeStatusBarItem();
 	registerCommand('toggleTargetingMode', () => config.toggleTargetingMode());
+	targetingModeStatusBarItem.update(config.getTargetingMode());
+
+	const colorStatusBarItem = new ColorStatusBarItem();
 
 	infoProvider = new InfoProvider();
 	vscode.window.registerTreeDataProvider('codeui.views.info', infoProvider);
@@ -35,7 +38,7 @@ export function activate(context: vscode.ExtensionContext) {
 	registerCommand('copy', (element) => elementProvider.copy(element));
 	registerCommand('toggleViewMode', () => elementProvider.toggleViewMode());
 
-	const colorProvider = new ColorProvider(context.extensionUri);
+	const colorProvider = new ColorProvider(context.extensionUri, colorStatusBarItem);
 	context.subscriptions.push(
 		vscode.window.registerWebviewViewProvider('codeui.views.color', colorProvider)
 	);
@@ -44,7 +47,9 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
 		vscode.workspace.onDidChangeConfiguration((e) => {
 			if (e.affectsConfiguration('codeui.targetingMode')) {
-				targetingModeStatusBarItem.update();
+				const config = getConfig();
+				const targetingMode = config.getTargetingMode();
+				targetingModeStatusBarItem.update(targetingMode);
 			}
 			if (
 				e.affectsConfiguration('workbench.colorTheme') ||

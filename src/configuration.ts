@@ -28,7 +28,7 @@ class Config {
 		}
 	}
 
-	getTargetingMode() {
+	getTargetingMode(): string | undefined {
 		return this.config.get('codeui.targetingMode');
 	}
 

@@ -6,7 +6,10 @@ export class ColorProvider implements vscode.WebviewViewProvider {
 	private _view?: vscode.WebviewView;
 	private selectedColor: any;
 
-	constructor(private readonly _extensionUri: vscode.Uri) {}
+	constructor(
+		private readonly _extensionUri: vscode.Uri,
+		private readonly colorStatusBarItem: any
+	) {}
 
 	public resolveWebviewView(webviewView: vscode.WebviewView) {
 		this._view = webviewView;
@@ -21,6 +24,7 @@ export class ColorProvider implements vscode.WebviewViewProvider {
 		webviewView.webview.onDidReceiveMessage((data) => {
 			if (data.type == 'updateSelectedColor') {
 				this.selectedColor = data.value;
+				this.colorStatusBarItem.update(data.value);
 			}
 		});
 	}
