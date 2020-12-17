@@ -4,7 +4,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { getConfig } from './configuration';
-import { ElementProvider, ViewMode } from './elements';
+import { ElementProvider, ViewMode, getEffectiveColor } from './elements';
 import { InfoProvider } from './info';
 import { ColorProvider } from './color';
 import { TargetingModeStatusBarItem, ColorStatusBarItem } from './statusbar';
@@ -28,7 +28,6 @@ export function activate(context: vscode.ExtensionContext) {
 
 	infoProvider = new InfoProvider();
 	vscode.window.registerTreeDataProvider('codeui.views.info', infoProvider);
-	registerCommand('showElementInfo', (element) => infoProvider.updateSelectedElement(element));
 
 	elementProvider = new ElementProvider(ViewMode.standard);
 	vscode.window.registerTreeDataProvider('codeui.views.elements', elementProvider);
@@ -43,6 +42,14 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.registerWebviewViewProvider('codeui.views.color', colorProvider)
 	);
 	registerCommand('copySelectedColor', () => colorProvider.copySelectedColor());
+
+	registerCommand('updateSelectedElement', (element) => {
+		infoProvider.updateSelectedElement(element);
+		const color = element.effectiveColor;
+		if (color) {
+			colorProvider.setSelectedColor(color);
+		}
+	});
 
 	context.subscriptions.push(
 		vscode.workspace.onDidChangeConfiguration((e) => {

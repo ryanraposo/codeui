@@ -34,6 +34,15 @@ export class ColorProvider implements vscode.WebviewViewProvider {
 		showNotification('copied ' + this.selectedColor);
 	}
 
+	public setSelectedColor(color: string) {
+		if (this._view) {
+			this._view.webview.postMessage({
+				type: 'setSelectedColor',
+				value: color,
+			});
+		}
+	}
+
 	private _getHtmlForWebview(webview: vscode.Webview) {
 		const main = webview.asWebviewUri(
 			vscode.Uri.joinPath(this._extensionUri, 'media', 'main.js')

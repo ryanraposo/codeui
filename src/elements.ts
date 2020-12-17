@@ -550,6 +550,7 @@ export class ElementProvider implements vscode.TreeDataProvider<any> {
 }
 
 export class Element extends vscode.TreeItem {
+	contextValue = 'element';
 	viewMode: any;
 	elementData: any;
 	colorConfig: any;
@@ -567,7 +568,7 @@ export class Element extends vscode.TreeItem {
 		this.tooltip = elementData.info;
 		this.command = {
 			title: '',
-			command: 'showElementInfo',
+			command: 'updateSelectedElement',
 			arguments: [this],
 		};
 
@@ -591,7 +592,6 @@ export class Element extends vscode.TreeItem {
 		} else {
 			this.description = '-';
 		}
-
 		this.iconPath = this.generateIcon();
 	}
 
@@ -659,7 +659,9 @@ export class Element extends vscode.TreeItem {
 		return iconPath;
 	}
 
-	contextValue = 'element';
+	get effectiveColor() {
+		return getEffectiveColor(this.colorConfig);
+	}
 }
 
 export class ElementTreeGroup extends vscode.TreeItem {
@@ -725,7 +727,7 @@ export class ElementTreeGroup extends vscode.TreeItem {
 	}
 }
 
-function getEffectiveColor(colorConfig: ColorConfig): string | undefined {
+export function getEffectiveColor(colorConfig: ColorConfig): string | undefined {
 	let effective: string | undefined;
 
 	for (const item of [

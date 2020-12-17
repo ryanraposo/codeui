@@ -19,9 +19,18 @@
 		updateSelectedColor(state.color);
 	}
 
+	window.addEventListener('message', (event) => {
+		const message = event.data;
+		switch (message.type) {
+			case 'setSelectedColor': {
+				colorWheel.hex = message.value;
+				break;
+			}
+		}
+	});
+
 	var colorWheel = new ReinventedColorWheel({
 		appendTo: document.getElementById('color-wheel-container'),
-
 		hex: currentState.selectedColor,
 		wheelDiameter: 200,
 		wheelThickness: 20,
