@@ -8,9 +8,9 @@ All are welcome to contribute--whatever that means for you. :)
 ## Pull Request Process
 
 1. Ensure any development or build related stuff is removed.
-2. Update the README.md with details of changes where applicable.
-3. Make changes (where applicable):
-- (README.md) Version badge. Just modify: [https://img.shields.io/badge/version-0.x-red]
+2. Update the following items, where necessary:
+
+- (README.md) Version badge by modifying: [https://img.shields.io/badge/version-0.x-red]
 - (README.md) Version number in the 'Installing the extension by cli' snippet.
 - (package.json) Extension version 
 - (CHANGELOG.md)
