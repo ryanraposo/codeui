@@ -1,6 +1,6 @@
 # Contributing
 
-You don't need to create Issues first, or contact the owner (@ryanraposo), but both are HIGHLY encouraged/welcome for contributions or ideas that are unusual, unsupported, or generally underepresented on GitHub.
+You don't need to create Issues first, or contact the owner (@ryanraposo), but both are HIGHLY encouraged/welcome for contributions or ideas that are unusual, unsupported, or generally underrepresented on GitHub.
 
 All are welcome to contribute--whatever that means for you. :)
 
