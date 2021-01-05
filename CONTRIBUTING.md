@@ -1,17 +1,19 @@
 # Contributing
 
-When contributing to CodeUI, please first discuss the change you wish to make via issue,
-email, or any other method with the owner (raposo.ryan@gmail.com) of this repository before making a change. 
+You don't need to create Issues first, or contact the owner (@ryanraposo), but both are HIGHLY encouraged/welcome for contributions or ideas that are unusual, unsupported, or generally underepresented on GitHub.
 
-Please note we have a code of conduct, please follow it in all your interactions with the project.
+All are welcome to contribute--whatever that means for you. :)
+
 
 ## Pull Request Process
 
-1. Ensure any development or build dependencies are removed before the end of the layer when doing a 
-   build.
-2. Update the README.md with details of changes to the interface, this includes new features, exposed settings, user instructions, and useful file locations. 
-3. Increase the version numbers in any examples files and the README.md to the new version that this
-   Pull Request would represent. Please also include an updated version badge, using [https://img.shields.io/badge/version-0.x-red]
+1. Ensure any development or build related stuff is removed.
+2. Update the README.md with details of changes where applicable.
+3. Make changes (where applicable):
+- (README.md) Version badge. Just modify: [https://img.shields.io/badge/version-0.x-red]
+- (README.md) Version number in the 'Installing the extension by cli' snippet.
+- (package.json) Extension version 
+- (CHANGELOG.md)
 
 
 ## Code of Conduct
@@ -30,11 +32,9 @@ orientation.
 Examples of behavior that contributes to creating a positive environment
 include:
 
-* Using welcoming and inclusive language
-* Being respectful of differing viewpoints and experiences
-* Gracefully accepting constructive criticism
-* Focusing on what is best for the community
 * Showing empathy towards other community members
+* Being respectful of differing viewpoints and experiences
+* Using welcoming language
 
 Examples of unacceptable behavior by participants include:
 
@@ -44,8 +44,7 @@ advances
 * Public or private harassment
 * Publishing others' private information, such as a physical or electronic
   address, without explicit permission
-* Other conduct which could reasonably be considered inappropriate in a
-  professional setting
+* ~~Conduct which could be considered inappropriate in a professional setting~~
 
 ### Our Responsibilities
 
@@ -59,32 +58,12 @@ that are not aligned to this Code of Conduct, or to ban temporarily or
 permanently any contributor for other behaviors that they deem inappropriate,
 threatening, offensive, or harmful.
 
-### Scope
-
-This Code of Conduct applies both within project spaces and in public spaces
-when an individual is representing the project or its community. Examples of
-representing a project or community include using an official project e-mail
-address, posting via an official social media account, or acting as an appointed
-representative at an online or offline event. Representation of a project may be
-further defined and clarified by project maintainers.
-
 ### Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported by contacting the project owner at [raposo.ryan@gmail.com]. All
-complaints will be reviewed and investigated and will result in a response that
-is deemed necessary and appropriate to the circumstances. The project team is
-obligated to maintain confidentiality with regard to the reporter of an incident.
-Further details of specific enforcement policies may be posted separately.
-
-Project maintainers who do not follow or enforce the Code of Conduct in good
-faith may face temporary or permanent repercussions as determined by other
-members of the project's leadership.
+reported by contacting the project owner at [raposo.ryan@gmail.com]
 
 ### Attribution
 
-This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 1.4,
-available at [http://contributor-covenant.org/version/1/4][version]
-
+This Code of Conduct is adapted from the Contributor Covenant.
 [homepage]: http://contributor-covenant.org
-[version]: http://contributor-covenant.org/version/1/4/
