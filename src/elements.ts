@@ -570,20 +570,18 @@ export class Element extends vscode.TreeItem {
 			command: 'showElementInfo',
 			arguments: [this],
 		};
-
-		if (viewMode === ViewMode.standard) {
-			this.label = this.elementData.groupedName;
-		}
-
-		if (viewMode === ViewMode.palette) {
-			this.label = this.elementData.titleName;
-		}
 		this.dataProvider = dataProvider;
 
 		this.update();
 	}
 
 	private update(): void {
+		if (this.dataProvider.viewMode === ViewMode.standard) {
+			this.label = this.elementData.groupedName;
+		}
+		if (this.dataProvider.viewMode === ViewMode.palette) {
+			this.label = this.elementData.titleName;
+		}
 		this.colorConfig = this.dataProvider.colorConfigs[this.elementData.fullName];
 		const effectiveColor = getEffectiveColor(this.colorConfig);
 		if (effectiveColor) {

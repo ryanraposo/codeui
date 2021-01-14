@@ -8,7 +8,6 @@ import { ElementProvider, ViewMode } from './elements';
 import { InfoProvider } from './info';
 import { TargetingModeStatusBarItem } from './statusbar';
 
-let elementProvider: ElementProvider;
 let infoProvider: InfoProvider;
 
 const config = getConfig();
@@ -26,7 +25,7 @@ export function activate(context: vscode.ExtensionContext) {
 	vscode.window.registerTreeDataProvider('codeui.views.info', infoProvider);
 	registerCommand('showElementInfo', (element) => infoProvider.updateSelectedElement(element));
 
-	elementProvider = new ElementProvider(ViewMode.standard);
+	let elementProvider: ElementProvider = new ElementProvider(ViewMode.standard);
 	vscode.window.registerTreeDataProvider('codeui.views.elements', elementProvider);
 	registerCommand('customize', (element) => elementProvider.customize(element));
 	registerCommand('adjustBrightness', (element) => elementProvider.adjustBrightness(element));
