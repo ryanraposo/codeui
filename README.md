@@ -6,18 +6,19 @@
 <br/>
 <div align="center">
 
-Customize your color theme for VS Code.
+  Customize your color theme for VS Code.
 
-  <a href="https://gitlab.com/ryanraposo/LoveItShipIt"><img src="https://gist.githubusercontent.com/ryanraposo/2b7ba58adc86263faa4673f1a0a3afe3/raw/7b1c336314caa3d2a82fc3ad403e56e32addf609/sticker03.svg" width=150>
+  <a href="https://gitlab.com/ryanraposo/LoveItShipIt"><img src="https://gist.githubusercontent.com/ryanraposo/2b7ba58adc86263faa4673f1a0a3afe3/raw/7b1c336314caa3d2a82fc3ad403e56e32addf609/sticker03.svg" width=200>
   
 </div>
 
 # Table of Contents
 
+- [Table of Contents](#table-of-contents)
 - [Features](#features)
-    - [Interface](#interface)
-    - [Colors](#colors)
-    - [Customization](#customization)
+  - [Interface](#interface)
+  - [Colors](#colors)
+  - [Customization](#customization)
 - [Getting Started](#getting-started)
   - [Installing](#installing)
   - [Usage](#usage)
