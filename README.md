@@ -8,7 +8,7 @@
 
   Customize your color theme for VS Code.
 
-  <a href="https://gitlab.com/ryanraposo/LoveItShipIt"><img src="https://gist.githubusercontent.com/ryanraposo/2b7ba58adc86263faa4673f1a0a3afe3/raw/7b1c336314caa3d2a82fc3ad403e56e32addf609/sticker03.svg" width=200>
+  <a href="https://gitlab.com/ryanraposo/LoveItShipIt"><img src="https://gist.githubusercontent.com/ryanraposo/594168edd80d76499d4fcb0693ccd2fc/raw/dd37acb08728631f816c4ef61cc39d37986c32a6/sticker02.svg" width=175>
   
 </div>
 
