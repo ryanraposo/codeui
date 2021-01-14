@@ -1,9 +1,12 @@
+##    [0.3.2]
+
+- Fixed elements not showing full names in Palette view.
+
 ##    [0.3.1]
 
 - Fixed various low-level performance issues.
 
 - Fixed outdated links in README.
-
 
 ##    [0.3.0]
 

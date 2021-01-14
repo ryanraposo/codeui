@@ -8,8 +8,11 @@
 
   Customize your color theme for VS Code.
 
-  <a href="https://gitlab.com/ryanraposo/LoveItShipIt"><img src="https://gist.githubusercontent.com/ryanraposo/594168edd80d76499d4fcb0693ccd2fc/raw/dd37acb08728631f816c4ef61cc39d37986c32a6/sticker02.svg" width=175>
-  
+  [![Version](https://img.shields.io/badge/version-0.3.2-red)]()
+  [![License](https://img.shields.io/badge/license-MIT-blue.svg)]()
+
+  [![LoveIt;ShipIt](https://gitlab.com/ryanraposo/LoveItShipIt/-/raw/master/sticker/loveitshipit.svg)](http://github.com/ryanraposo/LoveItShipIt)
+
 </div>
 
 # Table of Contents
@@ -56,7 +59,7 @@ The recommended method for installing CodeUI is via the Extension Marketplace, a
 Alternatively, you can download the VSIX from [releases](https://github.com/ryanraposo/codeui/releases) and install using the terminal with command: 
 
 ```
-code --install-extension codeui-0.3.1.vsix
+code --install-extension codeui-0.3.2.vsix
 ```
 
 *Note: it may be necessary to reload vscode if installing via the terminal.*
