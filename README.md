@@ -8,9 +8,6 @@
 
   Customize your color theme for VS Code.
 
-  [![Version](https://img.shields.io/badge/version-0.3.2-red)]()
-  [![License](https://img.shields.io/badge/license-MIT-blue.svg)]()
-
   [![LoveIt;ShipIt](https://gitlab.com/ryanraposo/LoveItShipIt/-/raw/master/sticker/loveitshipit.svg)](http://github.com/ryanraposo/LoveItShipIt)
 
 </div>
