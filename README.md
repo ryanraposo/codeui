@@ -39,7 +39,7 @@ Use the built-in color picker, enter custom values, or choose from over 2k prese
 
 Customize colors by theme and workspace. Darken, lighten, copy & paste values across items. Use Standard or Palette view to sort by element groups or target specific colors wherever they appear
 
-*Note: customizations appear in all workspaces and target the current theme by default*
+*Note: by default, customizations are applied to all workspaces and target the current theme.*
 
 # Installing
 
