@@ -13,13 +13,21 @@ class Config {
 	}
 
 	getWorkbenchColorCustomizations(scope: vscode.ConfigurationTarget) {
-		const customizations = this.config.inspect('workbench.colorCustomizations');
-		if (customizations) {
-			return scope == vscode.ConfigurationTarget.Global
-				? customizations.globalValue
-				: customizations.workspaceValue;
+		const customizationSettingsObj = this.config.inspect('workbench.colorCustomizations');
+		let workbenchColorCustomizations : any = {};
+		
+		if (customizationSettingsObj) {
+			if (scope === vscode.ConfigurationTarget.Global) {
+				workbenchColorCustomizations = customizationSettingsObj.globalValue;
+			}
+			if (scope === vscode.ConfigurationTarget.Workspace) {
+				workbenchColorCustomizations = customizationSettingsObj.workspaceValue;
+			}
 		}
-		return {};
+		if (workbenchColorCustomizations === undefined) {
+			return {};
+		}
+		return workbenchColorCustomizations;
 	}
 
 	getWorkspaceRootFolder(): vscode.WorkspaceFolder | undefined {

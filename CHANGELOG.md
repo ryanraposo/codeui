@@ -1,3 +1,7 @@
+## [0.3.3]
+
+- Fixed issue where customizations would only apply if there was an existing entry for "workbench.colorCustomizations" in settings. 
+
 ##    [0.3.2]
 
 - Fixed elements not showing full names in Palette view.
