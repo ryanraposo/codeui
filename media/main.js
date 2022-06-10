@@ -7,6 +7,10 @@
 
 	const initialColor = '#3fdaa4';
 
+	document.addEventListener('contextmenu', function(ev) {
+		ev.preventDefault();
+	}, false);
+
 	var currentState = vscode.getState() || { color: initialColor };
 
 	function updateSelectedColor(color) {
