@@ -119,7 +119,7 @@
 			},
 			{
 				"command": "copySelectedColor",
-				"title": "Copy selected color",
+				"title": "CodeUI: Copy selection from picker",
 				"icon": "$(symbol-reference)"
 			}
 		],
