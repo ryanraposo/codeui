@@ -121,7 +121,7 @@
 				"command": "copySelectedColor",
 				"title": "Copy selected color",
 				"icon": "$(symbol-reference)"
-			}			
+			}
 		],
 		"viewsContainers": {
 			"activitybar": [
@@ -193,6 +193,7 @@
 		"@types/vscode": "^1.50.0",
 		"@typescript-eslint/eslint-plugin": "^4.8.2",
 		"@typescript-eslint/parser": "^4.8.2",
+		"@vscode/test-electron": "^2.1.3",
 		"eslint": "^7.14.0",
 		"eslint-config-prettier": "^6.15.0",
 		"eslint-config-standard": "^16.0.2",
@@ -202,13 +203,11 @@
 		"eslint-plugin-promise": "^4.2.1",
 		"eslint-plugin-standard": "^5.0.0",
 		"prettier": "^2.2.0",
-		"typescript": "^4.0.5",
-		"vscode-test": "^1.4.1"
+		"typescript": "^4.0.5"
 	},
 	"dependencies": {
 		"@ctrl/tinycolor": "^3.1.7",
-		"jsonc-parser": "^2.3.1",
-		"vsce": "^1.83.0"
+		"jsonc-parser": "^2.3.1"
 	},
 	"repository": {
 		"type": "git",
