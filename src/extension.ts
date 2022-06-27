@@ -28,7 +28,7 @@ export function activate(context: vscode.ExtensionContext) {
 	infoProvider = new InfoProvider();
 	vscode.window.registerTreeDataProvider('codeui.views.info', infoProvider);
 
-	let elementProvider: ElementProvider = new ElementProvider(ViewMode.standard);
+	const elementProvider: ElementProvider = new ElementProvider(ViewMode.standard);
 	vscode.window.registerTreeDataProvider('codeui.views.elements', elementProvider);
 	registerCommand('customize', (element) => elementProvider.customize(element));
 	registerCommand('adjustBrightness', (element) => elementProvider.adjustBrightness(element));
