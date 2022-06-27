@@ -22,23 +22,26 @@
 - [Usage](#usage)
   - [Table of Contents](#table-of-contents)
 - [Element Information](#element-information)
-  - [Visualizations & Effective Color](#sup1sup-visualizations--effective-color)
-  - [Tooltip Descriptions](#sup2sup-tooltip-descriptions)
-  - [Info View](#sup3sup-info-view)
+  - [<sup>1</sup> Visualizations & Effective Color](#sup1sup-visualizations--effective-color)
+  - [<sup>2</sup> Tooltip Descriptions](#sup2sup-tooltip-descriptions)
+  - [<sup>3</sup> Info View](#sup3sup-info-view)
 - [Viewtypes](#viewtypes)
   - [Standard](#standard)
   - [Palette](#palette)
 - [Customization](#customization)
-  - [Commands](#commands)
   - [Targeting Mode](#targeting-mode)
+  - [Commands](#commands)
   - [Adjust brightness](#adjust-brightness)
   - [Customize](#customize)
   - [Delete](#delete)
   - [Copy](#copy)
 - [Colors](#colors)
-  - [Favorites](#sup1sup-favorites)
-  - [Presets](#sup2sup-presets)
+  - [<sup>1</sup> Favorites](#sup1sup-favorites)
+  - [<sup>2</sup> Presets](#sup2sup-presets)
   - [Allowable values](#allowable-values)
+    - [*Acceptable values:*](#acceptable-values)
+    - [*Unacceptable values:*](#unacceptable-values)
+  - [Color Picker](#color-picker)
 
 # Element Information
 
@@ -188,4 +191,16 @@ Only hexidecimal color values can be used by both vscode and CodeUI. This extend
 
 
 *If configuration ``codeui.enableNotifications`` is set to ``true`` (default), you will be notified about problematic values on entry.*
+
+## Color Picker
+
+![Color picker](resources/screenshots/picker.png)
+
+Select colors with the color picker, then click the colored status bar item OR use the Command Palette (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>p</kbd>/<kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>p</kbd>) :
+
+```
+CodeUI: Copy selection from picker
+```
+
+
 
