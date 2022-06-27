@@ -196,11 +196,12 @@ Only hexidecimal color values can be used by both vscode and CodeUI. This extend
 
 ![Color picker](resources/screenshots/picker.png)
 
-Select colors with the color picker, then click the colored status bar item OR use the Command Palette (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>p</kbd>/<kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>p</kbd>) :
+Select colors with the color picker, then:
 
-```
-CodeUI: Copy selection from picker
-```
+  - Click the colored status bar item OR
+  - <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>p</kbd> : "CodeUI: Copy selection from picker"
+
+
 
 
 
