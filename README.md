@@ -10,6 +10,9 @@
 
   [![LoveIt;ShipIt](https://gitlab.com/ryanraposo/LoveItShipIt/-/raw/master/sticker/loveitshipit.svg)](http://github.com/ryanraposo/LoveItShipIt)
 
+  [![Version](https://img.shields.io/badge/version-1.0.0-red)]()
+  [![License](https://img.shields.io/badge/license-MIT-blue.svg)]()
+  
 </div>
 
 # Table of Contents
@@ -27,17 +30,17 @@
 
 ## Interface
 
-Browse the elements of VS Code's interface and adjust your color settings in realtime
+Browse the elements of VS Code's interface and adjust your color settings in realtime.
 
 ![Screenshot](./resources/readme/picker-dual.png)
 
 ## Colors
 
-Use the built-in color picker, enter custom values, or choose from over 2k preset colors. Store your favorites via ```codeui.favoriteColors```
+Use the built-in color picker, enter custom values, or choose from over 2k preset colors. Store your favorites via ```codeui.favoriteColors```.
 
 ## Customization
 
-Customize colors by theme and workspace. Darken, lighten, copy & paste values across items. Use Standard or Palette view to sort by element groups or target specific colors wherever they appear
+Customize colors by theme and workspace. Darken, lighten, copy & paste values across items. Use Standard or Palette view to sort by element groups, or target specific colors wherever they appear.
 
 *Note: by default, customizations are applied to all workspaces and target the current theme.*
 
@@ -48,7 +51,7 @@ The recommended method for installing CodeUI is via the Extension Marketplace, a
 Alternatively, you can download the VSIX from [releases](https://github.com/ryanraposo/codeui/releases) and install using the terminal with command: 
 
 ```
-code --install-extension codeui-0.3.3.vsix
+code --install-extension codeui-1.0.0.vsix
 ```
 
 *Note: it may be necessary to reload vscode if installing via the terminal.*

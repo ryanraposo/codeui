@@ -5,8 +5,8 @@
 	"license": "SEE LICENSE IN LICENSE.md",
 	"description": "Customize your color theme for VS Code.",
 	"icon": "resources/marketplace/codeui-128.png",
-	"version": "0.3.3",
-	"preview": true,
+	"version": "1.0.0",
+	"preview": false,
 	"galleryBanner": {
 		"color": "#18191e",
 		"theme": "dark"
