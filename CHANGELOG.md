@@ -1,3 +1,9 @@
+# Changelog
+
+## [1.0.0]
+
+- Added Color Picker
+
 ## [0.3.3]
 
 - Fixed issue where customizations would only apply if there was an existing entry for "workbench.colorCustomizations" in settings. 
