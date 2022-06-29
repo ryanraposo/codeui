@@ -87,7 +87,7 @@ async function updateChangelog(newVersion) {
 
     changelog = logText + changelog;
 
-    fs.writeFileSync('./CHANGELOG.json', changelog, {encoding:'utf-8'});
+    fs.writeFileSync('./CHANGELOG.md', changelog, {encoding:'utf-8'});
     
     console.log(`Changelog updated ✅`);
 
