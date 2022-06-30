@@ -56,7 +56,7 @@ export class ColorProvider implements vscode.WebviewViewProvider {
 				this._extensionUri,
 				'media',
 				'lib',
-				'reinvented-color-wheel.min.css'
+				'reinvented-color-wheel.css'
 			)
 		);
 

@@ -3,6 +3,7 @@ external
 out
 node_modules
 resources/master
+local
 
 #Files
 todo.md
