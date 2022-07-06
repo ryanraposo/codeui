@@ -10,10 +10,13 @@
 }
 
 .reinvented-color-wheel {
-    position: relative;
+    position: fixed;
     display: inline-block;
     line-height: 0;
     border-radius: 50%;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
 
 .reinvented-color-wheel--hue-wheel {
