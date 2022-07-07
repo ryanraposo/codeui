@@ -10,8 +10,9 @@
 
   [![LoveIt;ShipIt](https://gitlab.com/ryanraposo/LoveItShipIt/-/raw/master/sticker/loveitshipit.svg)](http://github.com/ryanraposo/LoveItShipIt)
 
-  [![Version](https://img.shields.io/badge/version-1.0.1-red)]()
-  [![License](https://img.shields.io/badge/license-MIT-blue.svg)]()
+  ![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/ryanraposo.codeui)
+  ![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/ryanraposo.codeui)
+  ![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg)
   
 </div>
 
