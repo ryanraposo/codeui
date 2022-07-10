@@ -52,7 +52,7 @@ The recommended method for installing CodeUI is via the Extension Marketplace, a
 Alternatively, you can download the VSIX from [releases](https://github.com/ryanraposo/codeui/releases) and install using the terminal with command: 
 
 ```
-code --install-extension codeui-1.0.1.vsix
+code --install-extension codeui-1.1.0.vsix
 ```
 
 *Note: it may be necessary to reload vscode if installing via the terminal.*

@@ -1,3 +1,7 @@
+## [1.1.0] 
+ 
+- Centered the color picker (@devXprite) 
+ 
 ## [1.0.1]
 
 - Update license
